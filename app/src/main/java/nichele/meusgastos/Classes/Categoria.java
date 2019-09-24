@@ -9,4 +9,12 @@ public class Categoria {
         codigo = pcodigo;
         nome = pnome;
     }
+
+   public String getCodigo() {
+       return String.valueOf(codigo);
+   }
+
+   public String getNome() {
+       return nome;
+   }
 }

@@ -188,29 +188,27 @@ public class BancoSQLite extends SQLiteOpenHelper {
                 funcao = " and funcao = 'ENT'";
                 break;
             case saidas:
-                funcao = " and funcao = 'SAI'";
+                funcao = " and funcao = 'BAI'";
                 break;
             case extrato:
                 funcao = "";
                 break;
         }
 
-        String sql = "SELECT * " +
-                " FROM Transacoes" +
-                ", contas" +
-                ", categorias" +
-                " WHERE id > 0" +
+        String sql = "SELECT t.*, cnt.nome nomeconta, cat.nome nomecategoria " +
+                " FROM Transacoes t, contas cnt, categorias cat" +
+                " WHERE t.codconta = cnt.codconta and t.codcategoria = cat.codcategoria" +
                 funcao +
                 " AND data >= '"+datinicial+"'" +
                 " AND data <= '"+datfinal+"'" +
-                " ORDER BY data";
+                " ORDER BY data DESC, ordem";
         Log.v("sql", sql);
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
         if(cursor.moveToFirst()) {
             do {
-                transacoes.add(new Transacao(cursor.getInt(cursor.getColumnIndex("codmovimento")),
+                transacoes.add(new Transacao(cursor.getInt(cursor.getColumnIndex("id")),
                                 cursor.getString(cursor.getColumnIndex("data")),
                                 cursor.getString(cursor.getColumnIndex("funcao")),
                                 new Conta(cursor.getInt(cursor.getColumnIndex("codconta")),

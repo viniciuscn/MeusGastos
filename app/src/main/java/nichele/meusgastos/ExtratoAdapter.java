@@ -33,13 +33,13 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
 
     @Override
     public void onBindViewHolder(ExtratoViewHolder holder, final int position) {
-        holder.txtdata.setText(extrato.get(position).data);
-        holder.txtfuncao.setText(extrato.get(position).funcao);
-        holder.txtcodconta.setText(extrato.get(position).conta.codigo);
-        holder.txtnomeconta.setText(extrato.get(position).conta.nome);
-        holder.txtcodcategoria.setText(extrato.get(position).categoria.codigo);
-        holder.txtnomecategoria.setText(extrato.get(position).categoria.nome);
-        holder.txtdescricao.setText(extrato.get(position).descricao);
+        holder.txtdata.setText(extrato.get(position).getData());
+        holder.txtfuncao.setText(extrato.get(position).getFuncao());
+        holder.txtcodconta.setText(extrato.get(position).conta.getCodigo());
+        holder.txtnomeconta.setText(extrato.get(position).conta.getNome());
+        holder.txtcodcategoria.setText(extrato.get(position).categoria.getCodigo());
+        holder.txtnomecategoria.setText(extrato.get(position).categoria.getNome());
+        holder.txtdescricao.setText(extrato.get(position).getDescricao());
         holder.txtvalor.setText(extrato.get(position).getValorString());
     }
 

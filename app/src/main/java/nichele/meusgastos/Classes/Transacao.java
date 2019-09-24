@@ -21,7 +21,17 @@ public class Transacao {
         valor=pvalor;
     }
 
+    public String getDescricao() { return descricao; }
+
     public String getValorString(){
         return String.valueOf(valor);
+    }
+
+    public String getFuncao() {
+        return funcao;
+    }
+
+    public String getData() {
+        return data;
     }
 }

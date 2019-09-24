@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -36,7 +37,7 @@ public class fraTransacoes extends Fragment {
    Toolbar toolbar;
    int primariaescura;
    int primaria;
-
+   TipoDado listar;
    public fraTransacoes() {
       // Required empty public constructor
    }
@@ -49,6 +50,7 @@ public class fraTransacoes extends Fragment {
       primaria = getResources().getColor(R.color.verde);
       toolbar = getActivity().findViewById(R.id.toolbar);
       toolbar.setTitle("Transações");
+      listar = TipoDado.entradas;
       definecores();
 
       BancoSQLite db = new BancoSQLite(getContext());
@@ -60,6 +62,7 @@ public class fraTransacoes extends Fragment {
       db.gravatransacoes("INC",4,"24/09/2019","BAI",1,1,"SÃO MATHEUS", "19,50");
       db.close();
       filtraperiodo();
+      mostradados();
 
 
       BottomNavigationView bnv = view.findViewById(R.id.navegacao);
@@ -70,19 +73,20 @@ public class fraTransacoes extends Fragment {
                case R.id.mnuentradas:
                   primariaescura = getResources().getColor(R.color.verdeescuro);
                   primaria = getResources().getColor(R.color.verde);
-                  mostradados(TipoDado.entradas);
+                  listar =TipoDado.entradas;
                   break;
                case R.id.mnusaidas:
                   primariaescura = getResources().getColor(R.color.vermelhoescuro);
                   primaria = getResources().getColor(R.color.vermelho);
-                  mostradados(TipoDado.saidas);
+                  listar =TipoDado.saidas;
                   break;
                case R.id.mnuextrato:
                   primariaescura = getResources().getColor(R.color.cinzaescuro);
-                  primaria = getResources().getColor(R.color.cinza);
-                  mostradados(TipoDado.extrato);
+                  primaria = getResources().getColor(R.color.cinzaescuro);
+                  listar=TipoDado.extrato;
                   break;
             }
+            mostradados();
             definecores();
             return true;
          }
@@ -99,7 +103,7 @@ public class fraTransacoes extends Fragment {
       toolbar.setBackgroundColor(primaria);
    }
 
-   private void mostradados(TipoDado listar){
+   private void mostradados(){
       BancoSQLite db = new BancoSQLite(getContext());
       ArrayList<Transacao> dados = db.getTransacoes(listar,lbldatinicial.getText().toString(),lbldatfinal.getText().toString());
       db.close();
@@ -107,7 +111,7 @@ public class fraTransacoes extends Fragment {
 
       RecyclerView recyclerView = view.findViewById(R.id.lsvtransacoes);
       recyclerView.setAdapter(adapter);
-      
+      recyclerView.setLayoutManager(new LinearLayoutManager( getContext()));
 //      switch (listar){
 //         case entradas:
 //
@@ -177,10 +181,10 @@ public class fraTransacoes extends Fragment {
    }
 
    private void mostradatas(){
-      lbldatinicial.setText( gc.get(Calendar.YEAR) + "/" + String.format("%02d", new Integer(gc.get(Calendar.MONTH)+1 )) + "/01" );
-      lbldatfinal.setText( gc.get(Calendar.YEAR) +"/" + String.format("%02d", new Integer(gc.get(Calendar.MONTH)+1 )) +"/" + String.format("%02d", new Integer(gc.getActualMaximum(Calendar.DAY_OF_MONTH))) );
+      lbldatinicial.setText( gc.get(Calendar.YEAR) + "-" + String.format("%02d", new Integer(gc.get(Calendar.MONTH)+1 )) + "-01" );
+      lbldatfinal.setText( gc.get(Calendar.YEAR) +"-" + String.format("%02d", new Integer(gc.get(Calendar.MONTH)+1 )) +"-" + String.format("%02d", new Integer(gc.getActualMaximum(Calendar.DAY_OF_MONTH))) );
       lblmesextenso.setText(setMesPorExtenso(gc.getTime()));
-
+      mostradados();
    }
 
    enum DateInterval{

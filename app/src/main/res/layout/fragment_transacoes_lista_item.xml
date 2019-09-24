@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="10dp"
     app:cardUseCompatPadding="true"
     android:focusable="true"
 
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/item_codcategoria"
         android:text="codigo da categoria"
-        android:visibility="gone"
+
         />
 
     <TextView
