@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="20dp"
+    card_view:cardUseCompatPadding="true"
+    android:id="@+id/carditem"
+    android:padding="20dp"
+    android:background="#bbadff">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/resumo_card"
+        android:layout_gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        card_view:cardCornerRadius="10dp"
+        card_view:contentPadding="10dp"
+        android:clickable="true">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/resumo_txttitulo"
+                    android:text="Resumo"
+                    android:textColor="@color/accent_material_light"
+                    android:textStyle="bold"
+                    android:textSize="25dp" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/holo_green_dark"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/resumo_lblsldanterior"
+                    android:text="Saldo Anterior:"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/resumo_txtsldanterior"
+                    android:text="0,00"
+                    android:layout_toEndOf="@+id/resumo_lblsldanterior"
+                    android:gravity="right"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/resumo_txtsldanterior2"
+                    android:text="=" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                <TextView
+                    android:id="@+id/resumo_lblrenda"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+
+                    android:text="Renda:"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/resumo_txtvlrrenda"
+                    android:text="0,00"
+                    android:layout_toEndOf="@+id/resumo_lblrenda"
+                    android:gravity="right"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/textView4"
+                    android:text="+"
+                    android:textColor="@android:color/holo_green_dark" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/resumo_lbldespesa"
+                    android:text="Despesa:"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:id="@+id/resumo_txtvlrdespesa"
+                    android:text="0,00"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/resumo_lbldespesa"
+                    android:layout_width="150dp"
+                    android:gravity="right"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/textView6"
+                    android:text="-"
+                    android:textColor="#f70d0d" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/resumo_lblsaldo"
+                    android:text="Saldo:"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/resumo_txtvlrsaldo"
+                    android:text="0,00"
+                    android:textSize="20dp"
+                    android:gravity="right"
+                    android:layout_toEndOf="@+id/resumo_lblsaldo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/textView8"
+                    android:text="="
+                    android:textColor="@android:color/holo_blue_dark" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.cardview.widget.CardView>
+
+    <!--</LinearLayout>-->

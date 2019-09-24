@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/mnuentradas"
+        android:icon="@drawable/mnuentradas"
+        android:title="Entradas" />
+
+    <item android:id="@+id/mnusaidas"
+        android:icon="@drawable/mnusaidas"
+        android:title="Saídas" />
+
+    <item android:id="@+id/mnuextrato"
+        android:icon="@drawable/mnuextrato"
+        android:title="Extrato" />
+</menu>

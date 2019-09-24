@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.fraTransacoes_Manutencao"
+    android:orientation="vertical"
+    android:layout_margin="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Valor"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <EditText
+            android:id="@+id/tra_valor"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:hint="R$ 0,00"
+            android:focusable="false"
+            android:clickable="true"
+
+            />
+        <EditText
+            android:id="@+id/tra_txtvalor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.00"
+            android:inputType="numberDecimal"
+            android:enabled="false"
+
+            />
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tra_txtdescricao"
+        android:ems="10"
+        android:hint="Descrição"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:inputType="textCapWords" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cmdsalvar"
+        android:layout_gravity="center"
+        android:text="salvar"/>
+
+</LinearLayout>
