@@ -34,10 +34,9 @@ import nichele.meusgastos.TipoDado;
 public class fraTransacoes extends Fragment {
 
    private View view;
-   Toolbar toolbar;
-   int primariaescura;
-   int primaria;
-   TipoDado listar;
+   private Toolbar toolbar;
+   private int primariaescura, primaria;
+   private TipoDado listar;
    public fraTransacoes() {
       // Required empty public constructor
    }
@@ -137,9 +136,9 @@ public class fraTransacoes extends Fragment {
       super.onDetach();
    }
 
-   TextView lblmesextenso, lbldatinicial, lbldatfinal;
-   public ImageButton cmdant, cmdnext;
-   GregorianCalendar gc = new GregorianCalendar();
+   private TextView lblmesextenso, lbldatinicial, lbldatfinal;
+   private ImageButton cmdant, cmdnext;
+   private GregorianCalendar gc = new GregorianCalendar();
 
    private void filtraperiodo(){
       cmdant = view.findViewById(R.id.cmdant);
@@ -181,8 +180,8 @@ public class fraTransacoes extends Fragment {
    }
 
    private void mostradatas(){
-      lbldatinicial.setText( gc.get(Calendar.YEAR) + "-" + String.format("%02d", new Integer(gc.get(Calendar.MONTH)+1 )) + "-01" );
-      lbldatfinal.setText( gc.get(Calendar.YEAR) +"-" + String.format("%02d", new Integer(gc.get(Calendar.MONTH)+1 )) +"-" + String.format("%02d", new Integer(gc.getActualMaximum(Calendar.DAY_OF_MONTH))) );
+      lbldatinicial.setText( gc.get(Calendar.YEAR) + "-" + String.format("%02d", gc.get(Calendar.MONTH)+1 ) + "-01" );
+      lbldatfinal.setText( gc.get(Calendar.YEAR) +"-" + String.format("%02d", gc.get(Calendar.MONTH)+1 ) +"-" + String.format("%02d", gc.getActualMaximum(Calendar.DAY_OF_MONTH)) );
       lblmesextenso.setText(setMesPorExtenso(gc.getTime()));
       mostradados();
    }
@@ -192,10 +191,10 @@ public class fraTransacoes extends Fragment {
       mes,
       ano
    }
-   public static Date DateAdd(DateInterval interval, int number, Date datevalue){
-      Date dataretornada = datevalue;
+
+   private Date DateAdd(DateInterval interval, int number, Date datevalue){
       Calendar c = Calendar.getInstance();
-      c.setTime(dataretornada);
+      c.setTime(datevalue);
 
       switch (interval){
          case dia:
@@ -213,7 +212,7 @@ public class fraTransacoes extends Fragment {
       return c.getTime();
    }
 
-   public static String setMesPorExtenso(Date data){
+   private String setMesPorExtenso(Date data){
       SimpleDateFormat sdf;
       //if (data.getYear() == new Date().getYear())
       sdf= new SimpleDateFormat("MMMM, yyyy");
@@ -222,7 +221,7 @@ public class fraTransacoes extends Fragment {
       return upperCaseFirst(sdf.format(data));
    }
 
-   public static String upperCaseFirst(String value) {
+   private String upperCaseFirst(String value) {
 
       // Convert String to char array.
       char[] array = value.toCharArray();
