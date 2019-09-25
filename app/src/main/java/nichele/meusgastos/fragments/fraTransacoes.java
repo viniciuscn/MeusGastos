@@ -33,7 +33,7 @@ import nichele.meusgastos.TipoDado;
 
 public class fraTransacoes extends Fragment {
 
-   View view;
+   private View view;
    Toolbar toolbar;
    int primariaescura;
    int primaria;
