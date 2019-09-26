@@ -94,6 +94,7 @@ public class Rotinas {
         anomesdia
 
     }
+
     public String montadata(FormatoData formato, String pdata) {
         SimpleDateFormat df = null;
         switch (formato){

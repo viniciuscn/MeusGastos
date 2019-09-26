@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ddz.floatingactionbutton.FloatingActionButton;
+import com.ddz.floatingactionbutton.FloatingActionMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;
@@ -41,52 +44,56 @@ public class fraTransacoes extends Fragment {
       // Required empty public constructor
    }
 
+
+   public fraTransacoes(TipoDado plistar) {
+      listar = plistar;
+   }
+
    @Override
    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
       view = inflater.inflate(R.layout.fragment_transacoes, container, false);
-      primariaescura = getResources().getColor(R.color.verdeescuro);
-      primaria = getResources().getColor(R.color.verde);
+
       toolbar = getActivity().findViewById(R.id.toolbar);
       toolbar.setTitle("Transações");
-      listar = TipoDado.entradas;
       definecores();
 
-      BancoSQLite db = new BancoSQLite(getContext());
-      db.zerabanco();
-      db.gravatransacoes("INC",1,"15/09/2019","ENT",1,1,"Teste de Entrada 1", "1000,85");
-      db.gravatransacoes("INC",2,"16/09/2019","ENT",1,1,"Teste de Entrada 2", "589,56");
-      db.gravatransacoes("INC",3,"16/09/2019","ENT",1,1,"Teste de Entrada 2", "20,00");
-
-      db.gravatransacoes("INC",4,"24/09/2019","BAI",1,1,"SÃO MATHEUS", "19,50");
-      db.close();
       filtraperiodo();
       mostradados();
 
+      FloatingActionMenu fabmenu = getActivity().findViewById(R.id.fabmenu);
+
+//      RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)fabmenu.getLayoutParams();
+//      params.setMargins(0,0,0,200 );
+//      //params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+//      params.addRule(RelativeLayout.ALIGN_BOTTOM, R.id.navegacao);
+//      fabmenu.setLayoutParams(params);
+
 
       BottomNavigationView bnv = view.findViewById(R.id.navegacao);
+
+      if(listar == TipoDado.entradas || listar == TipoDado.saidas) {
+         bnv.setVisibility(View.GONE);
+      }else{
+         bnv.getMenu().findItem(R.id.mnuextrato).setChecked(true);
+      }
+
       bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
          @Override
          public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             switch (menuItem.getItemId()) {
+               case R.id.mnuextrato:
+                  listar=TipoDado.extrato;
+                  break;
                case R.id.mnuentradas:
-                  primariaescura = getResources().getColor(R.color.verdeescuro);
-                  primaria = getResources().getColor(R.color.verde);
                   listar =TipoDado.entradas;
                   break;
                case R.id.mnusaidas:
-                  primariaescura = getResources().getColor(R.color.vermelhoescuro);
-                  primaria = getResources().getColor(R.color.vermelho);
                   listar =TipoDado.saidas;
                   break;
-               case R.id.mnuextrato:
-                  primariaescura = getResources().getColor(R.color.cinzaescuro);
-                  primaria = getResources().getColor(R.color.cinzaescuro);
-                  listar=TipoDado.extrato;
-                  break;
             }
-            mostradados();
             definecores();
+            mostradados();
             return true;
          }
       });
@@ -94,6 +101,16 @@ public class fraTransacoes extends Fragment {
    }
 
    private void definecores(){
+      if(listar == TipoDado.entradas){
+         primariaescura = getResources().getColor(R.color.verdeescuro);
+         primaria = getResources().getColor(R.color.verde);
+      }else if(listar == TipoDado.saidas){
+         primariaescura = getResources().getColor(R.color.vermelhoescuro);
+         primaria = getResources().getColor(R.color.vermelho);
+      }else if(listar == TipoDado.extrato){
+         primariaescura = getResources().getColor(R.color.cinzaescuro);
+         primaria = getResources().getColor(R.color.cinzaescuro);
+      }
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
          Window window = getActivity().getWindow();
          window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -111,13 +128,7 @@ public class fraTransacoes extends Fragment {
       RecyclerView recyclerView = view.findViewById(R.id.lsvtransacoes);
       recyclerView.setAdapter(adapter);
       recyclerView.setLayoutManager(new LinearLayoutManager( getContext()));
-//      switch (listar){
-//         case entradas:
-//
-//         case saidas:
-//
-//         case extrato:
-//      }
+
    }
 
    @Override

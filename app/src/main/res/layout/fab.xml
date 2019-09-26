@@ -2,39 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <include layout="@layout/toolbar"
-        android:id="@+id/barra"/>
-
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/barra"
-        android:layout_marginTop="0dp" />
+    android:layout_height="match_parent">
 
     <com.ddz.floatingactionbutton.FloatingActionMenu
+        android:id="@+id/fabmenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fabmenu"
+        app:fab_labelStyle="@style/textfab"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        app:fab_labelStyle="@style/textfab"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="50dp"
-        app:fab_addButton_collapsed_rotation="0"
-        app:fab_addButton_expanded_rotation="45"
+        android:layout_margin="20dp"
+        app:fab_addButton_collapsed_rotation="45"
         app:fab_labelsPosition="left">
 
         <com.ddz.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fabrec"
             app:fab_icon="@drawable/ic_up_white"
             app:fab_colorNormal="@color/verdeescuro"
             app:fab_size="normal"
@@ -43,12 +27,10 @@
         <com.ddz.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fabdes"
             fab:fab_icon="@drawable/ic_down_white"
             app:fab_colorNormal="@color/vermelhoescuro"
             app:fab_size="normal"
             app:fab_title="Despesa" />
     </com.ddz.floatingactionbutton.FloatingActionMenu>
-
 
 </RelativeLayout>

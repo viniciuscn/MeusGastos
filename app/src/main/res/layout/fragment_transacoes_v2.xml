@@ -75,23 +75,48 @@
 
     </RelativeLayout>
 
-
-
-    <include
-        layout="@layout/fragment_transacoes_lista"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/filtro"
-        android:layout_above="@+id/navegacao"
-        />
-
-
     <include
         layout="@layout/toolbar_bottom"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:id="@+id/navegacao"
-        android:layout_alignParentBottom="true"/>
+        android:layout_below="@id/filtro"/>
+
+    <include
+        layout="@layout/fragment_transacoes_lista"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/navegacao"
+
+         />
+
+
+<!--    <com.ddz.floatingactionbutton.FloatingActionMenu-->
+<!--        android:id="@+id/fabmenu"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:fab_labelStyle="@style/textfab"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_above="@id/navegacao"-->
+<!--        app:fab_addButton_collapsed_rotation="45"-->
+<!--        app:fab_labelsPosition="left">-->
+
+<!--        <com.ddz.floatingactionbutton.FloatingActionButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:fab_icon="@drawable/ic_up_white"-->
+<!--            app:fab_colorNormal="@color/verdeescuro"-->
+<!--            app:fab_size="normal"-->
+<!--            app:fab_title="Receita" />-->
+
+<!--        <com.ddz.floatingactionbutton.FloatingActionButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            fab:fab_icon="@drawable/ic_down_white"-->
+<!--            app:fab_colorNormal="@color/vermelhoescuro"-->
+<!--            app:fab_size="normal"-->
+<!--            app:fab_title="Despesa" />-->
+<!--    </com.ddz.floatingactionbutton.FloatingActionMenu>-->
 
 
 

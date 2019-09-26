@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.ddz.floatingactionbutton.FloatingActionButton;
+import com.ddz.floatingactionbutton.FloatingActionMenu;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
    public Toolbar toolbar;
    private Drawer.Result navigationDrwarerLeft;
+   FloatingActionMenu fabmenu;
+
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +38,29 @@ public class MainActivity extends AppCompatActivity {
       toolbar = findViewById(R.id.toolbar);
       toolbar.setTitle("Visão Geral");
       //mToolbar.setSubtitle("subtitulo");
+
       setSupportActionBar(toolbar);
 //      AbreFragment(new fraVisaoGeral());
 
-      AbreFragment(new fraTransacoes_Manutencao());
+      //AbreFragment(new fraTransacoes_Manutencao());
+      fabmenu = findViewById(R.id.fabmenu);
+      FloatingActionButton fabrec = findViewById(R.id.fabrec);
+      fabrec.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            AbreFragment(new fraTransacoes_Manutencao(TipoDado.entradas));
+            fabmenu.collapse();
+         }
+      });
+
+      FloatingActionButton fabdes = findViewById(R.id.fabdes);
+      fabdes.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            AbreFragment(new fraTransacoes_Manutencao(TipoDado.saidas));
+            fabmenu.collapse();
+         }
+      });
 
       navigationDrwarerLeft =new Drawer()
               .withActivity(this)
@@ -57,14 +80,19 @@ public class MainActivity extends AppCompatActivity {
                           break;
                        case 1:
                           Toast.makeText(getApplicationContext(),"transações",Toast.LENGTH_SHORT).show();
-                          AbreFragment( new fraTransacoes());
+                          AbreFragment( new fraTransacoes(TipoDado.extrato));
                           break;
-                       case 2:
-                          Toast.makeText(getApplicationContext(),"receitas",Toast.LENGTH_SHORT).show();
-                          AbreFragment( new fraTransacoes_Manutencao());
-                          break;
+//                       case 2:
+//                          Toast.makeText(getApplicationContext(),"receitas",Toast.LENGTH_SHORT).show();
+//                          AbreFragment( new fraTransacoes(TipoDado.entradas));
+//                          //AbreFragment( new fraTransacoes_Manutencao());
+//                          break;
+//                       case 3:
+//                          Toast.makeText(getApplicationContext(),"despesas",Toast.LENGTH_SHORT).show();
+//                          AbreFragment( new fraTransacoes(TipoDado.saidas));
+//                          //AbreFragment( new fraTransacoes_Manutencao());
+//                          break;
                     }
-                    //Toast.makeText(MainActivity.this, "onItemClick: " + position, Toast.LENGTH_SHORT).show();
                  }
               })
               .withOnDrawerItemLongClickListener(new Drawer.OnDrawerItemLongClickListener() {
@@ -77,9 +105,9 @@ public class MainActivity extends AppCompatActivity {
               .build();
 
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName( "Visão Geral").withIcon(getResources().getDrawable(R.drawable.ic_visaogeral_black_24dp)));
-      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Transações").withIcon(getResources().getDrawable(R.drawable.ic_transacoes_black_24dp)));
-      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Receitas"));
-      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Despesas"));
+      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Transações").withIcon(getResources().getDrawable(R.drawable.ic_extrato)));
+//      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Receitas").withIcon(getResources().getDrawable(R.drawable.ic_up_black)));
+//      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Despesas").withIcon(getResources().getDrawable(R.drawable.ic_down_black)));
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Contas").withIcon(getResources().getDrawable(R.drawable.ic_contas_black_24dp)));
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Categorias").withIcon(getResources().getDrawable(R.drawable.ic_categorias_black_24dp)));
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Configurações").withIcon(getResources().getDrawable(R.drawable.ic_configacoes_black_24dp)));
@@ -106,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
    @Override
    public void onBackPressed()
    {
+      fabmenu.setVisibility(View.VISIBLE);
       if(backButtonCount >= 1)
       {
 //         Intent intent = new Intent(Intent.ACTION_MAIN);

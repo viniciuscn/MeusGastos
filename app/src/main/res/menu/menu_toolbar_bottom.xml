@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:id="@+id/mnuextrato"
+        android:icon="@drawable/ic_extrato"
+        android:title="Extrato" />
+
     <item android:id="@+id/mnuentradas"
         android:icon="@drawable/mnuentradas"
         android:title="Entradas" />
@@ -9,7 +13,5 @@
         android:icon="@drawable/mnusaidas"
         android:title="Saídas" />
 
-    <item android:id="@+id/mnuextrato"
-        android:icon="@drawable/mnuextrato"
-        android:title="Extrato" />
+
 </menu>

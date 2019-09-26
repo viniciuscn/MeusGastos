@@ -19,12 +19,14 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.ddz.floatingactionbutton.FloatingActionMenu;
 import com.maltaisn.calcdialog.CalcDialog;
 
 import java.math.BigDecimal;
 
 import nichele.meusgastos.BancoSQLite;
 import nichele.meusgastos.R;
+import nichele.meusgastos.TipoDado;
 import nichele.meusgastos.actConfiguracoes;
 import nichele.meusgastos.calculadora.DialogCalc;
 
@@ -35,7 +37,7 @@ public class fraTransacoes_Manutencao extends Fragment implements CalcDialog.Cal
 
 
 
-   public fraTransacoes_Manutencao() {
+   public fraTransacoes_Manutencao(TipoDado plistar) {
       // Required empty public constructor
    }
 
@@ -43,7 +45,19 @@ public class fraTransacoes_Manutencao extends Fragment implements CalcDialog.Cal
    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                             Bundle savedInstanceState) {
       View view =inflater.inflate(R.layout.fragment_transacoes_manutencao, container, false);
-      Toolbar toolbar =  view.findViewById(R.id.toolbar);
+      Toolbar toolbar =  getActivity().findViewById(R.id.toolbar);
+      toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_close_white));
+      toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            //getActivity().onBackPressed();
+            //getActivity().getFragmentManager().beginTransaction().remove().commit();
+            getActivity().getFragmentManager().popBackStack();
+         }
+      });
+
+      FloatingActionMenu fabmenu = getActivity().findViewById(R.id.fabmenu);
+      fabmenu.setVisibility(View.GONE);
 
       txtvalor = view.findViewById(R.id.tra_valor);
       txtvalor.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +124,7 @@ public class fraTransacoes_Manutencao extends Fragment implements CalcDialog.Cal
 
       this.value = value;
    }
+
 
    //handles
 

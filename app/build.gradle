@@ -38,4 +38,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
 
     implementation 'com.maltaisn:calcdialog:2.0.1'
+
+    // menus in tela - https://github.com/dazhaoDai/FloatingActionButtonDemo
+    implementation 'com.ddz.materialdesign:FloatingActionButton:1.0.4'
+    
 }
