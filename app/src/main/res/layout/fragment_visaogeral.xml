@@ -6,8 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".fragments.fraVisaoGeral"
     android:layout_margin="20dp"
-
+android:orientation="vertical"
     >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtsaldo"
+        android:text="0,00"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cmdrodanumeros"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lsvvisaogeral"

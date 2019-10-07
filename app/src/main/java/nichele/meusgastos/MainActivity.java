@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
       //mToolbar.setSubtitle("subtitulo");
 
       setSupportActionBar(toolbar);
-//      AbreFragment(new fraVisaoGeral());
+      AbreFragment(new fraVisaoGeral());
 
       //AbreFragment(new fraTransacoes_Manutencao());
       fabmenu = findViewById(R.id.fabmenu);
