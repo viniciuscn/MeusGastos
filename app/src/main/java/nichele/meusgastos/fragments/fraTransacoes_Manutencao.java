@@ -23,8 +23,10 @@ import com.ddz.floatingactionbutton.FloatingActionMenu;
 import com.maltaisn.calcdialog.CalcDialog;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import nichele.meusgastos.BancoSQLite;
+import nichele.meusgastos.FiltraPeriodo.Util;
 import nichele.meusgastos.R;
 import nichele.meusgastos.TipoDado;
 import nichele.meusgastos.actConfiguracoes;
@@ -35,7 +37,7 @@ public class fraTransacoes_Manutencao extends Fragment implements CalcDialog.Cal
    TextView txtvalor;
    TextView txtdescricao;
 
-
+TextView txtdata;
 
    public fraTransacoes_Manutencao(TipoDado plistar) {
       // Required empty public constructor
@@ -68,14 +70,15 @@ public class fraTransacoes_Manutencao extends Fragment implements CalcDialog.Cal
       });
       txtdescricao = view.findViewById(R.id.tra_txtdescricao);
 
-
+      txtdata = view.findViewById(R.id.lbldata);
+txtdata.setText(Util.setDataPorExtenso(new Date(),"ddd, dd mmm yyyy"));
 
       Button cmdsalvar = view.findViewById(R.id.cmdsalvar);
       cmdsalvar.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
             BancoSQLite db = new BancoSQLite(getContext());
-            String resultado = db.gravatransacoes("INC", 0, "06/09/2019", "ENT",
+            String resultado = db.gravatransacoes("INC", 0, "", "ENT",
                     1,
                     1,
                     txtdescricao.getText().toString(),

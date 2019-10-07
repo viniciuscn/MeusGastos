@@ -34,13 +34,23 @@ public class Util {
       return c.getTime();
    }
 
-   public static String setMesPorExtenso(Date data){
-      SimpleDateFormat sdf;
+   public static String setDataPorExtenso(Date data, String formato){
+      SimpleDateFormat sdf = null;
       //if (data.getYear() == new Date().getYear())
+      if (formato.toLowerCase().equals("mmmm, yyyy")){
          sdf= new SimpleDateFormat("MMMM, yyyy");
+         //return upperCaseFirst(sdf.format(data));
+      }
+
+      else if (formato.toLowerCase().equals("ddd, dd mmm yyyy")) {
+         sdf= new SimpleDateFormat("EEE, dd MMM 'de' yyyy");
+
+      }
+      return upperCaseFirst(sdf.format(data));
+
       //else
          //sdf= new SimpleDateFormat("MMM/yy");
-      return upperCaseFirst(sdf.format(data));
+
    }
 
    public static String upperCaseFirst(String value) {

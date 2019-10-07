@@ -89,7 +89,7 @@ public class FiltraPeriodo extends Fragment {
    private void mostradatas(){
       lbldatinicial.setText( gc.get(Calendar.YEAR) + "/" + String.format("%02d", new Integer(gc.get(Calendar.MONTH)+1 )) + "/01" );
       lbldatfinal.setText( gc.get(Calendar.YEAR) +"/" + String.format("%02d", new Integer(gc.get(Calendar.MONTH)+1 )) +"/" + String.format("%02d", new Integer(gc.getActualMaximum(Calendar.DAY_OF_MONTH))) );
-      lblmesextenso.setText(Util.setMesPorExtenso(gc.getTime()));
+      lblmesextenso.setText(Util.setDataPorExtenso(gc.getTime(),"MMMM, yyyy"));
    }
 
 
