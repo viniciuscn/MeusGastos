@@ -24,10 +24,10 @@ public class BancoSQLite extends SQLiteOpenHelper {
     private static final String NOME_BD = "meusgastos";
     /* A versão da base de dados que esta classe compreende. */
     private static final int VERSAO_BD = 1;
-    @SuppressWarnings("unused")
-    private static final String LOG_TAG = "meusgastos";
+
+    private static final String TAG = "log_mg";
     /* Mantém rastreamento do contexto que nós podemos carregar SQL */
-    @SuppressWarnings("unused")
+
     private final Context contexto;
 
     public BancoSQLite(Context context) {
@@ -37,6 +37,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL("create table transacoes("+
                 "id int not null" +
                 ", data SmallDateTime"+
@@ -59,7 +60,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
                 ", ordem int" +
                 ", Primary key(codcategoria))");
 
-
+        Log.v(TAG, "criou as tabelas");
 //        db.execSQL("CREATE TABLE configuracoes(" +
 //                "pedsenha Int," +
 //                "senha VarChar(10)," +
@@ -110,11 +111,13 @@ public class BancoSQLite extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put("codconta", codconta);
             values.put("nome", nome);
-            if (comando.toUpperCase().equals("INC"))
+            if (comando.toUpperCase().equals("INC")){
                 db.insert("contas", null, values);
-            else
+                Log.v(TAG, "conta gravada");
+            }else {
                 db.update("contas", values, "codconta = " + codconta, null);
-
+                Log.v(TAG, "conta atualizada");
+            }
             return "Sucesso";
 
         } catch (Exception e) {
@@ -125,9 +128,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
         }
     }
 
-    public String gravatransacoes(String situacao, int id, String data,
-                                  String funcao, int codconta, int codcategoria,
-                                  String descricao, String valor){
+    public String gravatransacoes(String situacao, int id, String data, String funcao, int codconta, int codcategoria, String descricao, String valor){
         SQLiteDatabase db = getWritableDatabase();
         try {
             if(situacao == "INC")
@@ -160,20 +161,28 @@ public class BancoSQLite extends SQLiteOpenHelper {
 
     public ArrayList<Conta> listacontas() {
         ArrayList<Conta> contas = new ArrayList<Conta>();
-        String sql = "select * from contas";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(sql, null);
-        if(cursor.moveToFirst()) {
-            do {
-                contas.add(new Conta(cursor.getInt(cursor.getColumnIndex("codconta")),
-                        cursor.getString(cursor.getColumnIndex("nome"))
-                        )
-                );
-
-            } while (cursor.moveToNext());
+        try{
+            String sql = "SELECT * FROM contas";
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.rawQuery(sql, null);
+            Log.v(TAG, "abriu o cursor");
+            if(cursor.moveToFirst()) {
+                do {
+                    contas.add(new Conta(cursor.getInt(cursor.getColumnIndex("codconta")),
+                                    cursor.getString(cursor.getColumnIndex("nome"))
+                            )
+                    );
+                    Log.v(TAG,cursor.getString(cursor.getColumnIndex("nome")));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            Log.v(TAG, "fechou o cursor");
+            db.close();
+            Log.v(TAG, "fechou o banco");
+        }catch (Exception ex){
+            Log.v(TAG, "deu_merda -> "+ex.getMessage());
         }
-        cursor.close();
-        db.close();
+
 
         return contas;
     }

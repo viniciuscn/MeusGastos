@@ -34,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
 
+      BancoSQLite db = new BancoSQLite(this);
+      db.listacontas();
+      db.close();
+
       toolbar = findViewById(R.id.toolbar);
       toolbar.setTitle("Visão Geral");
       //mToolbar.setSubtitle("subtitulo");

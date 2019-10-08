@@ -1,7 +1,9 @@
 package nichele.meusgastos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,6 +22,8 @@ public class actContas extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_contas);
+      Intent intent = getIntent();
+      situacao = intent.getStringExtra("situacao");
       carregatela();
    }
 
@@ -39,11 +43,14 @@ public class actContas extends AppCompatActivity {
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
       txtnome = findViewById(R.id.cnt_txtnome);
+
+
    }
 
    private void gravar(){
       BancoSQLite db = new BancoSQLite(context);
       String status = db.gravaconta(situacao, 0, txtnome.getText().toString());
+      Log.v("log",status);
       db.close();
       finish();
    }

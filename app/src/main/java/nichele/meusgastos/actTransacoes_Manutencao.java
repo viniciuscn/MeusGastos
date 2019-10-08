@@ -47,11 +47,12 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_transacoes_manutencao);
       overridePendingTransition(R.anim.filho_entrando, R.anim.main_saindo);
-      carregatela();
-
       Intent intent = getIntent();
       situacao = intent.getStringExtra("situacao");
       tipodado = (TipoDado)intent.getSerializableExtra("tipdado");
+      carregatela();
+
+
    }
 
    private void carregatela(){
@@ -76,6 +77,11 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
 
       BancoSQLite db = new BancoSQLite(context);
       ArrayList<Conta> lstcontas = db.listacontas();
+//      ArrayList<Conta> lstcontas = new ArrayList<>();
+      lstcontas.add(new Conta(1,"banco"));
+      lstcontas.add(new Conta(2,"carteira"));
+
+
       ArrayAdapter rstcontas = new ArrayAdapter(context,android.R.layout.simple_spinner_item, lstcontas);
       rstcontas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
       cmbconta.setAdapter(rstcontas);
