@@ -132,33 +132,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
         }
     }
 
-    public String gravacategoria(String comando, int codcategoria, String nome, String tipo) {
-        SQLiteDatabase db = getWritableDatabase();
-        String nomedatabela = "categorias", nomedachave = "codcategoria";
-        try {
-            if (comando == "INC")
-                codcategoria = ultimocodigo(nomedatabela, nomedachave) + 1;
 
-            ContentValues values = new ContentValues();
-            values.put(nomedachave, codcategoria);
-            values.put("nome", nome);
-            values.put("tipo", tipo);
-            if (comando.toUpperCase().equals("INC")){
-                db.insert(nomedatabela, null, values);
-                Log.v(TAG, "categoria gravada");
-            }else {
-                db.update(nomedatabela, values, nomedachave + " = " + codcategoria, null);
-                Log.v(TAG, "categoria atualizada");
-            }
-            return "Sucesso";
-
-        } catch (Exception e) {
-            Log.e("transação", "Erro -> " + e.getMessage());
-            return e.getMessage();
-        } finally {
-            db.close();
-        }
-    }
     public String gravatransacoes(String situacao, int id, String data, String funcao, int codconta, int codcategoria, String descricao, String valor){
         SQLiteDatabase db = getWritableDatabase();
         try {
@@ -218,6 +192,34 @@ public class BancoSQLite extends SQLiteOpenHelper {
         return contas;
     }
 
+    public String gravacategoria(String comando, int codcategoria, String nome, String tipo) {
+        SQLiteDatabase db = getWritableDatabase();
+        String nomedatabela = "categorias", nomedachave = "codcategoria";
+        try {
+            if (comando == "INC")
+                codcategoria = ultimocodigo(nomedatabela, nomedachave) + 1;
+
+            ContentValues values = new ContentValues();
+            values.put(nomedachave, codcategoria);
+            values.put("nome", nome);
+            values.put("tipo", tipo);
+            if (comando.toUpperCase().equals("INC")){
+                db.insert(nomedatabela, null, values);
+                Log.v(TAG, "categoria gravada -> " + codcategoria + "/"+ nome+ "/"+tipo);
+            }else {
+                db.update(nomedatabela, values, nomedachave + " = " + codcategoria, null);
+                Log.v(TAG, "categoria atualizada");
+            }
+            return "Sucesso";
+
+        } catch (Exception e) {
+            Log.e("transação", "Erro -> " + e.getMessage());
+            return e.getMessage();
+        } finally {
+            db.close();
+        }
+    }
+
     public ArrayList<Categoria> listacategorias(TipoDado tipodado) {
         ArrayList<Categoria> categorias = new ArrayList<Categoria>();
         String sql = "select * from categorias where tipo = ";
@@ -225,6 +227,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
             sql += "'E'";
         else if (tipodado.equals(TipoDado.saidas))
             sql += "'S'";
+        Log.v(TAG, sql);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
         if(cursor.moveToFirst()) {

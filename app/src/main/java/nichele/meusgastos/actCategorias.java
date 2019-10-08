@@ -22,6 +22,7 @@ public class actCategorias extends AppCompatActivity {
 
    TextView txtnome;
    RadioGroup opttipo;
+   RadioButton optrec;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +50,16 @@ public class actCategorias extends AppCompatActivity {
 
       txtnome = findViewById(R.id.cat_txtnome);
       opttipo = findViewById(R.id.cat_opttipo);
+      optrec = findViewById(R.id.cat_optE);
 
    }
 
    private void gravar(){
       BancoSQLite db = new BancoSQLite(context);
-      String status = db.gravacategoria(situacao, 0, txtnome.getText().toString(), (opttipo.getCheckedRadioButtonId() == 0 ? "E" : "S") );
-      Log.v("log",status);
+
+      //String status = db.gravacategoria(situacao, 0, txtnome.getText().toString(), (opttipo.getCheckedRadioButtonId() == 0 ? "E" : "S") );
+      String status = db.gravacategoria(situacao, 0, txtnome.getText().toString(), (optrec.isChecked() == true ? "E" : "S") );
+      Log.v("log_mg",status);
       db.close();
       finish();
    }
