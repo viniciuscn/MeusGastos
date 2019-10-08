@@ -2,6 +2,7 @@ package nichele.meusgastos;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -88,6 +89,8 @@ public class BancoSQLite extends SQLiteOpenHelper {
         //execute("delete from configuracoes");
         //db.close();
         inseredadosiniciais();
+
+
     }
 
     public void inseredadosiniciais(){
@@ -220,7 +223,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
         String sql = "select * from categorias where tipo = ";
         if (tipodado.equals(TipoDado.entradas))
             sql += "'E'";
-        else
+        else if (tipodado.equals(TipoDado.saidas))
             sql += "'S'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
