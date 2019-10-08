@@ -81,7 +81,7 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       rstcontas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
       cmbconta.setAdapter(rstcontas);
 
-      ArrayList<Categoria> lstcategorias = db.listacategorias();
+      ArrayList<Categoria> lstcategorias = db.listacategorias(tipodado);
       ArrayAdapter<Categoria> rstcategorias = new ArrayAdapter<Categoria>(this, R.layout.support_simple_spinner_dropdown_item, lstcategorias);
       rstcategorias.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
       cmbcategoria.setAdapter(rstcategorias);

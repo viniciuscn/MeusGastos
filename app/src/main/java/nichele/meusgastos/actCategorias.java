@@ -12,6 +12,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class actCategorias extends AppCompatActivity {
@@ -19,6 +21,7 @@ public class actCategorias extends AppCompatActivity {
    String situacao = "";
 
    TextView txtnome;
+   RadioGroup opttipo;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +48,13 @@ public class actCategorias extends AppCompatActivity {
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
       txtnome = findViewById(R.id.cat_txtnome);
-
+      opttipo = findViewById(R.id.cat_opttipo);
 
    }
 
    private void gravar(){
       BancoSQLite db = new BancoSQLite(context);
-      String status = db.gravacategoria(situacao, 0, txtnome.getText().toString());
+      String status = db.gravacategoria(situacao, 0, txtnome.getText().toString(), (opttipo.getCheckedRadioButtonId() == 0 ? "E" : "S") );
       Log.v("log",status);
       db.close();
       finish();

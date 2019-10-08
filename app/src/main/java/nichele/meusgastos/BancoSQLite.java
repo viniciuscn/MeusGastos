@@ -129,7 +129,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
         }
     }
 
-    public String gravacategoria(String comando, int codcategoria, String nome) {
+    public String gravacategoria(String comando, int codcategoria, String nome, String tipo) {
         SQLiteDatabase db = getWritableDatabase();
         String nomedatabela = "categorias", nomedachave = "codcategoria";
         try {
@@ -139,6 +139,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(nomedachave, codcategoria);
             values.put("nome", nome);
+            values.put("tipo", tipo);
             if (comando.toUpperCase().equals("INC")){
                 db.insert(nomedatabela, null, values);
                 Log.v(TAG, "categoria gravada");
@@ -214,9 +215,13 @@ public class BancoSQLite extends SQLiteOpenHelper {
         return contas;
     }
 
-    public ArrayList<Categoria> listacategorias() {
+    public ArrayList<Categoria> listacategorias(TipoDado tipodado) {
         ArrayList<Categoria> categorias = new ArrayList<Categoria>();
-        String sql = "select * from categorias";
+        String sql = "select * from categorias where tipo = ";
+        if (tipodado.equals(TipoDado.entradas))
+            sql += "'E'";
+        else
+            sql += "'S'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
         if(cursor.moveToFirst()) {
