@@ -77,19 +77,14 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
 
       BancoSQLite db = new BancoSQLite(context);
       ArrayList<Conta> lstcontas = db.listacontas();
-//      ArrayList<Conta> lstcontas = new ArrayList<>();
-      lstcontas.add(new Conta(1,"banco"));
-      lstcontas.add(new Conta(2,"carteira"));
-
-
       ArrayAdapter rstcontas = new ArrayAdapter(context,android.R.layout.simple_spinner_item, lstcontas);
       rstcontas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
       cmbconta.setAdapter(rstcontas);
 
-//      ArrayList<Categoria> lstcategorias = db.listacategorias();
-//      ArrayAdapter<Categoria> rstcategorias = new ArrayAdapter<Categoria>(this, R.layout.support_simple_spinner_dropdown_item, lstcategorias);
-//      rstcategorias.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//      cmbcategoria.setAdapter(rstcategorias);
+      ArrayList<Categoria> lstcategorias = db.listacategorias();
+      ArrayAdapter<Categoria> rstcategorias = new ArrayAdapter<Categoria>(this, R.layout.support_simple_spinner_dropdown_item, lstcategorias);
+      rstcategorias.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+      cmbcategoria.setAdapter(rstcategorias);
       db.close();
 
       Button cmdsalvar = findViewById(R.id.cmdsalvar);

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nichele.meusgastos">
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
@@ -12,6 +9,15 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".actCategorias"
+            android:label="@string/title_activity_act_categorias"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nichele.meusgastos.MainActivity" />
+        </activity>
         <activity
             android:name=".actContas"
             android:label="@string/title_activity_act_contas"
@@ -49,5 +55,8 @@
                 android:value=".MainActivity" />
         </activity>
     </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

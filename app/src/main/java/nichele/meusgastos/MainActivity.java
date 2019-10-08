@@ -100,7 +100,9 @@ public class MainActivity extends AppCompatActivity {
                        case 4:
                           abreactivity("contas",TipoDado.nenhum);
                           break;
-
+                       case 5:
+                          abreactivity("categorias",TipoDado.nenhum);
+                          break;
                        case 6:
                           abreactivity("configuracoes",TipoDado.nenhum);
                           break;
@@ -150,6 +152,11 @@ public class MainActivity extends AppCompatActivity {
             break;
          case "contas":
             intent = new Intent(this, actContas.class);
+            intent.putExtra("situacao", "INC");
+            startActivityForResult(intent, 0);
+            break;
+         case "categorias":
+            intent = new Intent(this, actCategorias.class);
             intent.putExtra("situacao", "INC");
             startActivityForResult(intent, 0);
             break;

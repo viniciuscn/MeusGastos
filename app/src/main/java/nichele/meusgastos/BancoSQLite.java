@@ -104,18 +104,19 @@ public class BancoSQLite extends SQLiteOpenHelper {
 
     public String gravaconta(String comando, int codconta, String nome) {
         SQLiteDatabase db = getWritableDatabase();
+        String nomedatabela = "contas", nomedachave = "codconta";
         try {
             if (comando == "INC")
-                codconta = ultimocodigo("contas", "codconta") + 1;
+                codconta = ultimocodigo(nomedatabela, nomedachave) + 1;
 
             ContentValues values = new ContentValues();
-            values.put("codconta", codconta);
+            values.put(nomedachave, codconta);
             values.put("nome", nome);
             if (comando.toUpperCase().equals("INC")){
                 db.insert("contas", null, values);
                 Log.v(TAG, "conta gravada");
             }else {
-                db.update("contas", values, "codconta = " + codconta, null);
+                db.update(nomedatabela, values, nomedachave + " = " + codconta, null);
                 Log.v(TAG, "conta atualizada");
             }
             return "Sucesso";
@@ -128,6 +129,32 @@ public class BancoSQLite extends SQLiteOpenHelper {
         }
     }
 
+    public String gravacategoria(String comando, int codcategoria, String nome) {
+        SQLiteDatabase db = getWritableDatabase();
+        String nomedatabela = "categorias", nomedachave = "codcategoria";
+        try {
+            if (comando == "INC")
+                codcategoria = ultimocodigo(nomedatabela, nomedachave) + 1;
+
+            ContentValues values = new ContentValues();
+            values.put(nomedachave, codcategoria);
+            values.put("nome", nome);
+            if (comando.toUpperCase().equals("INC")){
+                db.insert(nomedatabela, null, values);
+                Log.v(TAG, "categoria gravada");
+            }else {
+                db.update(nomedatabela, values, nomedachave + " = " + codcategoria, null);
+                Log.v(TAG, "categoria atualizada");
+            }
+            return "Sucesso";
+
+        } catch (Exception e) {
+            Log.e("transação", "Erro -> " + e.getMessage());
+            return e.getMessage();
+        } finally {
+            db.close();
+        }
+    }
     public String gravatransacoes(String situacao, int id, String data, String funcao, int codconta, int codcategoria, String descricao, String valor){
         SQLiteDatabase db = getWritableDatabase();
         try {
