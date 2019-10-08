@@ -22,10 +22,11 @@
     <color name="vermelhoescuro">#D32F2F</color>
     <color name="vermelho">#F44336</color>
 
-    <color name="cinzaescuro">#616161</color>
+    <color name="cinzaescuro">#bdbdbd</color>
     <color name="cinza">#eeeeee</color>
 
     <color name="colorWhite">#f5f5f5</color>
+    <color name="azulescuro">#003c8f</color>
 
 
 </resources>

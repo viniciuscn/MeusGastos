@@ -15,7 +15,8 @@ public class actConfiguracoes extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_configuracoes);
-      setTheme(R.style.AppTheme);
+      overridePendingTransition(R.anim.filho_entrando, R.anim.main_saindo);
+      //setTheme(R.style.AppTheme);
 
       mToolbar = findViewById(R.id.toolbar);
       mToolbar.setTitle("Configurações");
@@ -24,5 +25,11 @@ public class actConfiguracoes extends AppCompatActivity {
       getSupportActionBar().setHomeButtonEnabled(true);
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+   }
+
+   @Override
+   public void finish() {
+      super.finish();
+      overridePendingTransition(R.anim.main_entrando, R.anim.filho_saindo);
    }
 }

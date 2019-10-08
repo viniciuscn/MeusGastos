@@ -93,7 +93,11 @@ public class MainActivity extends AppCompatActivity {
 //                          AbreFragment( new fraTransacoes(TipoDado.saidas));
 //                          //AbreFragment( new fraTransacoes_Manutencao());
 //                          break;
-                       case 7:
+                       case 4:
+                          abreactivity("contas",TipoDado.nenhum);
+                          break;
+
+                       case 6:
                           abreactivity("configuracoes",TipoDado.nenhum);
                           break;
                     }
@@ -107,19 +111,19 @@ public class MainActivity extends AppCompatActivity {
                  }
               })
               .build();
-      //1
+      //0
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName( "Visão Geral").withIcon(getResources().getDrawable(R.drawable.ic_visaogeral_black_24dp)));
-      //2
+      //1
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Transações").withIcon(getResources().getDrawable(R.drawable.ic_extrato)));
-
-//      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Receitas").withIcon(getResources().getDrawable(R.drawable.ic_up_black)));
-
-//      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Despesas").withIcon(getResources().getDrawable(R.drawable.ic_down_black)));
-      //5
+      //2
+      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Receitas").withIcon(getResources().getDrawable(R.drawable.ic_up_black)));
+      //3
+      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Despesas").withIcon(getResources().getDrawable(R.drawable.ic_down_black)));
+      //4
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Contas").withIcon(getResources().getDrawable(R.drawable.ic_contas_black_24dp)));
-      //6
+      //5
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Categorias").withIcon(getResources().getDrawable(R.drawable.ic_categorias_black_24dp)));
-      //7
+      //6
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Configurações").withIcon(getResources().getDrawable(R.drawable.ic_configacoes_black_24dp)));
    }
 
@@ -137,7 +141,12 @@ public class MainActivity extends AppCompatActivity {
          case "manutencao":
             intent = new Intent(this, actTransacoes_Manutencao.class);
             intent.putExtra("tipdado", tipdado);
-
+            intent.putExtra("situacao", "INC");
+            startActivityForResult(intent, 0);
+            break;
+         case "contas":
+            intent = new Intent(this, actContas.class);
+            intent.putExtra("situacao", "INC");
             startActivityForResult(intent, 0);
             break;
          case "configurações":

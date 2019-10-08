@@ -2,12 +2,10 @@ package nichele.meusgastos.FiltraPeriodo;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import nichele.meusgastos.DataUtil;
 import nichele.meusgastos.R;
 
 public class FiltraPeriodo extends Fragment {
@@ -65,7 +64,7 @@ public class FiltraPeriodo extends Fragment {
             gc.set(GregorianCalendar.YEAR, Integer.valueOf(lbldatinicial.getText().subSequence(0,4).toString()));
             gc.set(GregorianCalendar.MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(5,7).toString())-1);
             gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(8,10).toString()));
-            gc.setTime( Util.DateAdd( Util.DateInterval.mes,-1, gc.getTime()) );
+            gc.setTime( DataUtil.DateAdd( DataUtil.DateInterval.mes,-1, gc.getTime()) );
             mostradatas();
 
          }
@@ -79,7 +78,7 @@ public class FiltraPeriodo extends Fragment {
             gc.set(GregorianCalendar.YEAR, Integer.valueOf(lbldatinicial.getText().subSequence(0,4).toString()));
             gc.set(GregorianCalendar.MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(5,7).toString())-1);
             gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(8,10).toString()));
-            gc.setTime( Util.DateAdd( Util.DateInterval.mes,1, gc.getTime()) );
+            gc.setTime( DataUtil.DateAdd( DataUtil.DateInterval.mes,1, gc.getTime()) );
             mostradatas();
 
          }
@@ -89,7 +88,7 @@ public class FiltraPeriodo extends Fragment {
    private void mostradatas(){
       lbldatinicial.setText( gc.get(Calendar.YEAR) + "/" + String.format("%02d", new Integer(gc.get(Calendar.MONTH)+1 )) + "/01" );
       lbldatfinal.setText( gc.get(Calendar.YEAR) +"/" + String.format("%02d", new Integer(gc.get(Calendar.MONTH)+1 )) +"/" + String.format("%02d", new Integer(gc.getActualMaximum(Calendar.DAY_OF_MONTH))) );
-      lblmesextenso.setText(Util.setDataPorExtenso(gc.getTime(),"MMMM, yyyy"));
+      lblmesextenso.setText(DataUtil.formatadata(gc.getTime(),"MMMM, yyyy"));
    }
 
 

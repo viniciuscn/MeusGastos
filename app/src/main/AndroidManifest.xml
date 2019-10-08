@@ -9,6 +9,15 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".actContas"
+            android:label="@string/title_activity_act_contas"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nichele.meusgastos.MainActivity" />
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,12 +31,12 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
-        <activity android:name=".calculadora.DialogCalc"
-            android:theme="@style/Theme.AppCompat.Dialog"
-            android:excludeFromRecents="true"/>
-
+        <activity
+            android:name=".calculadora.DialogCalc"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".actTransacoes_Manutencao"
             android:label="Lançamento"
@@ -36,7 +45,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
     </application>
 
 </manifest>

@@ -1,23 +1,17 @@
 package nichele.meusgastos.fragments;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.ddz.floatingactionbutton.FloatingActionMenu;
 import com.maltaisn.calcdialog.CalcDialog;
@@ -26,10 +20,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import nichele.meusgastos.BancoSQLite;
-import nichele.meusgastos.FiltraPeriodo.Util;
+import nichele.meusgastos.DataUtil;
 import nichele.meusgastos.R;
 import nichele.meusgastos.TipoDado;
-import nichele.meusgastos.actConfiguracoes;
 import nichele.meusgastos.calculadora.DialogCalc;
 
 public class fraTransacoes_Manutencao extends Fragment implements CalcDialog.CalcDialogCallback {
@@ -71,7 +64,7 @@ TextView txtdata;
       txtdescricao = view.findViewById(R.id.tra_txtdescricao);
 
       txtdata = view.findViewById(R.id.lbldata);
-      txtdata.setText(Util.setDataPorExtenso(new Date(),"ddd, dd mmm yyyy"));
+      txtdata.setText(DataUtil.formatadata(new Date(),"ddd, dd mmm yyyy"));
 
       Button cmdsalvar = view.findViewById(R.id.cmdsalvar);
       cmdsalvar.setOnClickListener(new View.OnClickListener() {

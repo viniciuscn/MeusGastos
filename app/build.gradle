@@ -41,5 +41,5 @@ dependencies {
 
     // menus in tela - https://github.com/dazhaoDai/FloatingActionButtonDemo
     implementation 'com.ddz.materialdesign:FloatingActionButton:1.0.4'
-    
+
 }

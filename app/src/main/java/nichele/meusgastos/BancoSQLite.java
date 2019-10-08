@@ -8,15 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.security.cert.TrustAnchor;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.Classes.Conta;
 import nichele.meusgastos.Classes.Transacao;
@@ -108,14 +101,33 @@ public class BancoSQLite extends SQLiteOpenHelper {
         execute("INSERT INTO categorias VALUES(4, 'Combustível', 'S',4)");
     }
 
-    public String gravatransacoes(String situacao,
-                                  int id,
-                                  String data,
-                                  String funcao,
-                                  int codconta,
-                                  int codcategoria,
-                                  String descricao,
-                                  String valor){
+    public String gravaconta(String comando, int codconta, String nome) {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            if (comando == "INC")
+                codconta = ultimocodigo("contas", "codconta") + 1;
+
+            ContentValues values = new ContentValues();
+            values.put("codconta", codconta);
+            values.put("nome", nome);
+            if (comando.toUpperCase().equals("INC"))
+                db.insert("contas", null, values);
+            else
+                db.update("contas", values, "codconta = " + codconta, null);
+
+            return "Sucesso";
+
+        } catch (Exception e) {
+            Log.e("transação", "Erro -> " + e.getMessage());
+            return e.getMessage();
+        } finally {
+            db.close();
+        }
+    }
+
+    public String gravatransacoes(String situacao, int id, String data,
+                                  String funcao, int codconta, int codcategoria,
+                                  String descricao, String valor){
         SQLiteDatabase db = getWritableDatabase();
         try {
             if(situacao == "INC")
@@ -123,12 +135,13 @@ public class BancoSQLite extends SQLiteOpenHelper {
 
             ContentValues values = new ContentValues();
             values.put("id", id);
-            values.put("data", data.substring(6,10)+"-"+data.substring(3,5)+"-"+data.substring(0,2));
+            //values.put("data", data.substring(6,10)+"-"+data.substring(3,5)+"-"+data.substring(0,2));
+            values.put("data", data);
             values.put("funcao", funcao);
             values.put("codconta", codconta);
             values.put("codcategoria", codcategoria);
             values.put("descricao", descricao);
-            values.put("valor", new Rotinas().format(valor));
+            values.put("valor", new rotinas().format(valor));
             if (situacao.toUpperCase().equals("INC"))
                 db.insert("transacoes", null, values);
             else
@@ -145,7 +158,43 @@ public class BancoSQLite extends SQLiteOpenHelper {
 
     }
 
+    public ArrayList<Conta> listacontas() {
+        ArrayList<Conta> contas = new ArrayList<Conta>();
+        String sql = "select * from contas";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        if(cursor.moveToFirst()) {
+            do {
+                contas.add(new Conta(cursor.getInt(cursor.getColumnIndex("codconta")),
+                        cursor.getString(cursor.getColumnIndex("nome"))
+                        )
+                );
 
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        return contas;
+    }
+
+    public ArrayList<Categoria> listacategorias() {
+        ArrayList<Categoria> categorias = new ArrayList<Categoria>();
+        String sql = "select * from categorias";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        if(cursor.moveToFirst()) {
+            do {
+                categorias.add(new Categoria(cursor.getInt(cursor.getColumnIndex("codcategoria")),
+                                cursor.getString(cursor.getColumnIndex("nome"))
+                        )
+                );
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return categorias;
+    }
     ///////////////////////////ROTINAS GLOBAIS///////////////////////////
     public int ultimocodigo(String nomedatabela, String nomedocampo) {
         SQLiteDatabase ult = getReadableDatabase();
