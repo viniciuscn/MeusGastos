@@ -9,13 +9,13 @@
     tools:context=".MainActivity">
 
     <include layout="@layout/toolbar"
-        android:id="@+id/barra"/>
+        />
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/barra"
+        android:layout_below="@+id/toolbar"
         android:layout_marginTop="0dp" />
 
     <com.ddz.floatingactionbutton.FloatingActionMenu

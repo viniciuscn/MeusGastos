@@ -22,11 +22,21 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"></meta-data>
+                android:value=".MainActivity"/>
         </activity>
         <activity android:name=".calculadora.DialogCalc"
             android:theme="@style/Theme.AppCompat.Dialog"
             android:excludeFromRecents="true"/>
+
+        <activity
+            android:name=".actTransacoes_Manutencao"
+            android:label="Lançamento"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
     </application>
 
 </manifest>

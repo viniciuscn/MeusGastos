@@ -54,7 +54,7 @@ public class fraTransacoes extends Fragment {
 
       view = inflater.inflate(R.layout.fragment_transacoes, container, false);
 
-      toolbar = getActivity().findViewById(R.id.toolbar);
+      toolbar = getActivity().findViewById(R.id.barra);
       toolbar.setTitle("Transações");
       definecores();
 

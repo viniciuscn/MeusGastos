@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.fraTransacoes_Manutencao"
+    android:orientation="vertical"
+    >
+
+    <include layout="@layout/toolbar"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/activity_margin">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Valor"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <EditText
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/man_lblvalor"
+                android:hint="R$ 0,00"
+                android:focusable="false"
+                android:clickable="true"
+                />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/man_txtvalor"
+                android:text="0.00"
+                android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:enabled="false"
+                />
+
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/man_txtdescricao"
+            android:ems="10"
+            android:hint="Descrição"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:inputType="textCapWords" />
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/filtro"
+            >
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/man_cmdant"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_previous_24dp"
+                android:layout_toLeftOf="@id/man_lbldata"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/man_lbldata"
+                android:text="Seg, 07 out de 2019"
+                android:layout_alignTop="@id/man_cmdant"
+                android:layout_centerHorizontal="true"
+                android:textSize="20dp"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/man_lbldata"
+                android:layout_centerHorizontal="true"
+
+
+                >
+                <TextView
+                    android:id="@+id/man_txtdata"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2019/10/07"
+                    />
+            </LinearLayout>
+
+
+            <ImageButton
+                android:id="@+id/man_cmdnext"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_toRightOf="@id/man_lbldata"
+                android:layout_marginLeft="10dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_next_24dp"
+                />
+
+
+
+        </RelativeLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cmdsalvar"
+            android:layout_gravity="center"
+            android:text="salvar"/>
+    </LinearLayout>
+</LinearLayout>

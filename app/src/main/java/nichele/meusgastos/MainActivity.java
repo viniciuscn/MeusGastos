@@ -20,7 +20,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import nichele.meusgastos.fragments.fraTransacoes;
-import nichele.meusgastos.fragments.fraTransacoes_Manutencao;
 import nichele.meusgastos.fragments.fraVisaoGeral;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
       fabrec.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            AbreFragment(new fraTransacoes_Manutencao(TipoDado.entradas));
+            //AbreFragment(new fraTransacoes_Manutencao(TipoDado.entradas));
+            abreactivity("manutencao",TipoDado.entradas);
             fabmenu.collapse();
          }
       });
@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
       fabdes.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            AbreFragment(new fraTransacoes_Manutencao(TipoDado.saidas));
+            //AbreFragment(new fraTransacoes_Manutencao(TipoDado.saidas));
+            abreactivity("manutencao", TipoDado.saidas);
             fabmenu.collapse();
          }
       });
@@ -92,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
 //                          AbreFragment( new fraTransacoes(TipoDado.saidas));
 //                          //AbreFragment( new fraTransacoes_Manutencao());
 //                          break;
+                       case 7:
+                          abreactivity("configuracoes",TipoDado.nenhum);
+                          break;
                     }
                  }
               })
@@ -103,13 +107,19 @@ public class MainActivity extends AppCompatActivity {
                  }
               })
               .build();
-
+      //1
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName( "Visão Geral").withIcon(getResources().getDrawable(R.drawable.ic_visaogeral_black_24dp)));
+      //2
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Transações").withIcon(getResources().getDrawable(R.drawable.ic_extrato)));
+
 //      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Receitas").withIcon(getResources().getDrawable(R.drawable.ic_up_black)));
+
 //      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Despesas").withIcon(getResources().getDrawable(R.drawable.ic_down_black)));
+      //5
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Contas").withIcon(getResources().getDrawable(R.drawable.ic_contas_black_24dp)));
+      //6
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Categorias").withIcon(getResources().getDrawable(R.drawable.ic_categorias_black_24dp)));
+      //7
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Configurações").withIcon(getResources().getDrawable(R.drawable.ic_configacoes_black_24dp)));
    }
 
@@ -121,12 +131,19 @@ public class MainActivity extends AppCompatActivity {
       ft.commit();
    }
 
-   private void AbreActivity(String tela) {
+   private void abreactivity(String tela, TipoDado tipdado) {
       Intent intent;
       switch (tela){
+         case "manutencao":
+            intent = new Intent(this, actTransacoes_Manutencao.class);
+            intent.putExtra("tipdado", tipdado);
+
+            startActivityForResult(intent, 0);
+            break;
          case "configurações":
             intent = new Intent(this, actConfiguracoes.class);
             startActivityForResult(intent, 0);
+            break;
       }
    }
 

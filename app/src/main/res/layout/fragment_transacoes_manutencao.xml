@@ -8,6 +8,9 @@
     android:orientation="vertical"
     android:layout_margin="20dp">
 
+    <include layout="@layout/toolbar"
+        android:id="@+id/barra"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

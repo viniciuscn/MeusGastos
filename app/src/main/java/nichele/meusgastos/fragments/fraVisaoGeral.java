@@ -40,7 +40,7 @@ public class fraVisaoGeral extends Fragment  {
                             Bundle savedInstanceState) {
       View view = inflater.inflate(R.layout.fragment_visaogeral, container, false);
       toolbar = getActivity().findViewById(R.id.toolbar);
-      toolbar.setTitle("Visão Geral");
+      //toolbar.setTitle("Visão Geral");
       definecores();
 
       textview = view.findViewById(R.id.txtsaldo);
@@ -64,7 +64,7 @@ public class fraVisaoGeral extends Fragment  {
          window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
          window.setStatusBarColor(  getResources().getColor(R.color.colorPrimaryDark));
       }
-      toolbar.setBackgroundColor( getResources().getColor(R.color.colorPrimary));
+      //toolbar.setBackgroundColor( getResources().getColor(R.color.colorPrimary));
    }
 
    @Override
