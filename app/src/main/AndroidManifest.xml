@@ -9,6 +9,14 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".actCategorias"
             android:label="@string/title_activity_act_categorias"
@@ -27,13 +35,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nichele.meusgastos.MainActivity" />
         </activity>
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".actConfiguracoes"
             android:label="PickImage"
@@ -54,6 +56,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
     </application>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
