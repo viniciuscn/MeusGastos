@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ddz.floatingactionbutton.FloatingActionButton;
 import com.ddz.floatingactionbutton.FloatingActionMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -32,7 +30,7 @@ import nichele.meusgastos.BancoSQLite;
 import nichele.meusgastos.Classes.Transacao;
 import nichele.meusgastos.ExtratoAdapter;
 import nichele.meusgastos.R;
-import nichele.meusgastos.TipoDado;
+import nichele.meusgastos.util.TipoDado;
 
 public class fraTransacoes extends Fragment {
 

@@ -1,4 +1,4 @@
-package nichele.meusgastos;
+package nichele.meusgastos.util;
 
 public enum TipoDado {
     nenhum,

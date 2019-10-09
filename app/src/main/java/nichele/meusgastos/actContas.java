@@ -12,6 +12,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import nichele.meusgastos.util.rotinas;
+
 public class actContas extends AppCompatActivity {
    Context context;
    String situacao = "";
@@ -50,7 +52,7 @@ public class actContas extends AppCompatActivity {
    private void gravar(){
       BancoSQLite db = new BancoSQLite(context);
       String status = db.gravaconta(situacao, 0, txtnome.getText().toString());
-      Log.v("log",status);
+      Log.v(rotinas.tag,status);
       db.close();
       finish();
    }

@@ -1,22 +1,14 @@
-package nichele.meusgastos;
+package nichele.meusgastos.util;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
-import android.text.Editable;
-import android.util.Log;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -24,7 +16,7 @@ import java.util.Locale;
  */
 public class rotinas {
 
-
+    public static final String tag = "inspetor";
 
     public float format(String valor){
         return Float.parseFloat(valor.replaceAll(",","."));

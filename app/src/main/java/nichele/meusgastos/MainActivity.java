@@ -23,6 +23,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import nichele.meusgastos.fragments.fraTransacoes;
 import nichele.meusgastos.fragments.fraVisaoGeral;
+import nichele.meusgastos.util.TipoDado;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
          @Override
          public void onClick(View v) {
             //AbreFragment(new fraTransacoes_Manutencao(TipoDado.entradas));
-            abreactivity("manutencao",TipoDado.entradas);
+            abreactivity("manutencao", TipoDado.entradas);
             fabmenu.collapse();
          }
       });
@@ -132,19 +133,19 @@ public class MainActivity extends AppCompatActivity {
               })
               .build();
       //0
-      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName( "Visão Geral").withIcon(getResources().getDrawable(R.drawable.ic_visaogeral_black_24dp)));
+      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName( "Visão Geral").withIcon(getResources().getDrawable(R.drawable.menu_visaogeral)));
       //1
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Transações").withIcon(getResources().getDrawable(R.drawable.ic_extrato)));
       //2
-      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Receitas").withIcon(getResources().getDrawable(R.drawable.ic_up_black)));
+      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Receitas").withIcon(getResources().getDrawable(R.drawable.menu_receitas)));
       //3
-      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Despesas").withIcon(getResources().getDrawable(R.drawable.ic_down_black)));
+      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Despesas").withIcon(getResources().getDrawable(R.drawable.menu_despesas)));
       //4
-      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Contas").withIcon(getResources().getDrawable(R.drawable.ic_contas_black_24dp)));
+      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Contas").withIcon(getResources().getDrawable(R.drawable.menu_contas)));
       //5
-      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Categorias").withIcon(getResources().getDrawable(R.drawable.ic_categorias_black_24dp)));
+      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Categorias").withIcon(getResources().getDrawable(R.drawable.menu_categorias)));
       //6
-      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Configurações").withIcon(getResources().getDrawable(R.drawable.ic_configacoes_black_24dp)));
+      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Ajustes").withIcon(getResources().getDrawable(R.drawable.menu_ajustes)));
    }
 
    private void AbreFragment(Fragment f){
@@ -174,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("situacao", "INC");
             startActivityForResult(intent, 0);
             break;
-         case "configurações":
+         case "ajustes":
             intent = new Intent(this, actConfiguracoes.class);
             startActivityForResult(intent, 0);
             break;

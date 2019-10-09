@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,6 +14,8 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import nichele.meusgastos.util.rotinas;
 
 public class actCategorias extends AppCompatActivity {
    Context context;
@@ -62,7 +63,7 @@ public class actCategorias extends AppCompatActivity {
          return;
       }
       String status = db.gravacategoria(situacao, 0, txtnome.getText().toString(), (optrec.isChecked() == true ? "E" : "S") );
-      Log.v("log_mg",status);
+      Log.v(rotinas.tag,status);
 
       db.close();
       finish();

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,10 +18,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.Locale;
 
 import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.Classes.Conta;
+import nichele.meusgastos.util.DataUtil;
+import nichele.meusgastos.util.MoneyTextWatcher;
+import nichele.meusgastos.util.TipoDado;
 
 public class actTransacoes_Manutencao extends AppCompatActivity  {
 
@@ -29,7 +33,7 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
    TipoDado tipodado;
 
 
-   TextView txtvalor;
+   EditText txtvalor;
 
    GregorianCalendar gc = new GregorianCalendar();
    ImageButton cmdant;
@@ -75,6 +79,8 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
 
       txtdescricao = findViewById(R.id.man_txtdescricao);
 
+      txtvalor.addTextChangedListener(new MoneyTextWatcher(txtvalor, new Locale("pt", "BR")));
+
       BancoSQLite db = new BancoSQLite(context);
       ArrayList<Conta> lstcontas = db.listacontas();
       ArrayAdapter rstcontas = new ArrayAdapter(context,android.R.layout.simple_spinner_item, lstcontas);
@@ -86,6 +92,7 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       rstcategorias.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
       cmbcategoria.setAdapter(rstcategorias);
       db.close();
+
 
       Button cmdsalvar = findViewById(R.id.cmdsalvar);
 

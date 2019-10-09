@@ -12,12 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
 import nichele.meusgastos.R;
-import nichele.meusgastos.rotinas;
+import nichele.meusgastos.util.rotinas;
 
 public class fraVisaoGeral extends Fragment  {
 

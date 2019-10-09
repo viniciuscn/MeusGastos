@@ -2,7 +2,6 @@ package nichele.meusgastos;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -14,6 +13,8 @@ import java.util.ArrayList;
 import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.Classes.Conta;
 import nichele.meusgastos.Classes.Transacao;
+import nichele.meusgastos.util.TipoDado;
+import nichele.meusgastos.util.rotinas;
 
 /**
  * Created by vinicius on 09/01/2018.
@@ -26,7 +27,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
     /* A versão da base de dados que esta classe compreende. */
     private static final int VERSAO_BD = 1;
 
-    private static final String TAG = "log_mg";
+
     /* Mantém rastreamento do contexto que nós podemos carregar SQL */
 
     private final Context contexto;
@@ -61,7 +62,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
                 ", ordem int" +
                 ", Primary key(codcategoria))");
 
-        Log.v(TAG, "criou as tabelas");
+        Log.v(rotinas.tag, "criou as tabelas");
 //        db.execSQL("CREATE TABLE configuracoes(" +
 //                "pedsenha Int," +
 //                "senha VarChar(10)," +
@@ -117,10 +118,10 @@ public class BancoSQLite extends SQLiteOpenHelper {
             values.put("nome", nome);
             if (comando.toUpperCase().equals("INC")){
                 db.insert("contas", null, values);
-                Log.v(TAG, "conta gravada");
+                Log.v(rotinas.tag, "conta gravada");
             }else {
                 db.update(nomedatabela, values, nomedachave + " = " + codconta, null);
-                Log.v(TAG, "conta atualizada");
+                Log.v(rotinas.tag, "conta atualizada");
             }
             return "Sucesso";
 
@@ -170,22 +171,22 @@ public class BancoSQLite extends SQLiteOpenHelper {
             String sql = "SELECT * FROM contas";
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor cursor = db.rawQuery(sql, null);
-            Log.v(TAG, "abriu o cursor");
+            Log.v(rotinas.tag, "abriu o cursor");
             if(cursor.moveToFirst()) {
                 do {
                     contas.add(new Conta(cursor.getInt(cursor.getColumnIndex("codconta")),
                                     cursor.getString(cursor.getColumnIndex("nome"))
                             )
                     );
-                    Log.v(TAG,cursor.getString(cursor.getColumnIndex("nome")));
+                    Log.v(rotinas.tag,cursor.getString(cursor.getColumnIndex("nome")));
                 } while (cursor.moveToNext());
             }
             cursor.close();
-            Log.v(TAG, "fechou o cursor");
+            Log.v(rotinas.tag, "fechou o cursor");
             db.close();
-            Log.v(TAG, "fechou o banco");
+            Log.v(rotinas.tag, "fechou o banco");
         }catch (Exception ex){
-            Log.v(TAG, "deu_merda -> "+ex.getMessage());
+            Log.v(rotinas.tag, "deu_merda -> "+ex.getMessage());
         }
 
 
@@ -205,15 +206,15 @@ public class BancoSQLite extends SQLiteOpenHelper {
             values.put("tipo", tipo);
             if (comando.toUpperCase().equals("INC")){
                 db.insert(nomedatabela, null, values);
-                Log.v(TAG, "categoria gravada -> " + codcategoria + "/"+ nome+ "/"+tipo);
+                Log.v(rotinas.tag, "categoria gravada -> " + codcategoria + "/"+ nome+ "/"+tipo);
             }else {
                 db.update(nomedatabela, values, nomedachave + " = " + codcategoria, null);
-                Log.v(TAG, "categoria atualizada");
+                Log.v(rotinas.tag, "categoria atualizada");
             }
             return "Sucesso";
 
         } catch (Exception e) {
-            Log.e(TAG, "Erro -> " + e.getMessage());
+            Log.e(rotinas.tag, "Erro -> " + e.getMessage());
             return e.getMessage();
         } finally {
             db.close();
@@ -223,12 +224,12 @@ public class BancoSQLite extends SQLiteOpenHelper {
     public ArrayList<Categoria> listacategorias(TipoDado tipodado) {
         ArrayList<Categoria> categorias = new ArrayList<Categoria>();
         String sql = "select * from categorias";// where tipo = ";
-        Log.v(TAG, "tipo " + tipodado.toString());
+        Log.v(rotinas.tag, "tipo " + tipodado.toString());
         if (tipodado.equals(TipoDado.entradas))
             sql += " where tipo = 'E'";
         else if (tipodado.equals(TipoDado.saidas))
             sql += " where tipo = 'S'";
-        Log.v(TAG, sql);
+        Log.v(rotinas.tag, sql);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
         if(cursor.moveToFirst()) {
@@ -237,7 +238,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex("nome"))
                         )
                 );
-                Log.v(TAG,cursor.getString(cursor.getColumnIndex("tipo")));
+                Log.v(rotinas.tag,cursor.getString(cursor.getColumnIndex("tipo")));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -300,7 +301,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
                 " AND data >= '"+datinicial+"'" +
                 " AND data <= '"+datfinal+"'" +
                 " ORDER BY data DESC, ordem";
-        Log.v(TAG, sql);
+        Log.v(rotinas.tag, sql);
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
@@ -327,7 +328,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
     public boolean aceitar_cadastro(String tabela, String valor) {
         boolean status = true;
         String sql = "SELECT * FROM " + tabela + " WHERE nome = '"+ valor +"'";
-        Log.v(TAG, sql);
+        Log.v(rotinas.tag, sql);
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);

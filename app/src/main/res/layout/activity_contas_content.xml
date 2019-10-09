@@ -16,7 +16,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_contas_black_24dp"/>
+            android:src="@drawable/menu_contas"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
