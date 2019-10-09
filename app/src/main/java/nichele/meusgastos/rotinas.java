@@ -40,12 +40,12 @@ public class rotinas {
         c.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
-    public void alertCurto(Context contexto, String mensagem) {
+    public static void alertCurto(Context contexto, String mensagem) {
         //duracao 0 = short; 1 long;
         Toast.makeText(contexto, mensagem, Toast.LENGTH_SHORT).show();
     }
 
-    public void alertLongo(Context contexto, String mensagem) {
+    public static void alertLongo(Context contexto, String mensagem) {
         //duracao 0 = short; 1 long;
         Toast.makeText(contexto, mensagem, Toast.LENGTH_LONG).show();
     }

@@ -196,7 +196,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         String nomedatabela = "categorias", nomedachave = "codcategoria";
         try {
-            if (comando == "INC")
+            if (comando.equals("INC"))
                 codcategoria = ultimocodigo(nomedatabela, nomedachave) + 1;
 
             ContentValues values = new ContentValues();
@@ -213,7 +213,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
             return "Sucesso";
 
         } catch (Exception e) {
-            Log.e("transação", "Erro -> " + e.getMessage());
+            Log.e(TAG, "Erro -> " + e.getMessage());
             return e.getMessage();
         } finally {
             db.close();
@@ -222,11 +222,12 @@ public class BancoSQLite extends SQLiteOpenHelper {
 
     public ArrayList<Categoria> listacategorias(TipoDado tipodado) {
         ArrayList<Categoria> categorias = new ArrayList<Categoria>();
-        String sql = "select * from categorias where tipo = ";
+        String sql = "select * from categorias";// where tipo = ";
+        Log.v(TAG, "tipo " + tipodado.toString());
         if (tipodado.equals(TipoDado.entradas))
-            sql += "'E'";
+            sql += " where tipo = 'E'";
         else if (tipodado.equals(TipoDado.saidas))
-            sql += "'S'";
+            sql += " where tipo = 'S'";
         Log.v(TAG, sql);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
@@ -236,6 +237,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex("nome"))
                         )
                 );
+                Log.v(TAG,cursor.getString(cursor.getColumnIndex("tipo")));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -298,7 +300,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
                 " AND data >= '"+datinicial+"'" +
                 " AND data <= '"+datfinal+"'" +
                 " ORDER BY data DESC, ordem";
-        Log.v("sql", sql);
+        Log.v(TAG, sql);
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
@@ -320,6 +322,22 @@ public class BancoSQLite extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return transacoes;
+    }
+
+    public boolean aceitar_cadastro(String tabela, String valor) {
+        boolean status = true;
+        String sql = "SELECT * FROM " + tabela + " WHERE nome = '"+ valor +"'";
+        Log.v(TAG, sql);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        if(cursor.moveToFirst()) {
+            status = false;
+        }
+        cursor.close();
+        db.close();
+        return status;
+
     }
 }
 

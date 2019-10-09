@@ -55,11 +55,15 @@ public class actCategorias extends AppCompatActivity {
    }
 
    private void gravar(){
-      BancoSQLite db = new BancoSQLite(context);
 
-      //String status = db.gravacategoria(situacao, 0, txtnome.getText().toString(), (opttipo.getCheckedRadioButtonId() == 0 ? "E" : "S") );
+      BancoSQLite db = new BancoSQLite(context);
+      if (db.aceitar_cadastro("categorias", txtnome.getText().toString()) == false){
+         rotinas.alertCurto(context, "Categoria já cadastrada");
+         return;
+      }
       String status = db.gravacategoria(situacao, 0, txtnome.getText().toString(), (optrec.isChecked() == true ? "E" : "S") );
       Log.v("log_mg",status);
+
       db.close();
       finish();
    }

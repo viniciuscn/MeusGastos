@@ -40,46 +40,46 @@ TextView txtdata;
    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                             Bundle savedInstanceState) {
       View view =inflater.inflate(R.layout.fragment_transacoes_manutencao, container, false);
-      Toolbar toolbar =  getActivity().findViewById(R.id.toolbar);
-      toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_close_white));
-      toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            //getActivity().onBackPressed();
-            //getActivity().getFragmentManager().beginTransaction().remove().commit();
-            getActivity().getFragmentManager().popBackStack();
-         }
-      });
-
-      FloatingActionMenu fabmenu = getActivity().findViewById(R.id.fabmenu);
-      fabmenu.setVisibility(View.GONE);
-
-      txtvalor = view.findViewById(R.id.tra_valor);
-      txtvalor.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            abrecalc();
-         }
-      });
-      txtdescricao = view.findViewById(R.id.tra_txtdescricao);
-
-      txtdata = view.findViewById(R.id.lbldata);
-      txtdata.setText(DataUtil.formatadata(new Date(),"ddd, dd mmm yyyy"));
-
-      Button cmdsalvar = view.findViewById(R.id.cmdsalvar);
-      cmdsalvar.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            BancoSQLite db = new BancoSQLite(getContext());
-            String resultado = db.gravatransacoes("INC", 0, "", "ENT",
-                    1,
-                    1,
-                    txtdescricao.getText().toString(),
-                    txtvalor.getText().toString());
-            db.close();
-            Toast.makeText(getContext(),resultado,Toast.LENGTH_SHORT).show();
-         }
-      });
+//      Toolbar toolbar =  getActivity().findViewById(R.id.toolbar);
+//      toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_close_white));
+//      toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//         @Override
+//         public void onClick(View v) {
+//            //getActivity().onBackPressed();
+//            //getActivity().getFragmentManager().beginTransaction().remove().commit();
+//            getActivity().getFragmentManager().popBackStack();
+//         }
+//      });
+//
+//      FloatingActionMenu fabmenu = getActivity().findViewById(R.id.fabmenu);
+//      fabmenu.setVisibility(View.GONE);
+//
+//      txtvalor = view.findViewById(R.id.tra_valor);
+//      txtvalor.setOnClickListener(new View.OnClickListener() {
+//         @Override
+//         public void onClick(View v) {
+//            abrecalc();
+//         }
+//      });
+//      txtdescricao = view.findViewById(R.id.tra_txtdescricao);
+//
+//      txtdata = view.findViewById(R.id.lbldata);
+//      txtdata.setText(DataUtil.formatadata(new Date(),"ddd, dd mmm yyyy"));
+//
+//      Button cmdsalvar = view.findViewById(R.id.cmdsalvar);
+//      cmdsalvar.setOnClickListener(new View.OnClickListener() {
+//         @Override
+//         public void onClick(View v) {
+//            BancoSQLite db = new BancoSQLite(getContext());
+//            String resultado = db.gravatransacoes("INC", 0, "", "ENT",
+//                    1,
+//                    1,
+//                    txtdescricao.getText().toString(),
+//                    txtvalor.getText().toString());
+//            db.close();
+//            Toast.makeText(getContext(),resultado,Toast.LENGTH_SHORT).show();
+//         }
+//      });
       return view;
    }
 
