@@ -48,6 +48,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
                 ", codcategoria int"+
                 ", descricao varchar(255)"+
                 ", valor float"+
+                ", recpag varchar(1)"+
                 ", primary key(id))");
 
         db.execSQL("CREATE TABLE contas(" +
@@ -62,7 +63,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
                 ", ordem int" +
                 ", Primary key(codcategoria))");
 
-        Log.v(rotinas.tag, "criou as tabelas");
+        rotinas.logcat( "criou as tabelas");
 //        db.execSQL("CREATE TABLE configuracoes(" +
 //                "pedsenha Int," +
 //                "senha VarChar(10)," +
@@ -118,15 +119,15 @@ public class BancoSQLite extends SQLiteOpenHelper {
             values.put("nome", nome);
             if (comando.toUpperCase().equals("INC")){
                 db.insert("contas", null, values);
-                Log.v(rotinas.tag, "conta gravada");
+                rotinas.logcat( "conta gravada");
             }else {
                 db.update(nomedatabela, values, nomedachave + " = " + codconta, null);
-                Log.v(rotinas.tag, "conta atualizada");
+                rotinas.logcat("conta atualizada");
             }
             return "Sucesso";
 
         } catch (Exception e) {
-            Log.e("transação", "Erro -> " + e.getMessage());
+            rotinas.logcat( "Erro -> " + e.getMessage());
             return e.getMessage();
         } finally {
             db.close();
@@ -134,7 +135,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
     }
 
 
-    public String gravatransacoes(String situacao, int id, String data, String funcao, int codconta, int codcategoria, String descricao, String valor){
+    public String gravatransacoes(String situacao, int id, String data, String funcao, int codconta, int codcategoria, String descricao, String valor, String recpag){
         SQLiteDatabase db = getWritableDatabase();
         try {
             if(situacao == "INC")
@@ -148,21 +149,66 @@ public class BancoSQLite extends SQLiteOpenHelper {
             values.put("codconta", codconta);
             values.put("codcategoria", codcategoria);
             values.put("descricao", descricao);
-            values.put("valor", new rotinas().format(valor));
+            values.put("valor", rotinas.format(valor));
+            values.put("recpag", recpag);
             if (situacao.toUpperCase().equals("INC"))
                 db.insert("transacoes", null, values);
             else
                 db.update("transacoes", values, "id = " + id, null);
-
             return "Sucesso";
-
         }catch (Exception e){
-            Log.e("transação", "Erro -> " + e.getMessage());
+            rotinas.logcat( "Erro -> " + e.getMessage());
             return e.getMessage();
         } finally {
             db.close();
         }
 
+    }
+
+    public ArrayList<Transacao> getTransacoes(TipoDado listar, String datinicial, String datfinal) {
+        ArrayList<Transacao> transacoes = new ArrayList<Transacao>();
+        String funcao = "";
+        switch (listar){
+            case entradas:
+                funcao = " and funcao = 'E'";
+                break;
+            case saidas:
+                funcao = " and funcao = 'S'";
+                break;
+            case extrato:
+                funcao = "";
+                break;
+        }
+
+        String sql = "SELECT t.*, cnt.nome nomeconta, cat.nome nomecategoria " +
+                " FROM Transacoes t, contas cnt, categorias cat" +
+                " WHERE t.codconta = cnt.codconta and t.codcategoria = cat.codcategoria" +
+                funcao +
+                " AND data >= '"+datinicial+"'" +
+                " AND data <= '"+datfinal+"'" +
+                " ORDER BY data DESC, id DESC, ordem";
+        rotinas.logcat( sql);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        if(cursor.moveToFirst()) {
+            do {
+                transacoes.add(new Transacao(cursor.getInt(cursor.getColumnIndex("id")),
+                                cursor.getString(cursor.getColumnIndex("data")),
+                                cursor.getString(cursor.getColumnIndex("funcao")),
+                                new Conta(cursor.getInt(cursor.getColumnIndex("codconta")),
+                                        cursor.getString(cursor.getColumnIndex("nomeconta"))),
+                                new Categoria(cursor.getInt(cursor.getColumnIndex("codcategoria")),
+                                        cursor.getString(cursor.getColumnIndex("nomecategoria"))),
+                                cursor.getString(cursor.getColumnIndex("descricao")),
+                                cursor.getFloat(cursor.getColumnIndex("valor"))
+                        )
+                );
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return transacoes;
     }
 
     public ArrayList<Conta> listacontas() {
@@ -171,22 +217,22 @@ public class BancoSQLite extends SQLiteOpenHelper {
             String sql = "SELECT * FROM contas";
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor cursor = db.rawQuery(sql, null);
-            Log.v(rotinas.tag, "abriu o cursor");
+            rotinas.logcat( "abriu o cursor");
             if(cursor.moveToFirst()) {
                 do {
                     contas.add(new Conta(cursor.getInt(cursor.getColumnIndex("codconta")),
                                     cursor.getString(cursor.getColumnIndex("nome"))
                             )
                     );
-                    Log.v(rotinas.tag,cursor.getString(cursor.getColumnIndex("nome")));
+                    rotinas.logcat(cursor.getString(cursor.getColumnIndex("nome")));
                 } while (cursor.moveToNext());
             }
             cursor.close();
-            Log.v(rotinas.tag, "fechou o cursor");
+            rotinas.logcat( "fechou o cursor");
             db.close();
-            Log.v(rotinas.tag, "fechou o banco");
+            rotinas.logcat( "fechou o banco");
         }catch (Exception ex){
-            Log.v(rotinas.tag, "deu_merda -> "+ex.getMessage());
+            rotinas.logcat( "deu_merda -> "+ex.getMessage());
         }
 
 
@@ -206,15 +252,15 @@ public class BancoSQLite extends SQLiteOpenHelper {
             values.put("tipo", tipo);
             if (comando.toUpperCase().equals("INC")){
                 db.insert(nomedatabela, null, values);
-                Log.v(rotinas.tag, "categoria gravada -> " + codcategoria + "/"+ nome+ "/"+tipo);
+                rotinas.logcat( "categoria gravada -> " + codcategoria + "/"+ nome+ "/"+tipo);
             }else {
                 db.update(nomedatabela, values, nomedachave + " = " + codcategoria, null);
-                Log.v(rotinas.tag, "categoria atualizada");
+                rotinas.logcat( "categoria atualizada");
             }
             return "Sucesso";
 
         } catch (Exception e) {
-            Log.e(rotinas.tag, "Erro -> " + e.getMessage());
+            rotinas.logcat( "Erro -> " + e.getMessage());
             return e.getMessage();
         } finally {
             db.close();
@@ -224,12 +270,12 @@ public class BancoSQLite extends SQLiteOpenHelper {
     public ArrayList<Categoria> listacategorias(TipoDado tipodado) {
         ArrayList<Categoria> categorias = new ArrayList<Categoria>();
         String sql = "select * from categorias";// where tipo = ";
-        Log.v(rotinas.tag, "tipo " + tipodado.toString());
+        rotinas.logcat( "tipo " + tipodado.toString());
         if (tipodado.equals(TipoDado.entradas))
             sql += " where tipo = 'E'";
         else if (tipodado.equals(TipoDado.saidas))
             sql += " where tipo = 'S'";
-        Log.v(rotinas.tag, sql);
+        rotinas.logcat( sql);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
         if(cursor.moveToFirst()) {
@@ -238,7 +284,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex("nome"))
                         )
                 );
-                Log.v(rotinas.tag,cursor.getString(cursor.getColumnIndex("tipo")));
+                rotinas.logcat( cursor.getString(cursor.getColumnIndex("tipo")));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -279,56 +325,12 @@ public class BancoSQLite extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<Transacao> getTransacoes(TipoDado listar, String datinicial, String datfinal) {
-        ArrayList<Transacao> transacoes = new ArrayList<Transacao>();
-        String funcao = "";
-        switch (listar){
-            case entradas:
-                funcao = " and funcao = 'ENT'";
-                break;
-            case saidas:
-                funcao = " and funcao = 'BAI'";
-                break;
-            case extrato:
-                funcao = "";
-                break;
-        }
 
-        String sql = "SELECT t.*, cnt.nome nomeconta, cat.nome nomecategoria " +
-                " FROM Transacoes t, contas cnt, categorias cat" +
-                " WHERE t.codconta = cnt.codconta and t.codcategoria = cat.codcategoria" +
-                funcao +
-                " AND data >= '"+datinicial+"'" +
-                " AND data <= '"+datfinal+"'" +
-                " ORDER BY data DESC, ordem";
-        Log.v(rotinas.tag, sql);
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(sql, null);
-        if(cursor.moveToFirst()) {
-            do {
-                transacoes.add(new Transacao(cursor.getInt(cursor.getColumnIndex("id")),
-                                cursor.getString(cursor.getColumnIndex("data")),
-                                cursor.getString(cursor.getColumnIndex("funcao")),
-                                new Conta(cursor.getInt(cursor.getColumnIndex("codconta")),
-                                        cursor.getString(cursor.getColumnIndex("nomeconta"))),
-                                new Categoria(cursor.getInt(cursor.getColumnIndex("codcategoria")),
-                                        cursor.getString(cursor.getColumnIndex("nomecategoria"))),
-                                cursor.getString(cursor.getColumnIndex("descricao")),
-                                cursor.getFloat(cursor.getColumnIndex("valor"))
-                        )
-                );
-            }while (cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
-        return transacoes;
-    }
 
     public boolean aceitar_cadastro(String tabela, String valor) {
         boolean status = true;
         String sql = "SELECT * FROM " + tabela + " WHERE nome = '"+ valor +"'";
-        Log.v(rotinas.tag, sql);
+        rotinas.logcat( sql );
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);

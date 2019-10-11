@@ -37,7 +37,7 @@
         </activity>
 
         <activity
-            android:name=".actConfiguracoes"
+            android:name=".actAjustes"
             android:label="PickImage"
             android:parentActivityName=".MainActivity">
             <meta-data

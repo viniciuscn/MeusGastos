@@ -7,10 +7,17 @@
 
 
 
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/lsvtransacoes"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/cinza"-->
+<!--        tools:listitem="@layout/fragment_transacoes_lista_item" />-->
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lsvtransacoes"
+        android:id="@+id/lista_dados"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/cinza"
-        tools:listitem="@layout/fragment_transacoes_lista_item" />
+        />
 </LinearLayout>

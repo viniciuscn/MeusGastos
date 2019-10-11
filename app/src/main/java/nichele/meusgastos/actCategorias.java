@@ -63,7 +63,7 @@ public class actCategorias extends AppCompatActivity {
          return;
       }
       String status = db.gravacategoria(situacao, 0, txtnome.getText().toString(), (optrec.isChecked() == true ? "E" : "S") );
-      Log.v(rotinas.tag,status);
+      rotinas.logcat(status);
 
       db.close();
       finish();

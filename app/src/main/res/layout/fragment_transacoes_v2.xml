@@ -83,7 +83,7 @@
         android:layout_below="@id/filtro"/>
 
     <include
-        layout="@layout/fragment_transacoes_lista"
+        layout="@layout/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/navegacao"

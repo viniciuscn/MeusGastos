@@ -3,12 +3,14 @@ package nichele.meusgastos.util;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
@@ -17,9 +19,20 @@ import java.util.Locale;
 public class rotinas {
 
     public static final String tag = "inspetor";
+    public static Locale locale = Locale.getDefault();
 
-    public float format(String valor){
-        return Float.parseFloat(valor.replaceAll(",","."));
+    public static void logcat(String msg){
+        Log.v(tag,msg);
+    }
+    public static String limpacampovalor(String valor){
+        String replaceable = String.format("[%s,.\\s]", NumberFormat.getCurrencyInstance(locale).getCurrency().getSymbol());
+        String valorlimpo = valor.replaceAll(replaceable, "");
+        rotinas.logcat(valorlimpo);
+        return valorlimpo;
+    }
+
+    public static float format(String valor){
+        return Float.parseFloat(limpacampovalor(valor));
     }
 
     public String formatavalorBR(Float valor) {

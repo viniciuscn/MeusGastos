@@ -52,7 +52,7 @@ public class fraTransacoes extends Fragment {
 
       view = inflater.inflate(R.layout.fragment_transacoes, container, false);
 
-      toolbar = getActivity().findViewById(R.id.barra);
+      toolbar = getActivity().findViewById(R.id.toolbar);
       toolbar.setTitle("Transações");
       definecores();
 
@@ -98,6 +98,12 @@ public class fraTransacoes extends Fragment {
       return view;
    }
 
+   @Override
+   public void onResume() {
+      super.onResume();
+      mostradados();
+   }
+
    private void definecores(){
       if(listar == TipoDado.entradas){
          primariaescura = getResources().getColor(R.color.verdeescuro);
@@ -117,13 +123,13 @@ public class fraTransacoes extends Fragment {
       toolbar.setBackgroundColor(primaria);
    }
 
-   private void mostradados(){
+   public void mostradados(){
       BancoSQLite db = new BancoSQLite(getContext());
       ArrayList<Transacao> dados = db.getTransacoes(listar,lbldatinicial.getText().toString(),lbldatfinal.getText().toString());
       db.close();
       ExtratoAdapter adapter = new ExtratoAdapter(dados, getContext());
 
-      RecyclerView recyclerView = view.findViewById(R.id.lsvtransacoes);
+      RecyclerView recyclerView = view.findViewById(R.id.lista_dados);
       recyclerView.setAdapter(adapter);
       recyclerView.setLayoutManager(new LinearLayoutManager( getContext()));
 

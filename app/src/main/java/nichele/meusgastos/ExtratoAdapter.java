@@ -6,18 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
 import nichele.meusgastos.Classes.Transacao;
+import nichele.meusgastos.util.datautil;
 
 public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoViewHolder> {
 
     ArrayList<Transacao> extrato;
     static Context context;
-
-    ExtratoAdapter(){}
 
     public ExtratoAdapter(ArrayList<Transacao> extrato, Context context){
         this.extrato = extrato;
@@ -33,7 +33,13 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
 
     @Override
     public void onBindViewHolder(ExtratoViewHolder holder, final int position) {
-        holder.txtdata.setText(extrato.get(position).getData());
+        GregorianCalendar gc=new GregorianCalendar();
+        String data = extrato.get(position).getData();
+        gc.set(GregorianCalendar.YEAR, Integer.valueOf(data.subSequence(0,4).toString()));
+        gc.set(GregorianCalendar.MONTH, Integer.valueOf(data.subSequence(5,7).toString())-1);
+        gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(data.subSequence(8,10).toString()));
+
+        holder.txtdata.setText(datautil.formatadata(gc.getTime(), "dddd, dd"));
         holder.txtfuncao.setText(extrato.get(position).getFuncao());
         holder.txtcodconta.setText(extrato.get(position).conta.getCodigo());
         holder.txtnomeconta.setText(extrato.get(position).conta.getNome());

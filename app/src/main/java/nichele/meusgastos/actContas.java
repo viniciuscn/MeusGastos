@@ -52,7 +52,7 @@ public class actContas extends AppCompatActivity {
    private void gravar(){
       BancoSQLite db = new BancoSQLite(context);
       String status = db.gravaconta(situacao, 0, txtnome.getText().toString());
-      Log.v(rotinas.tag,status);
+      rotinas.logcat(status);
       db.close();
       finish();
    }

@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import nichele.meusgastos.util.DataUtil;
+import nichele.meusgastos.util.datautil;
 import nichele.meusgastos.R;
 
 public class FiltraPeriodo extends Fragment {
@@ -64,7 +64,7 @@ public class FiltraPeriodo extends Fragment {
             gc.set(GregorianCalendar.YEAR, Integer.valueOf(lbldatinicial.getText().subSequence(0,4).toString()));
             gc.set(GregorianCalendar.MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(5,7).toString())-1);
             gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(8,10).toString()));
-            gc.setTime( DataUtil.DateAdd( DataUtil.DateInterval.mes,-1, gc.getTime()) );
+            gc.setTime( datautil.DateAdd( datautil.DateInterval.mes,-1, gc.getTime()) );
             mostradatas();
 
          }
@@ -78,7 +78,7 @@ public class FiltraPeriodo extends Fragment {
             gc.set(GregorianCalendar.YEAR, Integer.valueOf(lbldatinicial.getText().subSequence(0,4).toString()));
             gc.set(GregorianCalendar.MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(5,7).toString())-1);
             gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(8,10).toString()));
-            gc.setTime( DataUtil.DateAdd( DataUtil.DateInterval.mes,1, gc.getTime()) );
+            gc.setTime( datautil.DateAdd( datautil.DateInterval.mes,1, gc.getTime()) );
             mostradatas();
 
          }
@@ -88,7 +88,7 @@ public class FiltraPeriodo extends Fragment {
    private void mostradatas(){
       lbldatinicial.setText( gc.get(Calendar.YEAR) + "/" + String.format("%02d", new Integer(gc.get(Calendar.MONTH)+1 )) + "/01" );
       lbldatfinal.setText( gc.get(Calendar.YEAR) +"/" + String.format("%02d", new Integer(gc.get(Calendar.MONTH)+1 )) +"/" + String.format("%02d", new Integer(gc.getActualMaximum(Calendar.DAY_OF_MONTH))) );
-      lblmesextenso.setText(DataUtil.formatadata(gc.getTime(),"MMMM, yyyy"));
+      lblmesextenso.setText(datautil.formatadata(gc.getTime(),"MMMM, yyyy"));
    }
 
 

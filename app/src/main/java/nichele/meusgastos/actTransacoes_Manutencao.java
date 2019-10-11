@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -18,13 +19,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.Classes.Conta;
-import nichele.meusgastos.util.DataUtil;
-import nichele.meusgastos.util.MoneyTextWatcher;
+import nichele.meusgastos.util.datautil;
 import nichele.meusgastos.util.TipoDado;
+import nichele.meusgastos.util.rotinas;
 
 public class actTransacoes_Manutencao extends AppCompatActivity  {
 
@@ -32,7 +32,8 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
    String situacao = "";
    TipoDado tipodado;
 
-
+   TextView txtchave;
+   int chave;
    EditText txtvalor;
 
    GregorianCalendar gc = new GregorianCalendar();
@@ -41,10 +42,14 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
    TextView txtdata;
    ImageButton cmdnext;
 
-   int codconta;
-
-   int codcategoria;
    TextView txtdescricao;
+
+   Spinner cmbconta;
+   Spinner cmbcategoria;
+   int codconta;
+   int codcategoria;
+
+   CheckBox chk;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -61,40 +66,45 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
 
    private void carregatela(){
       context = this;
+
       //declarações dos campos
       Toolbar toolbar =  findViewById(R.id.toolbar);
       setSupportActionBar(toolbar);
       getSupportActionBar().setHomeButtonEnabled(true);
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      txtvalor = findViewById(R.id.man_txtvalor);
 
+      txtchave = findViewById(R.id.man_chave);
+      txtvalor = findViewById(R.id.man_txtvalor);
       cmdant = findViewById(R.id.man_cmdant);
       lbldata = findViewById(R.id.man_lbldata);
       txtdata = findViewById(R.id.man_txtdata);
       cmdnext = findViewById(R.id.man_cmdnext);
-
-
-      Spinner cmbconta = findViewById(R.id.man_cmbconta);
-      Spinner cmbcategoria = findViewById(R.id.man_cmbcategoria);
-
       txtdescricao = findViewById(R.id.man_txtdescricao);
+      cmbconta = findViewById(R.id.man_cmbconta);
+      cmbcategoria = findViewById(R.id.man_cmbcategoria);
+      chk=findViewById(R.id.man_chkrecpag);
+      Button cmdsalvar = findViewById(R.id.cmdsalvar);
 
-      txtvalor.addTextChangedListener(new MoneyTextWatcher(txtvalor, new Locale("pt", "BR")));
+
+      //txtvalor.addTextChangedListener(new MoneyTextWatcher(txtvalor));
+      txtvalor.requestFocus();
+      txtvalor.setOnLongClickListener(new View.OnLongClickListener() {
+         @Override
+         public boolean onLongClick(View v) {
+            return true;
+         }
+      });
 
       BancoSQLite db = new BancoSQLite(context);
-      ArrayList<Conta> lstcontas = db.listacontas();
+      final ArrayList<Conta> lstcontas = db.listacontas();
       ArrayAdapter rstcontas = new ArrayAdapter(context,android.R.layout.simple_spinner_item, lstcontas);
       rstcontas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
       cmbconta.setAdapter(rstcontas);
 
-      ArrayList<Categoria> lstcategorias = db.listacategorias(tipodado);
+      final ArrayList<Categoria> lstcategorias = db.listacategorias(tipodado);
       ArrayAdapter<Categoria> rstcategorias = new ArrayAdapter<Categoria>(this, R.layout.support_simple_spinner_dropdown_item, lstcategorias);
       rstcategorias.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
       cmbcategoria.setAdapter(rstcategorias);
-      db.close();
-
-
-      Button cmdsalvar = findViewById(R.id.cmdsalvar);
 
       //tratamentos - eventos, valores iniciais
       txtvalor.setOnClickListener(new View.OnClickListener() {
@@ -104,23 +114,24 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
          }
       });
       if (situacao.equals("INC")) {
-         lbldata.setText(DataUtil.formatadata(new Date(), "ddd, dd mmm yyyy"));
-         txtdata.setText(DataUtil.formatadata(new Date(), "yyyy-mm-dd"));
-
+         chave=db.ultimocodigo("transacoes","id")+1;
+         txtchave.setText(String.valueOf(chave));
+         lbldata.setText(datautil.formatadata(new Date(), "ddd, dd mmm yyyy"));
+         txtdata.setText(datautil.formatadata(new Date(), "yyyy-mm-dd"));
 
       }
+      db.close();
+
 
 
       cmdant.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-
             gc.set(GregorianCalendar.YEAR, Integer.valueOf(txtdata.getText().subSequence(0,4).toString()));
             gc.set(GregorianCalendar.MONTH, Integer.valueOf(txtdata.getText().subSequence(5,7).toString())-1);
             gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(txtdata.getText().subSequence(8,10).toString()));
-            gc.setTime( DataUtil.DateAdd( DataUtil.DateInterval.dia,-1, gc.getTime()) );
+            gc.setTime( datautil.DateAdd( datautil.DateInterval.dia,-1, gc.getTime()) );
             mostradatas();
-
          }
       });
 
@@ -132,34 +143,42 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
             gc.set(GregorianCalendar.YEAR, Integer.valueOf(txtdata.getText().subSequence(0,4).toString()));
             gc.set(GregorianCalendar.MONTH, Integer.valueOf(txtdata.getText().subSequence(5,7).toString())-1);
             gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(txtdata.getText().subSequence(8,10).toString()));
-            gc.setTime( DataUtil.DateAdd( DataUtil.DateInterval.dia,1, gc.getTime()) );
+            gc.setTime( datautil.DateAdd( datautil.DateInterval.dia,1, gc.getTime()) );
             mostradatas();
 
          }
       });
 
-
+      if (tipodado == TipoDado.entradas)
+         chk.setText("Recebido");
+      else
+         chk.setText("Pago");
       cmdsalvar.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            BancoSQLite db = new BancoSQLite(context);
 
-            String resultado = db.gravatransacoes(situacao, 0, txtdata.getText().toString(), (tipodado == TipoDado.entradas ? "E" : "S"),
+            codconta = lstcontas.get(cmbconta.getSelectedItemPosition()).codigo;
+            codcategoria = lstcategorias.get(cmbcategoria.getSelectedItemPosition()).codigo;
+
+            BancoSQLite db = new BancoSQLite(context);
+            String resultado = db.gravatransacoes(situacao, chave, txtdata.getText().toString(),
+                    tipodado == TipoDado.entradas ? "E" : "S",
                     codconta,
                     codcategoria,
                     txtdescricao.getText().toString(),
-                    txtvalor.getText().toString());
+                    txtvalor.getText().toString(),(chk.isChecked() == true ? "S" : "N"));
             db.close();
+            rotinas.logcat( resultado);
             finish();
          }
       });
-
+      db.close();
    }
 
    private void mostradatas(){
 
 
-      lbldata.setText(DataUtil.formatadata(gc.getTime(),"ddd, dd mmm yyyy"));
+      lbldata.setText(datautil.formatadata(gc.getTime(),"ddd, dd mmm yyyy"));
       txtdata.setText( gc.get(Calendar.YEAR) + "-" + String.format("%02d", new Integer(gc.get(Calendar.MONTH)+1 )) + "-" + String.format("%02d", gc.get(Calendar.DAY_OF_MONTH)));
    }
 

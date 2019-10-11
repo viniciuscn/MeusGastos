@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DataUtil {
+public class datautil {
 
    public enum DateInterval{
       dia,
@@ -42,11 +42,12 @@ public class DataUtil {
       if (formato.toLowerCase().equals("mmmm, yyyy")){
          sdf= new SimpleDateFormat("MMMM, yyyy");
          return upperCaseFirst(sdf.format(data));
-      }
-
-      else if (formato.toLowerCase().equals("ddd, dd mmm yyyy")) {
-         sdf= new SimpleDateFormat("EEE, dd MMM 'de' yyyy");
+      } else if (formato.toLowerCase().equals("ddd, dd mmm yyyy")) {
+         sdf = new SimpleDateFormat("EEE, dd MMM 'de' yyyy");
          return upperCaseFirst(sdf.format(data));
+      }else if (formato.toLowerCase().equals("dddd, dd")) {
+            sdf= new SimpleDateFormat("EEEE, dd");
+            return upperCaseFirst(sdf.format(data));
       }else{
          if (formato.toLowerCase().equals("dd/mm/yyyy")) {
             sdf= new SimpleDateFormat("dd/MM/yyyy");
@@ -96,11 +97,11 @@ public class DataUtil {
       Date data=null;
       try {
          data = df.parse(pdata);
-         Log.i("montadata", pdata);
-         Log.i("montadata", df.format(data));
+         rotinas.logcat(pdata);
+         rotinas.logcat( df.format(data));
       } catch (ParseException e) {
          e.printStackTrace();
-         Log.i("montadata",e.getMessage());
+         rotinas.logcat(e.getMessage());
       }
       return df.format(data);
    }

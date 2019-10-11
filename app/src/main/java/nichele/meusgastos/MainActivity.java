@@ -21,9 +21,12 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import java.util.Locale;
+
 import nichele.meusgastos.fragments.fraTransacoes;
 import nichele.meusgastos.fragments.fraVisaoGeral;
 import nichele.meusgastos.util.TipoDado;
+import nichele.meusgastos.util.rotinas;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
 
-
+      rotinas.locale = new Locale("pt", "BR");
       String keyfirstopen = "firstopen";
       SharedPreferences sharedPreferences = getSharedPreferences(keyfirstopen, Context.MODE_PRIVATE);
 
@@ -119,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                           abreactivity("categorias",TipoDado.nenhum);
                           break;
                        case 6:
-                          abreactivity("configuracoes",TipoDado.nenhum);
+                          abreactivity("ajustes",TipoDado.nenhum);
                           break;
                     }
                  }
@@ -176,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, 0);
             break;
          case "ajustes":
-            intent = new Intent(this, actConfiguracoes.class);
+            intent = new Intent(this, actAjustes.class);
             startActivityForResult(intent, 0);
             break;
       }
@@ -201,4 +204,6 @@ public class MainActivity extends AppCompatActivity {
          backButtonCount++;
       }
    }
+
+
 }

@@ -57,7 +57,7 @@ TextView txtdata;
 //      txtdescricao = view.findViewById(R.id.tra_txtdescricao);
 //
 //      txtdata = view.findViewById(R.id.lbldata);
-//      txtdata.setText(DataUtil.formatadata(new Date(),"ddd, dd mmm yyyy"));
+//      txtdata.setText(datautil.formatadata(new Date(),"ddd, dd mmm yyyy"));
 //
 //      Button cmdsalvar = view.findViewById(R.id.cmdsalvar);
 //      cmdsalvar.setOnClickListener(new View.OnClickListener() {

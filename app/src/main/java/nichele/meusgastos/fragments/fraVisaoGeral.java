@@ -56,7 +56,7 @@ public class fraVisaoGeral extends Fragment  {
          window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
          window.setStatusBarColor(  getResources().getColor(R.color.colorPrimaryDark));
       }
-      //toolbar.setBackgroundColor( getResources().getColor(R.color.colorPrimary));
+      toolbar.setBackgroundColor( getResources().getColor(R.color.colorPrimary));
    }
 
    @Override
