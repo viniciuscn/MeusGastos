@@ -13,6 +13,7 @@ import java.util.GregorianCalendar;
 
 import nichele.meusgastos.Classes.Transacao;
 import nichele.meusgastos.util.datautil;
+import nichele.meusgastos.util.rotinas;
 
 public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoViewHolder> {
 
@@ -44,9 +45,13 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
         holder.txtcodconta.setText(extrato.get(position).conta.getCodigo());
         holder.txtnomeconta.setText(extrato.get(position).conta.getNome());
         holder.txtcodcategoria.setText(extrato.get(position).categoria.getCodigo());
-        holder.txtnomecategoria.setText(extrato.get(position).categoria.getNome());
+        holder.txtnomecategoria.setText("   "+extrato.get(position).categoria.getNome()+"   ");
         holder.txtdescricao.setText(extrato.get(position).getDescricao());
-        holder.txtvalor.setText(extrato.get(position).getValorString());
+        holder.txtvalor.setText(rotinas.formatavalorBR(extrato.get(position).getValorString()));
+        if (extrato.get(position).getFuncao().equals("E"))
+            holder.txtvalor.setTextColor(context.getResources().getColor(R.color.verde));
+        else
+            holder.txtvalor.setTextColor(context.getResources().getColor(R.color.vermelho));
     }
 
     @Override

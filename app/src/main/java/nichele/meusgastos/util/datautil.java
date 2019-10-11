@@ -47,7 +47,7 @@ public class datautil {
          return upperCaseFirst(sdf.format(data));
       }else if (formato.toLowerCase().equals("dddd, dd")) {
             sdf= new SimpleDateFormat("EEEE, dd");
-            return upperCaseFirst(sdf.format(data));
+            return upperCaseFirst(sdf.format(data)).replace("-feira","");
       }else{
          if (formato.toLowerCase().equals("dd/mm/yyyy")) {
             sdf= new SimpleDateFormat("dd/MM/yyyy");

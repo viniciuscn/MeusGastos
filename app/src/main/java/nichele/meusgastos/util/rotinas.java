@@ -25,7 +25,8 @@ public class rotinas {
         Log.v(tag,msg);
     }
     public static String limpacampovalor(String valor){
-        String replaceable = String.format("[%s,.\\s]", NumberFormat.getCurrencyInstance(locale).getCurrency().getSymbol());
+        //String replaceable = String.format("[%s,.\\s]", NumberFormat.getCurrencyInstance(locale).getCurrency().getSymbol());
+        String replaceable = String.format("[%s\\s]", NumberFormat.getCurrencyInstance(locale).getCurrency().getSymbol());
         String valorlimpo = valor.replaceAll(replaceable, "");
         rotinas.logcat(valorlimpo);
         return valorlimpo;
@@ -35,10 +36,10 @@ public class rotinas {
         return Float.parseFloat(limpacampovalor(valor));
     }
 
-    public String formatavalorBR(Float valor) {
+    public static String formatavalorBR(String valor) {
         DecimalFormat df = new DecimalFormat("##,###,###,##0.00", new DecimalFormatSymbols(new Locale("pt", "BR")));
         //DecimalFormat df = new DecimalFormat("#.00");
-        return df.format(valor);
+        return df.format(Float.parseFloat(valor));
     }
 
     public void EscondeTeclado(Activity c) {

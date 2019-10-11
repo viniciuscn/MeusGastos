@@ -99,12 +99,12 @@ public class BancoSQLite extends SQLiteOpenHelper {
         execute("INSERT INTO contas VALUES(1, 'Minha Conta Corrente')");
         execute("INSERT INTO contas VALUES(2, 'Minha Carteira')");
 
-        execute("INSERT INTO categorias VALUES(0, 'Receitas diversas', 'E', 0)");
-        execute("INSERT INTO categorias VALUES(1, 'Salário', 'E', 1)");
+        execute("INSERT INTO categorias VALUES(1, 'Receitas diversas', 'E', 0)");
+        execute("INSERT INTO categorias VALUES(2, 'Salário', 'E', 1)");
 
-        execute("INSERT INTO categorias VALUES(2, 'Despesas diversas', 'S',2)");
-        execute("INSERT INTO categorias VALUES(3, 'Comer fora', 'S',3)");
-        execute("INSERT INTO categorias VALUES(4, 'Combustível', 'S',4)");
+        execute("INSERT INTO categorias VALUES(3, 'Despesas diversas', 'S',2)");
+        execute("INSERT INTO categorias VALUES(4, 'Comer fora', 'S',3)");
+        execute("INSERT INTO categorias VALUES(5, 'Combustível', 'S',4)");
     }
 
     public String gravaconta(String comando, int codconta, String nome) {
