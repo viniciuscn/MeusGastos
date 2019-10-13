@@ -9,9 +9,9 @@ public class Transacao {
     public Categoria categoria;
     public String descricao;
     public float valor;
+    public String quitado;
 
-
-    public Transacao(int pid, String pdata, String pfuncao, Conta pconta, Categoria pcat, String pdescricao, float pvalor){
+    public Transacao(int pid, String pdata, String pfuncao, Conta pconta, Categoria pcat, String pdescricao, float pvalor, String pquitado){
         id=pid;
         data=pdata;
         funcao=pfuncao;
@@ -19,6 +19,7 @@ public class Transacao {
         categoria=pcat;
         descricao=pdescricao;
         valor=pvalor;
+        quitado=pquitado;
     }
 
     public String getDescricao() { return descricao; }
@@ -34,4 +35,8 @@ public class Transacao {
     public String getData() {
         return data;
     }
+
+    public String getQuitado() { return quitado; }
+
+
 }

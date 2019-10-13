@@ -48,7 +48,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
                 ", codcategoria int"+
                 ", descricao varchar(255)"+
                 ", valor float"+
-                ", recpag varchar(1)"+
+                ", quitado varchar(1)"+
                 ", primary key(id))");
 
         db.execSQL("CREATE TABLE contas(" +
@@ -135,7 +135,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
     }
 
 
-    public String gravatransacoes(String situacao, int id, String data, String funcao, int codconta, int codcategoria, String descricao, String valor, String recpag){
+    public String gravatransacoes(String situacao, int id, String data, String funcao, int codconta, int codcategoria, String descricao, String valor, String quitado){
         SQLiteDatabase db = getWritableDatabase();
         try {
             if(situacao == "INC")
@@ -150,7 +150,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
             values.put("codcategoria", codcategoria);
             values.put("descricao", descricao);
             values.put("valor", rotinas.format(valor));
-            values.put("recpag", recpag);
+            values.put("quitado", quitado);
             if (situacao.toUpperCase().equals("INC"))
                 db.insert("transacoes", null, values);
             else
@@ -201,7 +201,8 @@ public class BancoSQLite extends SQLiteOpenHelper {
                                 new Categoria(cursor.getInt(cursor.getColumnIndex("codcategoria")),
                                         cursor.getString(cursor.getColumnIndex("nomecategoria"))),
                                 cursor.getString(cursor.getColumnIndex("descricao")),
-                                cursor.getFloat(cursor.getColumnIndex("valor"))
+                                cursor.getFloat(cursor.getColumnIndex("valor")),
+                                cursor.getString(cursor.getColumnIndex("quitado"))
                         )
                 );
             }while (cursor.moveToNext());
@@ -341,6 +342,10 @@ public class BancoSQLite extends SQLiteOpenHelper {
         db.close();
         return status;
 
+    }
+
+    public void deletatransacao(int id) {
+        execute("delete from transacoes where id = " + id);
     }
 }
 

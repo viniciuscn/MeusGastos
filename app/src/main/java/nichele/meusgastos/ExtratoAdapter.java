@@ -1,17 +1,24 @@
 package nichele.meusgastos;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import nichele.meusgastos.Classes.Transacao;
+import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.util.datautil;
 import nichele.meusgastos.util.rotinas;
 
@@ -19,6 +26,8 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
 
     ArrayList<Transacao> extrato;
     static Context context;
+    AlertDialog alerta;
+    AlertDialog confirmacao;
 
     public ExtratoAdapter(ArrayList<Transacao> extrato, Context context){
         this.extrato = extrato;
@@ -34,6 +43,71 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
 
     @Override
     public void onBindViewHolder(ExtratoViewHolder holder, final int position) {
+
+        holder.frame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<String> itens = new ArrayList<>();
+                itens.add("Alterar");
+                itens.add("Excluir");
+
+                //adapter utilizando um layout customizado (TextView)
+                ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, itens);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                //builder.setTitle("Qualifique este software:");
+                //define o diálogo como uma lista, passa o adapter.
+                builder.setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        if (arg1==0) {
+                            //Intent intent = new Intent(context, (extrato.get(position).funcao.equals("E") ? actRenda.class : actDespesas.class) );
+                            Intent intent = new Intent(context, actTransacoes_Manutencao.class );
+                            intent.putExtra("tipdado", (extrato.get(position).funcao.equals("E") ? TipoDado.entradas : TipoDado.saidas) );
+                            intent.putExtra("situacao", "alt");
+                            intent.putExtra("registro", (Serializable) extrato.get(position));
+                            context.startActivity(intent);
+
+                        } else if (arg1==1){
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            //define o titulo
+                            builder.setTitle("Confirmar");
+                            //define a mensagem
+                            builder.setMessage("Tem certeza que deseja excluir esta " + (extrato.get(position).funcao.equals("E") ? "receita" : "despesa") +"?");
+                            //define um botão como positivo
+                            builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    BancoSQLite db = new BancoSQLite(context);
+                                    db.deletatransacao(extrato.get(position).id);
+                                    extrato.remove(position);
+                                    //adapter.notifyDataSetChanged();
+                                    confirmacao.dismiss();
+                                }
+                            });
+                            //define um botão como negativo.
+                            builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    //Toast.makeText(MainActivity.this, "negativo=" + arg1, Toast.LENGTH_SHORT).show();
+                                    confirmacao.dismiss();
+                                }
+                            });
+                            //cria o AlertDialog
+                            confirmacao = builder.create();
+                            //Exibe
+                            confirmacao.show();
+                        }
+
+                        //Toast.makeText(context, "posição selecionada=" + arg1, Toast.LENGTH_SHORT).show();
+                        alerta.dismiss();
+                    }
+                });
+
+                alerta = builder.create();
+                alerta.show();
+
+            }
+        });
+
         GregorianCalendar gc=new GregorianCalendar();
         String data = extrato.get(position).getData();
         gc.set(GregorianCalendar.YEAR, Integer.valueOf(data.subSequence(0,4).toString()));
@@ -61,6 +135,7 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
     }
 
     public static class ExtratoViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout frame;
         TextView txtdata;
         TextView txtfuncao;
         TextView txtcodconta;
@@ -71,6 +146,7 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
         TextView txtvalor;
         ExtratoViewHolder(View itemView) {
             super(itemView);
+            frame = itemView.findViewById(R.id.item_frame);
             txtdata = itemView.findViewById(R.id.item_data);
             txtfuncao = itemView.findViewById(R.id.item_funcao);
             txtcodconta= itemView.findViewById(R.id.item_codconta);

@@ -70,7 +70,7 @@ public class datautil {
       return new String(array);
    }
 
-   public String formatadata(String campo, String formato) {
+   public static String formatadata(String campo, String formato) {
       if (formato.toLowerCase().equals("yyyy-mm-dd"))
          campo = campo.substring(6, 10) + "-" + campo.substring(3, 5) + "-" + campo.substring(0, 2);
       if (formato.toLowerCase().equals("dd/mm/yyyy"))

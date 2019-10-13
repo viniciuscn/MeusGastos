@@ -13,6 +13,8 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import nichele.meusgastos.Classes.Transacao;
+
 /**
  * Created by vinicius on 16/06/2016.
  */
@@ -20,6 +22,7 @@ public class rotinas {
 
     public static final String tag = "inspetor";
     public static Locale locale = Locale.getDefault();
+    public static Transacao t;
 
     public static void logcat(String msg){
         Log.v(tag,msg);

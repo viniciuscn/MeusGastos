@@ -22,6 +22,7 @@ import java.util.GregorianCalendar;
 
 import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.Classes.Conta;
+import nichele.meusgastos.Classes.Transacao;
 import nichele.meusgastos.util.datautil;
 import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.util.rotinas;
@@ -29,6 +30,7 @@ import nichele.meusgastos.util.rotinas;
 public class actTransacoes_Manutencao extends AppCompatActivity  {
 
    Context context;
+   Transacao t;
    String situacao = "";
    TipoDado tipodado;
 
@@ -59,6 +61,8 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       Intent intent = getIntent();
       situacao = intent.getStringExtra("situacao");
       tipodado = (TipoDado)intent.getSerializableExtra("tipdado");
+      rotinas.t = (Transacao) intent.getSerializableExtra("registro");
+      t = rotinas.t;
       carregatela();
 
 
@@ -115,13 +119,39 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       });
       if (situacao.equals("INC")) {
          chave=db.ultimocodigo("transacoes","id")+1;
-         txtchave.setText(String.valueOf(chave));
          lbldata.setText(datautil.formatadata(new Date(), "ddd, dd mmm yyyy"));
          txtdata.setText(datautil.formatadata(new Date(), "yyyy-mm-dd"));
+      }else{
+         chave=t.id;
+         txtvalor.setText(t.getValorString());
+         txtdescricao.setText(t.descricao);
+
+         String data = t.getData();
+         gc.set(GregorianCalendar.YEAR, Integer.valueOf(data.subSequence(0,4).toString()));
+         gc.set(GregorianCalendar.MONTH, Integer.valueOf(data.subSequence(5,7).toString())-1);
+         gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(data.subSequence(8,10).toString()));
+
+         lbldata.setText(datautil.formatadata(gc.getTime(), "ddd, dd mmm yyyy"));
+         txtdata.setText(datautil.formatadata(gc.getTime(), "yyyy-mm-dd"));
+
+
+         for(int i = 0; i < cmbconta.getCount(); i++){
+            if(cmbconta.getItemAtPosition(i).toString().equals(t.conta.getNome())){
+               cmbconta.setSelection(i);
+               break;
+            }
+         }
+         for(int i = 0; i < cmbcategoria.getCount(); i++){
+            if(cmbcategoria.getItemAtPosition(i).toString().equals(t.categoria.getNome())){
+               cmbcategoria.setSelection(i);
+               break;
+            }
+         }
+         chk.setChecked( (t.getQuitado().equals("S") ? true : false) );
 
       }
       db.close();
-
+      txtchave.setText(String.valueOf(chave));
 
 
       cmdant.setOnClickListener(new View.OnClickListener() {
