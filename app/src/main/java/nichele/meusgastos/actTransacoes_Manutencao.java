@@ -159,6 +159,9 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
 
             codconta = lstcontas.get(cmbconta.getSelectedItemPosition()).codigo;
             codcategoria = lstcategorias.get(cmbcategoria.getSelectedItemPosition()).codigo;
+            String descricao = txtdescricao.getText().toString().trim();
+            if(descricao=="")
+               descricao = lstcategorias.get(cmbcategoria.getSelectedItemPosition()).nome;
 
             BancoSQLite db = new BancoSQLite(context);
             String resultado = db.gravatransacoes(situacao, chave, txtdata.getText().toString(),

@@ -18,14 +18,28 @@
         android:padding="20dp"
         >
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/item_data"
-            android:text="data"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_data"
+                android:text="data"
 
-            />
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_valor"
+                android:text="0,00"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,37 +48,44 @@
             android:text="função"
             android:visibility="gone"
             />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_codcategoria"
+                android:text="codigo da categoria"
+                android:visibility="gone"
+                />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/item_codconta"
-            android:text="codigo da conta"
-            android:visibility="gone"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/item_nomeconta"
-            android:text="nome da conta"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/item_codcategoria"
-            android:text="codigo da categoria"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_nomecategoria"
+                android:text="   categoria   "
+                android:background="@drawable/bordaarredondada"
 
-            />
+                />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/item_nomecategoria"
-            android:text="categoria"
-            android:textSize="10dp"
-            android:background="@drawable/bordaarredondada"
-            android:padding="6px"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_codconta"
+                android:text="codigo da conta"
+                android:visibility="gone"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_nomeconta"
+                android:text="   Nome da Conta   "
+                android:background="@drawable/bordaarredondada"
+                android:layout_toRightOf="@id/item_nomecategoria"
+                />
+
+
+        </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,11 +95,6 @@
             android:ellipsize="middle"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/item_valor"
-            android:text="0,00"
-            />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>
