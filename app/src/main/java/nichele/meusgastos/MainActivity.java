@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
       BancoSQLite db = new BancoSQLite(this);
       String firstopen = sharedPreferences.getString(keyfirstopen, "S");
       if (firstopen == "S"){
-         db.zerabanco();
+//         db.zerabanco();
          SharedPreferences.Editor editor = sharedPreferences.edit();
          editor.putString(keyfirstopen,"N");
          editor.apply();
