@@ -26,8 +26,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/item_data"
-                android:text="data"
-
+                android:text="Data"
+                android:textStyle="bold"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -48,8 +48,17 @@
             android:text="função"
             android:visibility="gone"
             />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_descricao"
+            android:text="descrição"
+            android:ellipsize="middle"
+            />
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
@@ -86,15 +95,6 @@
 
 
         </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/item_descricao"
-            android:text="descrição"
-            android:ellipsize="middle"
-            />
-
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
