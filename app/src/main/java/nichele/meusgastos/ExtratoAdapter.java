@@ -29,15 +29,17 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
     AlertDialog alerta;
     AlertDialog confirmacao;
 
-    public ExtratoAdapter(ArrayList<Transacao> extrato, Context context){
+    public ExtratoAdapter(ArrayList<Transacao> extrato){
         this.extrato = extrato;
-        this.context = context;
     }
 
     @Override
     public ExtratoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        // create a new view
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_transacoes_lista_item, parent, false);
+        // set the view's size, margins, paddings and layout parameters
         ExtratoViewHolder pvh = new ExtratoViewHolder(v);
+        context = parent.getContext();
         return pvh;
     }
 
@@ -117,10 +119,10 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
         holder.txtdata.setText(datautil.formatadata(gc.getTime(), "dddd, dd"));
 
         holder.txtfuncao.setText(extrato.get(position).getFuncao());
-        holder.txtcodconta.setText(extrato.get(position).conta.getCodigo());
-        holder.txtnomeconta.setText(extrato.get(position).conta.getNome());
         holder.txtcodcategoria.setText(extrato.get(position).categoria.getCodigo());
         holder.txtnomecategoria.setText("   "+extrato.get(position).categoria.getNome()+"   ");
+        holder.txtcodconta.setText(extrato.get(position).conta.getCodigo());
+        holder.txtnomeconta.setText("   "+extrato.get(position).conta.getNome()+"   ");
         holder.txtdescricao.setText(extrato.get(position).getDescricao());
         holder.txtvalor.setText(rotinas.formatavalorBR(extrato.get(position).getValorString()));
         if (extrato.get(position).getFuncao().equals("E"))

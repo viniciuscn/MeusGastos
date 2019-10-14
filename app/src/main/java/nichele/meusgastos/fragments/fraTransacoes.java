@@ -127,7 +127,7 @@ public class fraTransacoes extends Fragment {
       BancoSQLite db = new BancoSQLite(getContext());
       ArrayList<Transacao> dados = db.getTransacoes(listar,lbldatinicial.getText().toString(),lbldatfinal.getText().toString());
       db.close();
-      ExtratoAdapter adapter = new ExtratoAdapter(dados, getContext());
+      ExtratoAdapter adapter = new ExtratoAdapter(dados);
 
       RecyclerView recyclerView = view.findViewById(R.id.lista_dados);
       recyclerView.setAdapter(adapter);
