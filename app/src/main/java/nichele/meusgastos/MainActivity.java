@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
    @Override
    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-      navigationDrwarerLeft.setSelection(0);
+//      navigationDrwarerLeft.setSelection(0);
 //      if (requestCode == 1) {
 //         if(resultCode == Activity.RESULT_OK){
 //            String result=data.getStringExtra("result");

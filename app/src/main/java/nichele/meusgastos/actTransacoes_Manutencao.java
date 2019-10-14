@@ -3,6 +3,8 @@ package nichele.meusgastos;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -40,16 +42,15 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
 
    GregorianCalendar gc = new GregorianCalendar();
    ImageButton cmdant;
-   TextView lbldata;
-   TextView txtdata;
+   TextView lbldata, txtdata;
    ImageButton cmdnext;
 
    TextView txtdescricao;
 
-   Spinner cmbconta;
-   Spinner cmbcategoria;
-   int codconta;
-   int codcategoria;
+   ArrayList<Conta> lstcontas;
+   ArrayList<Categoria> lstcategorias;
+   Spinner cmbconta, cmbcategoria;
+   int codconta, codcategoria;
 
    CheckBox chk;
 
@@ -100,12 +101,12 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       });
 
       BancoSQLite db = new BancoSQLite(context);
-      final ArrayList<Conta> lstcontas = db.listacontas();
+      lstcontas = db.listacontas();
       ArrayAdapter rstcontas = new ArrayAdapter(context,android.R.layout.simple_spinner_item, lstcontas);
       rstcontas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
       cmbconta.setAdapter(rstcontas);
 
-      final ArrayList<Categoria> lstcategorias = db.listacategorias(tipodado);
+      lstcategorias = db.listacategorias(tipodado);
       ArrayAdapter<Categoria> rstcategorias = new ArrayAdapter<Categoria>(this, R.layout.support_simple_spinner_dropdown_item, lstcategorias);
       rstcategorias.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
       cmbcategoria.setAdapter(rstcategorias);
@@ -147,7 +148,8 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
                break;
             }
          }
-         chk.setChecked( (t.getQuitado().equals("S") ? true : false) );
+         //chk.setChecked( t.getQuitado().equals("S") ? true : false );
+         chk.setChecked(t.getQuitado().equals("S"));
 
       }
       db.close();
@@ -186,23 +188,7 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       cmdsalvar.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-
-            codconta = lstcontas.get(cmbconta.getSelectedItemPosition()).codigo;
-            codcategoria = lstcategorias.get(cmbcategoria.getSelectedItemPosition()).codigo;
-            String descricao = txtdescricao.getText().toString().trim();
-            if(descricao=="")
-               descricao = lstcategorias.get(cmbcategoria.getSelectedItemPosition()).nome;
-
-            BancoSQLite db = new BancoSQLite(context);
-            String resultado = db.gravatransacoes(situacao, chave, txtdata.getText().toString(),
-                    tipodado == TipoDado.entradas ? "E" : "S",
-                    codconta,
-                    codcategoria,
-                    descricao,
-                    txtvalor.getText().toString(),(chk.isChecked() == true ? "S" : "N"));
-            db.close();
-            rotinas.logcat( resultado);
-            finish();
+            salvar();
          }
       });
       db.close();
@@ -213,6 +199,59 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
 
       lbldata.setText(datautil.formatadata(gc.getTime(),"ddd, dd mmm yyyy"));
       txtdata.setText( gc.get(Calendar.YEAR) + "-" + String.format("%02d", new Integer(gc.get(Calendar.MONTH)+1 )) + "-" + String.format("%02d", gc.get(Calendar.DAY_OF_MONTH)));
+   }
+
+   @Override
+   public boolean onPrepareOptionsMenu(Menu menu) {
+      super.onPrepareOptionsMenu(menu);
+      if (situacao.equals("INC"))
+         menu.findItem(R.id.mnuexcluir).setVisible(false);
+
+      return true;
+   }
+   @Override
+   public boolean onCreateOptionsMenu(Menu menu){
+      getMenuInflater().inflate(R.menu.menu_act_transacoes_manutencao, menu);
+      return true;
+   }
+   @Override
+   public boolean onOptionsItemSelected(MenuItem item) {
+      int id = item.getItemId();
+      switch (id){
+         case R.id.mnusalvar:
+            salvar();
+            return true;
+         case R.id.mnuexcluir:
+            excluir();
+            return true;
+         default:
+            return super.onOptionsItemSelected(item);
+      }
+   }
+
+   private void salvar(){
+      codconta = lstcontas.get(cmbconta.getSelectedItemPosition()).codigo;
+      codcategoria = lstcategorias.get(cmbcategoria.getSelectedItemPosition()).codigo;
+      String descricao = txtdescricao.getText().toString().trim();
+      if(descricao.equals(""))
+         descricao = lstcategorias.get(cmbcategoria.getSelectedItemPosition()).nome;
+
+      BancoSQLite db = new BancoSQLite(context);
+      String resultado = db.gravatransacoes(situacao, chave, txtdata.getText().toString(),
+              tipodado == TipoDado.entradas ? "E" : "S",
+              codconta,
+              codcategoria,
+              descricao,
+              txtvalor.getText().toString(),(chk.isChecked() == true ? "S" : "N"));
+      db.close();
+      rotinas.logcat( resultado);
+      finish();
+   }
+
+   private void excluir(){
+      BancoSQLite db = new BancoSQLite(context);
+      db.deletatransacao(chave);
+      finish();
    }
 
    @Override

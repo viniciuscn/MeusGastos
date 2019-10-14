@@ -41,7 +41,7 @@
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
         android:backgroundTint="@color/verde"
-        app:srcCompat="@drawable/ic_certo_24dp" />
+        app:srcCompat="@drawable/ic_salvar_white_24dp" />
 
     <include layout="@layout/activity_contas_content" />
 

@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="nichele.meusgastos.actTransacoes_Manutencao">
+    <item
+    android:id="@+id/mnusalvar"
+    android:orderInCategory="100"
+    android:title="salvar"
+    app:showAsAction="always"
+        android:icon="@drawable/ic_salvar_white_24dp"/>
+    <item
+        android:id="@+id/mnuexcluir"
+        android:orderInCategory="100"
+        android:title="Excluir"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_delete_white_24dp"/>
+</menu>
