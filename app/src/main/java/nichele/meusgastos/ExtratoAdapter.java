@@ -66,10 +66,12 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
                             Intent intent = new Intent(context, actTransacoes_Manutencao.class );
                             intent.putExtra("tipdado", (extrato.get(position).funcao.equals("E") ? TipoDado.entradas : TipoDado.saidas) );
                             intent.putExtra("situacao", "alt");
-                            intent.putExtra("registro", (Serializable) extrato.get(position));
+                            //intent.putExtra("registro", (Serializable) extrato.get(position));
+                            rotinas.transacao =  extrato.get(position);
                             context.startActivity(intent);
 
-                        } else if (arg1==1){
+                        }
+                        else if (arg1==1){
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(context);
                             //define o titulo
@@ -106,7 +108,6 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
 
                 alerta = builder.create();
                 alerta.show();
-
             }
         });
 
@@ -125,9 +126,9 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
         holder.txtnomeconta.setText("   "+extrato.get(position).conta.getNome()+"   ");
         holder.txtdescricao.setText(extrato.get(position).getDescricao());
         holder.txtvalor.setText(rotinas.formatavalorBR(extrato.get(position).getValorString()));
-        if (extrato.get(position).getFuncao().equals("E"))
+        if (extrato.get(position).getFuncao().equals("E") && extrato.get(position).getQuitado().equals("S"))
             holder.txtvalor.setTextColor(context.getResources().getColor(R.color.verde));
-        else
+        else if (extrato.get(position).getFuncao().equals("S") && extrato.get(position).getQuitado().equals("S"))
             holder.txtvalor.setTextColor(context.getResources().getColor(R.color.vermelho));
     }
 

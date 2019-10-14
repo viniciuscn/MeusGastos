@@ -22,11 +22,12 @@ public class rotinas {
 
     public static final String tag = "inspetor";
     public static Locale locale = Locale.getDefault();
-    public static Transacao t;
+    public static Transacao transacao;
 
     public static void logcat(String msg){
         Log.v(tag,msg);
     }
+
     public static String limpacampovalor(String valor){
         //String replaceable = String.format("[%s,.\\s]", NumberFormat.getCurrencyInstance(locale).getCurrency().getSymbol());
         String replaceable = String.format("[%s\\s]", NumberFormat.getCurrencyInstance(locale).getCurrency().getSymbol());

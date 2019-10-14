@@ -180,10 +180,23 @@ public class MainActivity extends AppCompatActivity {
             break;
          case "ajustes":
             intent = new Intent(this, actAjustes.class);
-            startActivityForResult(intent, 0);
+            startActivityForResult(intent, 1);
             break;
       }
    }
+
+   @Override
+   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+      navigationDrwarerLeft.setSelection(0);
+//      if (requestCode == 1) {
+//         if(resultCode == Activity.RESULT_OK){
+//            String result=data.getStringExtra("result");
+//         }
+//         if (resultCode == Activity.RESULT_CANCELED) {
+//            //Write your code if there's no result
+//         }
+//      }
+   }//onAct
 
    int backButtonCount;
    @Override

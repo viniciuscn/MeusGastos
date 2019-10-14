@@ -61,8 +61,8 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       Intent intent = getIntent();
       situacao = intent.getStringExtra("situacao");
       tipodado = (TipoDado)intent.getSerializableExtra("tipdado");
-      rotinas.t = (Transacao) intent.getSerializableExtra("registro");
-      t = rotinas.t;
+//      rotinas.transacao = (Transacao) intent.getSerializableExtra("registro");
+      t = rotinas.transacao;
       carregatela();
 
 
@@ -198,7 +198,7 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
                     tipodado == TipoDado.entradas ? "E" : "S",
                     codconta,
                     codcategoria,
-                    txtdescricao.getText().toString(),
+                    descricao,
                     txtvalor.getText().toString(),(chk.isChecked() == true ? "S" : "N"));
             db.close();
             rotinas.logcat( resultado);
