@@ -40,10 +40,10 @@ public class rotinas {
         return Float.parseFloat(limpacampovalor(valor));
     }
 
-    public static String formatavalorBR(String valor) {
+    public static String formatavalorBR(Object valor) {
         DecimalFormat df = new DecimalFormat("##,###,###,##0.00", new DecimalFormatSymbols(new Locale("pt", "BR")));
         //DecimalFormat df = new DecimalFormat("#.00");
-        return df.format(Float.parseFloat(valor));
+        return df.format(Float.parseFloat(valor.toString()));
     }
 
     public void EscondeTeclado(Activity c) {

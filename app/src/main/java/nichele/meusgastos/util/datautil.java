@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class datautil {
 
@@ -39,7 +40,10 @@ public class datautil {
 
    public static String formatadata(Date data, String formato){
       SimpleDateFormat sdf = null;
-      if (formato.toLowerCase().equals("mmmm, yyyy")){
+      if (formato.toLowerCase().equals("mmm, yy")) {
+         sdf = new SimpleDateFormat("MMM, yy");
+         return upperCaseFirst(sdf.format(data));
+      }else if (formato.toLowerCase().equals("mmmm, yyyy")){
          sdf= new SimpleDateFormat("MMMM, yyyy");
          return upperCaseFirst(sdf.format(data));
       } else if (formato.toLowerCase().equals("ddd, dd mmm yyyy")) {
@@ -149,16 +153,15 @@ public class datautil {
       return mes;
    }
 
-   public String UltimoDiaDoMes(int pano, int pmes){
-      //String ano = String.format("%04d",new GregorianCalendar().get(Calendar.YEAR));
-      String mes = String.format("%02d", pmes);
+   public static String primeirodiadomes(Date data) {
+      GregorianCalendar gc = new GregorianCalendar();
+      gc.setTime(data);
+      return  gc.get(Calendar.YEAR) +"-" + String.format("%02d", gc.get(Calendar.MONTH)+1 ) +"-01";
+   }
 
-      Calendar c = Calendar.getInstance();
-      c.set(Calendar.MONTH, pmes - 1);
-      c.set(Calendar.YEAR, pano);
-
-      String dia = String.format("%02d", c.getActualMaximum(Calendar.DAY_OF_MONTH));
-      return  pano + "-" + mes + "-" + dia;
-
+   public static String ultimodiadomes(Date data){
+      GregorianCalendar gc = new GregorianCalendar();
+      gc.setTime(data);
+      return  gc.get(Calendar.YEAR) +"-" + String.format("%02d", gc.get(Calendar.MONTH)+1 ) +"-" + String.format("%02d", gc.getActualMaximum(Calendar.DAY_OF_MONTH));
    }
 }

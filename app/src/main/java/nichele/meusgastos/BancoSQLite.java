@@ -39,7 +39,6 @@ public class BancoSQLite extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         db.execSQL("create table transacoes("+
                 "id int not null" +
                 ", data SmallDateTime"+
@@ -50,27 +49,22 @@ public class BancoSQLite extends SQLiteOpenHelper {
                 ", valor float"+
                 ", quitado varchar(1)"+
                 ", primary key(id))");
-
         db.execSQL("CREATE TABLE contas(" +
                 "codconta Int Not Null" +
                 ", nome VarChar(30)" +
                 ", Primary key(codconta))");
-
         db.execSQL("CREATE TABLE categorias(" +
                 "codcategoria Int Not Null" +
                 ", nome VarChar(30)" +
                 ", tipo VarChar(1)" +
                 ", ordem int" +
                 ", Primary key(codcategoria))");
-
         rotinas.logcat( "criou as tabelas");
 //        db.execSQL("CREATE TABLE configuracoes(" +
 //                "pedsenha Int," +
 //                "senha VarChar(10)," +
 //                "confirmacaosenha VarChar(10)," +
 //                "email VarChar(255))");
-
-        //inseredadosiniciais();
     }
 
     @Override
@@ -89,10 +83,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
         execute("delete from contas");
         execute("delete from categorias");
         //execute("delete from configuracoes");
-        //db.close();
         inseredadosiniciais();
-
-
     }
 
     public void inseredadosiniciais(){
@@ -133,7 +124,6 @@ public class BancoSQLite extends SQLiteOpenHelper {
             db.close();
         }
     }
-
 
     public String gravatransacoes(String situacao, int id, String data, String funcao, int codconta, int codcategoria, String descricao, String valor, String quitado){
         SQLiteDatabase db = getWritableDatabase();
@@ -292,6 +282,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
         db.close();
         return categorias;
     }
+
     ///////////////////////////ROTINAS GLOBAIS///////////////////////////
     public int ultimocodigo(String nomedatabela, String nomedocampo) {
         SQLiteDatabase ult = getReadableDatabase();
@@ -325,9 +316,6 @@ public class BancoSQLite extends SQLiteOpenHelper {
         return 0;
     }
 
-
-
-
     public boolean aceitar_cadastro(String tabela, String valor) {
         boolean status = true;
         String sql = "SELECT * FROM " + tabela + " WHERE nome = '"+ valor +"'";
@@ -341,11 +329,44 @@ public class BancoSQLite extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return status;
-
     }
 
     public void deletatransacao(int id) {
         execute("delete from transacoes where id = " + id);
+    }
+
+    public float buscavalores(TipoDado tipodado, String datinicial, String datfinal){
+        float valor = 0;
+
+        String strand = "";
+        switch (tipodado){
+            case entradas:
+                strand = " and funcao = 'E'";
+                break;
+            case saidas:
+                strand = " and funcao = 'S'";
+                break;
+        }
+
+        if (!datinicial.equals(""))
+            if (tipodado.equals(TipoDado.sldanterior))
+                strand += " AND data < '" + datinicial + "'";
+            else
+                strand += " AND data >= '" + datinicial + "'";
+        if (!datfinal.equals(""))
+            strand += " AND data <= '" + datfinal + "'";
+
+        String sql = "select sum(valor) from transacoes where id > 0" + strand;
+        rotinas.logcat(tipodado.toString() +" "+sql);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        if(cursor.moveToFirst()) {
+            if (!cursor.isNull(0))
+                valor = cursor.getFloat(0);
+        }
+        cursor.close();
+        db.close();
+        return valor;
     }
 }
 
