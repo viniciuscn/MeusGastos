@@ -159,6 +159,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/man_cmbcategoria"
                 android:layout_toRightOf="@+id/img2"
+                android:spinnerMode="dialog"
                 />
         </RelativeLayout>
         <CheckBox

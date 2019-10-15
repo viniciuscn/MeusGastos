@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/resumo_txtsldanterior"
                     android:text="0,00"
-                    android:layout_toEndOf="@+id/resumo_lblsldanterior"
+                    android:layout_toRightOf="@+id/resumo_lblsldanterior"
                     android:gravity="right"
                     android:textSize="20dp" />
 
@@ -90,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/resumo_txtvlrrenda"
                     android:text="0,00"
-                    android:layout_toEndOf="@+id/resumo_lblrenda"
+                    android:layout_toRightOf="@+id/resumo_lblrenda"
                     android:gravity="right"
                     android:textSize="20dp" />
 
@@ -122,7 +122,7 @@
                     android:id="@+id/resumo_txtvlrdespesa"
                     android:text="0,00"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/resumo_lbldespesa"
+                    android:layout_toRightOf="@+id/resumo_lbldespesa"
                     android:layout_width="150dp"
                     android:gravity="right"
                     android:textSize="20dp" />
@@ -157,7 +157,7 @@
                     android:text="0,00"
                     android:textSize="20dp"
                     android:gravity="right"
-                    android:layout_toEndOf="@+id/resumo_lblsaldo" />
+                    android:layout_toRightOf="@+id/resumo_lblsaldo" />
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -15,7 +15,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".actCategorias"
             android:label="@string/title_activity_act_categorias"
@@ -34,7 +33,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nichele.meusgastos.MainActivity" />
         </activity>
-
         <activity
             android:name=".actAjustes"
             android:label="PickImage"
@@ -56,9 +54,11 @@
                 android:value=".MainActivity" />
         </activity>
 
-    </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+
+    </application>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

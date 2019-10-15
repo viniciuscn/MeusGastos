@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -100,6 +101,7 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
          }
       });
 
+
       BancoSQLite db = new BancoSQLite(context);
       lstcontas = db.listacontas();
       ArrayAdapter rstcontas = new ArrayAdapter(context,android.R.layout.simple_spinner_item, lstcontas);
@@ -107,6 +109,7 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       cmbconta.setAdapter(rstcontas);
 
       lstcategorias = db.listacategorias(tipodado);
+
       ArrayAdapter<Categoria> rstcategorias = new ArrayAdapter<Categoria>(this, R.layout.support_simple_spinner_dropdown_item, lstcategorias);
       rstcategorias.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
       cmbcategoria.setAdapter(rstcategorias);
@@ -122,7 +125,8 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
          chave=db.ultimocodigo("transacoes","id")+1;
          lbldata.setText(datautil.formatadata(new Date(), "ddd, dd mmm yyyy"));
          txtdata.setText(datautil.formatadata(new Date(), "yyyy-mm-dd"));
-      }else{
+      }
+      else{
          chave=t.id;
          txtvalor.setText(t.getValorString());
          txtdescricao.setText(t.descricao);
@@ -154,6 +158,7 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       }
       db.close();
       txtchave.setText(String.valueOf(chave));
+
 
 
       cmdant.setOnClickListener(new View.OnClickListener() {
