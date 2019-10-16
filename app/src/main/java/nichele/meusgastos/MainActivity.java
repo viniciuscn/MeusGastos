@@ -62,16 +62,16 @@ public class MainActivity extends AppCompatActivity {
 
       setSupportActionBar(toolbar);
 
-      AbreFragment(new fraVisaoGeral());
+      abrefragment(new fraVisaoGeral());
       //abreactivity("categorias",TipoDado.nenhum);
 
-      //AbreFragment(new fraTransacoes_Manutencao());
+      //abrefragment(new fraTransacoes_Manutencao());
       fabmenu = findViewById(R.id.fabmenu);
       FloatingActionButton fabrec = findViewById(R.id.fabrec);
       fabrec.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            //AbreFragment(new fraTransacoes_Manutencao(TipoDado.entradas));
+            //abrefragment(new fraTransacoes_Manutencao(TipoDado.entradas));
             abreactivity("manutencao", TipoDado.entradas);
             fabmenu.collapse();
          }
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
       fabdes.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            //AbreFragment(new fraTransacoes_Manutencao(TipoDado.saidas));
+            //abrefragment(new fraTransacoes_Manutencao(TipoDado.saidas));
             abreactivity("manutencao", TipoDado.saidas);
             fabmenu.collapse();
          }
@@ -101,21 +101,21 @@ public class MainActivity extends AppCompatActivity {
                     switch(position){
                        case 0:
                           Toast.makeText(getApplicationContext(),"visao geral",Toast.LENGTH_SHORT).show();
-                          AbreFragment( new fraVisaoGeral());
+                          abrefragment( new fraVisaoGeral());
                           break;
                        case 1:
                           Toast.makeText(getApplicationContext(),"transações",Toast.LENGTH_SHORT).show();
-                          AbreFragment( new fraTransacoes(TipoDado.extrato));
+                          abrefragment( new fraTransacoes(TipoDado.extrato));
                           break;
 //                       case 2:
 //                          Toast.makeText(getApplicationContext(),"receitas",Toast.LENGTH_SHORT).show();
-//                          AbreFragment( new fraTransacoes(TipoDado.entradas));
-//                          //AbreFragment( new fraTransacoes_Manutencao());
+//                          abrefragment( new fraTransacoes(TipoDado.entradas));
+//                          //abrefragment( new fraTransacoes_Manutencao());
 //                          break;
 //                       case 3:
 //                          Toast.makeText(getApplicationContext(),"despesas",Toast.LENGTH_SHORT).show();
-//                          AbreFragment( new fraTransacoes(TipoDado.saidas));
-//                          //AbreFragment( new fraTransacoes_Manutencao());
+//                          abrefragment( new fraTransacoes(TipoDado.saidas));
+//                          //abrefragment( new fraTransacoes_Manutencao());
 //                          break;
                        case 4:
                           abreactivity("contas",TipoDado.nenhum);
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Ajustes").withIcon(getResources().getDrawable(R.drawable.menu_ajustes)));
    }
 
-   private void AbreFragment(Fragment f){
+   private void abrefragment(Fragment f){
       FragmentManager fm = getSupportFragmentManager();
       FragmentTransaction ft = fm.beginTransaction();
       ft.replace(R.id.frameLayout, f);
@@ -189,8 +189,22 @@ public class MainActivity extends AppCompatActivity {
       }
    }
 
+   boolean mostrar_visaogeral=false;
+
+   @Override
+   public void onResume() {
+      super.onResume();
+      if(mostrar_visaogeral){
+         mostrar_visaogeral=false;
+         abrefragment(new fraVisaoGeral());
+      }
+   }
+
    @Override
    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+      if (requestCode==1 && resultCode == 1)
+         mostrar_visaogeral = true;
+        // abrefragment(new fraVisaoGeral());
 //      navigationDrwarerLeft.setSelection(0);
 //      if (requestCode == 1) {
 //         if(resultCode == Activity.RESULT_OK){

@@ -38,6 +38,7 @@ public class actCategorias extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_categorias);
+      overridePendingTransition(R.anim.filho_entrando,R.anim.main_saindo);
       Intent intent = getIntent();
       situacao = intent.getStringExtra("situacao");
       c = rotinas.categoria;

@@ -8,15 +8,8 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".actLisCategorias"
-            android:label="@string/title_activity_list_categorias"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="nichele.meusgastos.MainActivity" />
-        </activity>
+
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,11 +20,11 @@
         <activity
             android:name=".actCategorias"
             android:label="@string/title_activity_act_categorias"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".actLisCategorias"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="nichele.meusgastos.MainActivity" />
+                android:value=".actLisCategorias" />
         </activity>
         <activity
             android:name=".actContas"
@@ -42,14 +35,28 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nichele.meusgastos.MainActivity" />
         </activity>
-        <activity
-            android:name=".actAjustes"
-            android:label="PickImage"
-            android:parentActivityName=".MainActivity">
+
+        <!--        android:parentActivityName=".MainActivity"-->
+
+
+
+        <activity android:name=".actLisCategorias" android:label="@string/title_activity_list_categorias" android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName="nichele.meusgastos.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="nichele.meusgastos.MainActivity" />
         </activity>
+        <activity android:name=".actAjustes" android:label=""
+            android:parentActivityName="nichele.meusgastos.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nichele.meusgastos.MainActivity" />
+        </activity>
+
+
+
+
+
         <activity
             android:name=".calculadora.DialogCalc"
             android:excludeFromRecents="true"

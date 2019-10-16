@@ -3,6 +3,7 @@ package nichele.meusgastos;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -38,6 +39,8 @@ public class actAjustes extends AppCompatActivity {
             BancoSQLite db = new BancoSQLite(getApplicationContext());
             db.zerabanco();
             db.close();
+            Intent intent=new Intent();
+            setResult(1,intent);
             finish();
          }
       });

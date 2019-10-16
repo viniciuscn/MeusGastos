@@ -372,7 +372,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
     }
 
     public void deletacategoria(int id) {
-        execute("delete from categorias where id = " + id);
+        execute("delete from categorias where codcategoria = " + id);
     }
 }
 

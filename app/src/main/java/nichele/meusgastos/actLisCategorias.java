@@ -20,6 +20,7 @@ public class actLisCategorias extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_lis_categorias);
+      overridePendingTransition(R.anim.filho_entrando, R.anim.main_saindo);
       Toolbar toolbar = findViewById(R.id.toolbar);
       setSupportActionBar(toolbar);
 
@@ -41,6 +42,12 @@ public class actLisCategorias extends AppCompatActivity {
 
       pager.setAdapter(adapter);
       tabs.setupWithViewPager(pager);
+   }
+
+   @Override
+   public void finish() {
+      super.finish();
+      overridePendingTransition(R.anim.main_entrando, R.anim.filho_saindo);
    }
 
 }
