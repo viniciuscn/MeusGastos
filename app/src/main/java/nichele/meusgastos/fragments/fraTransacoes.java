@@ -28,7 +28,7 @@ import java.util.GregorianCalendar;
 
 import nichele.meusgastos.BancoSQLite;
 import nichele.meusgastos.Classes.Transacao;
-import nichele.meusgastos.ExtratoAdapter;
+import nichele.meusgastos.adapters.ExtratoAdapter;
 import nichele.meusgastos.R;
 import nichele.meusgastos.util.TipoDado;
 
@@ -98,11 +98,7 @@ public class fraTransacoes extends Fragment {
       return view;
    }
 
-   @Override
-   public void onResume() {
-      super.onResume();
-      mostradados();
-   }
+
 
    private void definecores(){
       if(listar == TipoDado.entradas){
@@ -139,13 +135,13 @@ public class fraTransacoes extends Fragment {
    public void onStart() {
       super.onStart();
    }
-
    @Override
-   public void onStop() {
-      super.onStop();
-
+   public void onResume() {
+      super.onResume();
+      mostradados();
    }
-
+   @Override
+   public void onStop() { super.onStop(); }
    @Override
    public void onDetach(){
       super.onDetach();

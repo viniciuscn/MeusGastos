@@ -1,23 +1,22 @@
-package nichele.meusgastos;
+package nichele.meusgastos.adapters;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import nichele.meusgastos.Classes.Transacao;
+import nichele.meusgastos.R;
+import nichele.meusgastos.actTransacoes_Manutencao;
 import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.util.datautil;
 import nichele.meusgastos.util.rotinas;
@@ -26,8 +25,6 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
 
     ArrayList<Transacao> extrato;
     static Context context;
-    AlertDialog alerta;
-    AlertDialog confirmacao;
 
     public ExtratoAdapter(ArrayList<Transacao> extrato){
         this.extrato = extrato;
@@ -35,11 +32,12 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
 
     @Override
     public ExtratoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context = parent.getContext();
         // create a new view
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_transacoes_lista_item, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.fragment_transacoes_lista_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
         ExtratoViewHolder pvh = new ExtratoViewHolder(v);
-        context = parent.getContext();
+
         return pvh;
     }
 
@@ -65,7 +63,7 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
         holder.txtdata.setText(datautil.formatadata(gc.getTime(), "dddd, dd"));
 
         holder.txtfuncao.setText(extrato.get(position).getFuncao());
-        holder.txtcodcategoria.setText(extrato.get(position).categoria.getCodigo());
+        holder.txtcodcategoria.setText(extrato.get(position).categoria.getCodigoString());
         holder.txtnomecategoria.setText("   "+extrato.get(position).categoria.getNome()+"   ");
         holder.txtcodconta.setText(extrato.get(position).conta.getCodigo());
         holder.txtnomeconta.setText("   "+extrato.get(position).conta.getNome()+"   ");

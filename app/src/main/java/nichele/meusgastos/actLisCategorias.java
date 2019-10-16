@@ -2,20 +2,24 @@ package nichele.meusgastos;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ddz.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.View;
 
-public class ListCategorias extends AppCompatActivity {
+import nichele.meusgastos.fragments.TabsPagerAdapter;
+
+public class actLisCategorias extends AppCompatActivity {
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_list_categorias);
+      setContentView(R.layout.activity_lis_categorias);
       Toolbar toolbar = findViewById(R.id.toolbar);
       setSupportActionBar(toolbar);
 
@@ -28,6 +32,15 @@ public class ListCategorias extends AppCompatActivity {
          }
       });
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+      //@SuppressLint("WrongViewCast")
+      TabLayout tabs = findViewById(R.id.tabs);
+      ViewPager pager = (ViewPager) findViewById(R.id.pager);
+      TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager(), getResources().getStringArray(R.array.categorias));
+
+      pager.setAdapter(adapter);
+      tabs.setupWithViewPager(pager);
    }
 
 }

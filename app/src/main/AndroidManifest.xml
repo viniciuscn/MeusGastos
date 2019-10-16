@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ListCategorias"
+            android:name=".actLisCategorias"
             android:label="@string/title_activity_list_categorias"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

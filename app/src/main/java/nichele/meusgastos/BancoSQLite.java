@@ -170,7 +170,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
                 break;
         }
 
-        String sql = "SELECT t.*, cnt.nome nomeconta, cat.nome nomecategoria " +
+        String sql = "SELECT t.*, cnt.nome nomeconta, cat.nome catnome, cat.tipo cattipo " +
                 " FROM Transacoes t, contas cnt, categorias cat" +
                 " WHERE t.codconta = cnt.codconta and t.codcategoria = cat.codcategoria" +
                 funcao +
@@ -189,7 +189,8 @@ public class BancoSQLite extends SQLiteOpenHelper {
                                 new Conta(cursor.getInt(cursor.getColumnIndex("codconta")),
                                         cursor.getString(cursor.getColumnIndex("nomeconta"))),
                                 new Categoria(cursor.getInt(cursor.getColumnIndex("codcategoria")),
-                                        cursor.getString(cursor.getColumnIndex("nomecategoria"))),
+                                        cursor.getString(cursor.getColumnIndex("catnome")),
+                                        cursor.getString(cursor.getColumnIndex("cattipo"))),
                                 cursor.getString(cursor.getColumnIndex("descricao")),
                                 cursor.getFloat(cursor.getColumnIndex("valor")),
                                 cursor.getString(cursor.getColumnIndex("quitado"))
@@ -272,7 +273,8 @@ public class BancoSQLite extends SQLiteOpenHelper {
         if(cursor.moveToFirst()) {
             do {
                 categorias.add(new Categoria(cursor.getInt(cursor.getColumnIndex("codcategoria")),
-                                cursor.getString(cursor.getColumnIndex("nome"))
+                                cursor.getString(cursor.getColumnIndex("nome")),
+                                cursor.getString(cursor.getColumnIndex("tipo"))
                         )
                 );
                 rotinas.logcat( cursor.getString(cursor.getColumnIndex("tipo")));
@@ -367,6 +369,10 @@ public class BancoSQLite extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return valor;
+    }
+
+    public void deletacategoria(int id) {
+        execute("delete from categorias where id = " + id);
     }
 }
 

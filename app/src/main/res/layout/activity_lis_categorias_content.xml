@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ListCategorias"
-    tools:showIn="@layout/activity_list_categorias">
+    tools:context=".actLisCategorias"
+    tools:showIn="@layout/activity_lis_categorias">
 
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/view_pager"
+        android:layout_height="match_parent"
+        android:id="@+id/pager"
         />
 </RelativeLayout>

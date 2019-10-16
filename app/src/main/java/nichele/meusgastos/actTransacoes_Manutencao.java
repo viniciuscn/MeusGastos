@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -26,8 +25,8 @@ import java.util.GregorianCalendar;
 import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.Classes.Conta;
 import nichele.meusgastos.Classes.Transacao;
-import nichele.meusgastos.util.datautil;
 import nichele.meusgastos.util.TipoDado;
+import nichele.meusgastos.util.datautil;
 import nichele.meusgastos.util.rotinas;
 
 public class actTransacoes_Manutencao extends AppCompatActivity  {
@@ -63,11 +62,8 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       Intent intent = getIntent();
       situacao = intent.getStringExtra("situacao");
       tipodado = (TipoDado)intent.getSerializableExtra("tipdado");
-//      rotinas.transacao = (Transacao) intent.getSerializableExtra("registro");
       t = rotinas.transacao;
       carregatela();
-
-
    }
 
    private void carregatela(){
@@ -256,6 +252,7 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
    private void excluir(){
       BancoSQLite db = new BancoSQLite(context);
       db.deletatransacao(chave);
+      db.close();
       finish();
    }
 

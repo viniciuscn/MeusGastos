@@ -61,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
       //mToolbar.setSubtitle("subtitulo");
 
       setSupportActionBar(toolbar);
+
       AbreFragment(new fraVisaoGeral());
+      //abreactivity("categorias",TipoDado.nenhum);
 
       //AbreFragment(new fraTransacoes_Manutencao());
       fabmenu = findViewById(R.id.fabmenu);
@@ -174,9 +176,11 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, 0);
             break;
          case "categorias":
-            intent = new Intent(this, actCategorias.class);
+            //intent = new Intent(this, actCategorias.class);
+            intent = new Intent(this, actLisCategorias.class);
             intent.putExtra("situacao", "INC");
             startActivityForResult(intent, 0);
+
             break;
          case "ajustes":
             intent = new Intent(this, actAjustes.class);
