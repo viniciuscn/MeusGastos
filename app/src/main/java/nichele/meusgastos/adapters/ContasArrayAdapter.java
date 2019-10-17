@@ -13,25 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.Classes.Conta;
 import nichele.meusgastos.R;
-import nichele.meusgastos.actCategorias;
 import nichele.meusgastos.actContas;
 import nichele.meusgastos.util.rotinas;
 
 public class ContasArrayAdapter extends RecyclerView.Adapter<ContasArrayAdapter.ViewHolder> {
 
-   private ArrayList<Conta> contas;
+   ArrayList<Conta> contas;
    static Context context;
 
    public ContasArrayAdapter(ArrayList<Conta> itemList) {
       this.contas = itemList;
-   }
-
-   @Override
-   public int getItemCount() {
-      return contas.size();
    }
 
    @Override
@@ -42,7 +35,6 @@ public class ContasArrayAdapter extends RecyclerView.Adapter<ContasArrayAdapter.
       return myViewHolder;
    }
 
-   // load data in each row element
    @Override
    public void onBindViewHolder(final ViewHolder holder, final int position) {
       final Conta cnt = contas.get(position);
@@ -60,7 +52,11 @@ public class ContasArrayAdapter extends RecyclerView.Adapter<ContasArrayAdapter.
 
    }
 
-   // Static inner class to initialize the views of rows
+   @Override
+   public int getItemCount() {
+      return contas.size();
+   }
+
    public static class ViewHolder extends RecyclerView.ViewHolder  {
       LinearLayout frame;
       ImageView img;
@@ -79,3 +75,25 @@ public class ContasArrayAdapter extends RecyclerView.Adapter<ContasArrayAdapter.
       super.onAttachedToRecyclerView(recyclerView);
    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
