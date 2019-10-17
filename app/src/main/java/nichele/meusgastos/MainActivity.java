@@ -171,14 +171,15 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, 0);
             break;
          case "contas":
-            intent = new Intent(this, actContas.class);
-            intent.putExtra("situacao", "INC");
+            //intent = new Intent(this, actContas.class);
+            intent = new Intent(this, actLisContas.class);
+            //intent.putExtra("situacao", "INC");
             startActivityForResult(intent, 0);
             break;
          case "categorias":
             //intent = new Intent(this, actCategorias.class);
             intent = new Intent(this, actLisCategorias.class);
-            intent.putExtra("situacao", "INC");
+            //intent.putExtra("situacao", "INC");
             startActivityForResult(intent, 0);
 
             break;

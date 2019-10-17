@@ -5,8 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-
-
 <!--    <androidx.recyclerview.widget.RecyclerView-->
 <!--        android:id="@+id/lsvtransacoes"-->
 <!--        android:layout_width="match_parent"-->

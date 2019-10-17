@@ -371,8 +371,29 @@ public class BancoSQLite extends SQLiteOpenHelper {
         return valor;
     }
 
+    public void deletaconta(int chave) {
+        execute("delete from contas where codconta = " + chave);
+    }
+
     public void deletacategoria(int id) {
         execute("delete from categorias where codcategoria = " + id);
     }
+
+   public boolean cadastro_em_uso(String campo, int campo_valor) {
+       boolean status = false;
+       String sql = "SELECT * FROM Transacoes WHERE " + campo + " = " + campo_valor;
+       rotinas.logcat( sql );
+       SQLiteDatabase db = this.getReadableDatabase();
+       Cursor cursor = db.rawQuery(sql, null);
+       if(cursor.moveToFirst()) {
+           status = true;
+       }
+       cursor.close();
+       db.close();
+       return status;
+
+   }
+
+
 }
 

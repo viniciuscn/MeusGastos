@@ -10,13 +10,11 @@ public class Conta {
         nome = pnome;
     }
 
-    public String getCodigo() {
+    public String getCodigoString() {
         return String.valueOf(codigo);
     }
-
-    public String getNome() {
-        return nome;
-    }
+    public int getCodigoInt() { return codigo; }
+    public String getNome() { return nome; }
 
     @Override
     public String toString(){

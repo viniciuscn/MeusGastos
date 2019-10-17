@@ -26,33 +26,41 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".actLisCategorias" />
         </activity>
-        <activity
-            android:name=".actContas"
-            android:label="@string/title_activity_act_contas"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="nichele.meusgastos.MainActivity" />
-        </activity>
+
 
         <!--        android:parentActivityName=".MainActivity"-->
 
 
 
-        <activity android:name=".actLisCategorias" android:label="@string/title_activity_list_categorias" android:theme="@style/AppTheme.NoActionBar"
+        <activity android:name=".actLisCategorias" android:label="@string/caption_actliscategorias" android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName="nichele.meusgastos.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nichele.meusgastos.MainActivity" />
         </activity>
+
+        <activity android:name=".actLisContas" android:label="@string/caption_actliscategorias"
+            android:parentActivityName="nichele.meusgastos.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nichele.meusgastos.MainActivity" />
+        </activity>
+        <activity
+            android:name=".actContas"
+            android:label="@string/title_activity_act_contas"
+            android:parentActivityName=".actLisContas"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nichele.meusgastos.actLisContas" />
+        </activity>
+
         <activity android:name=".actAjustes" android:label=""
             android:parentActivityName="nichele.meusgastos.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nichele.meusgastos.MainActivity" />
         </activity>
-
 
 
 

@@ -77,10 +77,9 @@ public class fraListCategorias extends Fragment {
       BancoSQLite db = new BancoSQLite(getContext());
       ArrayList<Categoria> lstcategorias = db.listacategorias(listar);
       db.close();
-      CategoriaArrayAdapter rstcategorias = new CategoriaArrayAdapter(lstcategorias);
-
+      CategoriaArrayAdapter rst = new CategoriaArrayAdapter(lstcategorias);
       RecyclerView recyclerView = view.findViewById(R.id.lista_dados);
-      recyclerView.setAdapter(rstcategorias);
+      recyclerView.setAdapter(rst);
       recyclerView.setLayoutManager(new LinearLayoutManager( getContext()));
       recyclerView.setItemAnimator(new DefaultItemAnimator());
 

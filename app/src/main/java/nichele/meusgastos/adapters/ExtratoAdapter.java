@@ -65,7 +65,7 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
         holder.txtfuncao.setText(extrato.get(position).getFuncao());
         holder.txtcodcategoria.setText(extrato.get(position).categoria.getCodigoString());
         holder.txtnomecategoria.setText("   "+extrato.get(position).categoria.getNome()+"   ");
-        holder.txtcodconta.setText(extrato.get(position).conta.getCodigo());
+        holder.txtcodconta.setText(extrato.get(position).conta.getCodigoString());
         holder.txtnomeconta.setText("   "+extrato.get(position).conta.getNome()+"   ");
         holder.txtdescricao.setText(extrato.get(position).getDescricao());
         holder.txtvalor.setText(rotinas.formatavalorBR(extrato.get(position).getValorString()));

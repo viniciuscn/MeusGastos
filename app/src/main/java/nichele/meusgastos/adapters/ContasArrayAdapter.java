@@ -14,24 +14,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import nichele.meusgastos.Classes.Categoria;
+import nichele.meusgastos.Classes.Conta;
 import nichele.meusgastos.R;
 import nichele.meusgastos.actCategorias;
-import nichele.meusgastos.actTransacoes_Manutencao;
-import nichele.meusgastos.util.TipoDado;
+import nichele.meusgastos.actContas;
 import nichele.meusgastos.util.rotinas;
 
-public class CategoriaArrayAdapter extends RecyclerView.Adapter<CategoriaArrayAdapter.ViewHolder> {
+public class ContasArrayAdapter extends RecyclerView.Adapter<ContasArrayAdapter.ViewHolder> {
 
-   private ArrayList<Categoria> categorias;
+   private ArrayList<Conta> contas;
    static Context context;
 
-   public CategoriaArrayAdapter(ArrayList<Categoria> itemList) {
-      this.categorias = itemList;
+   public ContasArrayAdapter(ArrayList<Conta> itemList) {
+      this.contas = itemList;
    }
 
    @Override
    public int getItemCount() {
-      return categorias.size();
+      return contas.size();
    }
 
    @Override
@@ -45,26 +45,18 @@ public class CategoriaArrayAdapter extends RecyclerView.Adapter<CategoriaArrayAd
    // load data in each row element
    @Override
    public void onBindViewHolder(final ViewHolder holder, final int position) {
-      final Categoria cat = categorias.get(position);
+      final Conta cnt = contas.get(position);
       holder.frame.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            Intent intent = new Intent(context, actCategorias.class);
+            Intent intent = new Intent(context, actContas.class);
             //intent.putExtra("tipdado", (categorias.get(position).funcao.equals("E") ? TipoDado.entradas : TipoDado.saidas) );
             intent.putExtra("situacao", "ALT");
-            rotinas.categoria = cat;
+            rotinas.conta = cnt;
             context.startActivity(intent);
          }
       });
-      holder.item.setText(categorias.get(position).nome);
-      if (cat.getTipo().equals("E")){
-         holder.item.setTextColor(context.getResources().getColor(R.color.verde));
-         holder.img.setColorFilter(context.getResources().getColor(R.color.verde));
-      }else{
-         holder.item.setTextColor(context.getResources().getColor(R.color.vermelho));
-         holder.img.setColorFilter(context.getResources().getColor(R.color.vermelho));
-      }
-
+      holder.item.setText(cnt.nome);
 
    }
 

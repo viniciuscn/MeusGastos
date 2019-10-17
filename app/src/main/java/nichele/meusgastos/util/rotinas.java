@@ -3,10 +3,13 @@ package nichele.meusgastos.util;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -14,6 +17,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 import nichele.meusgastos.Classes.Categoria;
+import nichele.meusgastos.Classes.Conta;
 import nichele.meusgastos.Classes.Transacao;
 
 /**
@@ -24,6 +28,7 @@ public class rotinas {
     public static final String tag = "inspetor";
     public static Locale locale = Locale.getDefault();
     public static Transacao transacao;
+    public static Conta conta;
     public static Categoria categoria;
 
     public static void logcat(String msg){
@@ -60,6 +65,22 @@ public class rotinas {
     public static void alertLongo(Context contexto, String mensagem) {
         //duracao 0 = short; 1 long;
         Toast.makeText(contexto, mensagem, Toast.LENGTH_LONG).show();
+    }
+
+    public static void msgboxOk(Context context, String mensagem) {
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder( context );
+        alertDialogBuilder.setMessage(mensagem);
+        alertDialogBuilder.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        //alertDialog.show();
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     public static void animateTextView(float initialValue, float finalValue, final TextView textview) {

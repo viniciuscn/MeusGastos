@@ -22,15 +22,12 @@ import nichele.meusgastos.util.rotinas;
 
 public class actCategorias extends AppCompatActivity {
 
-   private Menu menu;
-   Context context;
+   Context context; String situacao = "";
+   Menu menu;
    Categoria c;
-   String situacao = "";
-
    TextView txtchave;
    int chave;
    TextView txtnome;
-
    RadioButton optE;
    RadioButton optS;
 
@@ -59,12 +56,10 @@ public class actCategorias extends AppCompatActivity {
          }
       });
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
       AppBarLayout mAppBarLayout = findViewById(R.id.app_bar);
       mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
          boolean isShow = false;
          int scrollRange = -1;
-
          @Override
          public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
             if (scrollRange == -1) {
@@ -79,7 +74,6 @@ public class actCategorias extends AppCompatActivity {
             }
          }
       });
-
 
       txtchave = findViewById(R.id.cat_chave);
       txtnome = findViewById(R.id.cat_txtnome);
@@ -99,6 +93,8 @@ public class actCategorias extends AppCompatActivity {
             optE.setChecked(true);
          else
             optS.setChecked(true);
+         optE.setEnabled(false);
+         optS.setEnabled(false);
       }
       db.close();
       txtchave.setText(String.valueOf(chave));
@@ -121,7 +117,7 @@ public class actCategorias extends AppCompatActivity {
       getMenuInflater().inflate(R.menu.mnu_crud, menu);
       hideOption(R.id.mnusalvar);
       if (situacao.equals("INC"))
-         hideOption(R.id.mnusalvar);
+         hideOption(R.id.mnuexcluir);
       return true;
    }
    @Override
@@ -162,11 +158,15 @@ public class actCategorias extends AppCompatActivity {
       finish();
    }
 
-   private void excluir(){
+   private void excluir() {
       BancoSQLite db = new BancoSQLite(context);
-      db.deletacategoria(chave);
+      if (!db.cadastro_em_uso("codcategoria", chave)){
+         db.deletacategoria(chave);
+         finish();
+      }else
+         rotinas.msgboxOk(context, "Categoria em uso, não pode ser excluída.");
       db.close();
-      finish();
+
    }
 
    @Override
