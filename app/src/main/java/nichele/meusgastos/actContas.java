@@ -34,7 +34,7 @@ public class actContas extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_contas);
       Intent intent = getIntent();
-      situacao = intent.getStringExtra("situacao");
+      situacao = intent.getStringExtra("situacao").toLowerCase();
       carregatela();
    }
 
@@ -73,7 +73,7 @@ public class actContas extends AppCompatActivity {
       });
       txtnome = findViewById(R.id.cnt_txtnome);
       BancoSQLite db = new BancoSQLite(context);
-      if (situacao.equals("INC")) {
+      if (situacao.equals("inc")) {
          chave=db.ultimocodigo("contas","codconta")+1;
       }
       else{
@@ -89,7 +89,7 @@ public class actContas extends AppCompatActivity {
       menu = pmenu;
       getMenuInflater().inflate(R.menu.mnu_crud, menu);
       hideOption(R.id.mnusalvar);
-      if (situacao.equals("INC"))
+      if (situacao.equals("inc"))
          hideOption(R.id.mnuexcluir);
       return true;
    }
@@ -118,6 +118,12 @@ public class actContas extends AppCompatActivity {
 
    private void salvar(){
       BancoSQLite db = new BancoSQLite(context);
+      if (situacao.equals("inc")) {
+         if (db.aceitar_cadastro("contas", txtnome.getText().toString()) == false) {
+            rotinas.alertCurto(context, "Conta já cadastrada");
+            return;
+         }
+      }
       String status = db.gravaconta(situacao, chave, txtnome.getText().toString());
       rotinas.logcat(status);
       db.close();

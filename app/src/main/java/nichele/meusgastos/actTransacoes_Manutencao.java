@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -71,6 +72,14 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
 
       //declarações dos campos
       Toolbar toolbar =  findViewById(R.id.toolbar);
+      if (tipodado.equals(TipoDado.entradas))
+         toolbar.setTitle("Nova Receita");
+      else
+         toolbar.setTitle("Nova Despesa");
+
+
+      //mToolbar.setSubtitle("subtitulo");
+
       setSupportActionBar(toolbar);
       getSupportActionBar().setHomeButtonEnabled(true);
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -86,6 +95,7 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       cmbcategoria = findViewById(R.id.man_cmbcategoria);
       chk=findViewById(R.id.man_chkrecpag);
       Button cmdsalvar = findViewById(R.id.cmdsalvar);
+      ImageView addcat = findViewById(R.id.man_addcat);
 
 
       //txtvalor.addTextChangedListener(new MoneyTextWatcher(txtvalor));
@@ -97,18 +107,8 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
          }
       });
 
+carregacombos();
 
-      BancoSQLite db = new BancoSQLite(context);
-      lstcontas = db.listacontas();
-      ArrayAdapter rstcontas = new ArrayAdapter(context,android.R.layout.simple_spinner_item, lstcontas);
-      rstcontas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-      cmbconta.setAdapter(rstcontas);
-
-      lstcategorias = db.listacategorias(tipodado);
-
-      ArrayAdapter<Categoria> rstcategorias = new ArrayAdapter<Categoria>(this, R.layout.support_simple_spinner_dropdown_item, lstcategorias);
-      rstcategorias.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-      cmbcategoria.setAdapter(rstcategorias);
 
       //tratamentos - eventos, valores iniciais
       txtvalor.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +117,8 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
 
          }
       });
+
+      BancoSQLite db = new BancoSQLite(context);
       if (situacao.equals("INC")) {
          chave=db.ultimocodigo("transacoes","id")+1;
          lbldata.setText(datautil.formatadata(new Date(), "ddd, dd mmm yyyy"));
@@ -193,6 +195,30 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
          }
       });
       db.close();
+
+      addcat.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            Intent intent = new Intent(context, actCategorias.class);
+            intent.putExtra("situacao", "inc");
+
+            startActivity(intent);
+         }
+      });
+   }
+
+   private void carregacombos(){
+      BancoSQLite db = new BancoSQLite(context);
+      lstcontas = db.listacontas();
+      ArrayAdapter rstcontas = new ArrayAdapter(context,android.R.layout.simple_spinner_item, lstcontas);
+      rstcontas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+      cmbconta.setAdapter(rstcontas);
+
+      lstcategorias = db.listacategorias(tipodado);
+      ArrayAdapter<Categoria> rstcategorias = new ArrayAdapter<Categoria>(this, R.layout.support_simple_spinner_dropdown_item, lstcategorias);
+      rstcategorias.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+      cmbcategoria.setAdapter(rstcategorias);
+      db.close();
    }
 
    private void mostradatas(){
@@ -254,6 +280,12 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       db.deletatransacao(chave);
       db.close();
       finish();
+   }
+
+   @Override
+   protected void onResume() {
+      super.onResume();
+      carregacombos();
    }
 
    @Override

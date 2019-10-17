@@ -37,7 +37,7 @@ public class actCategorias extends AppCompatActivity {
       setContentView(R.layout.activity_categorias);
       overridePendingTransition(R.anim.filho_entrando,R.anim.main_saindo);
       Intent intent = getIntent();
-      situacao = intent.getStringExtra("situacao");
+      situacao = intent.getStringExtra("situacao").toLowerCase();
       c = rotinas.categoria;
       carregatela();
    }
@@ -82,19 +82,21 @@ public class actCategorias extends AppCompatActivity {
       optS = findViewById(R.id.cat_optS);
 
       BancoSQLite db = new BancoSQLite(context);
-      if (situacao.equals("INC")) {
+      if (situacao.equals("inc")) {
          chave=db.ultimocodigo("categorias","codcategoria")+1;
+
       }
       else{
          chave = c.getCodigoInt();
          txtnome.setText(c.getNome());
 
-         if(c.getTipo().equals("E"))
+         if(c.getTipo().equals("E")){
             optE.setChecked(true);
-         else
+            optS.setEnabled(false);
+         }else{
             optS.setChecked(true);
-         optE.setEnabled(false);
-         optS.setEnabled(false);
+            optE.setEnabled(false);
+         }
       }
       db.close();
       txtchave.setText(String.valueOf(chave));
@@ -116,7 +118,7 @@ public class actCategorias extends AppCompatActivity {
       menu = pmenu;
       getMenuInflater().inflate(R.menu.mnu_crud, menu);
       hideOption(R.id.mnusalvar);
-      if (situacao.equals("INC"))
+      if (situacao.equals("inc"))
          hideOption(R.id.mnuexcluir);
       return true;
    }
@@ -145,7 +147,7 @@ public class actCategorias extends AppCompatActivity {
 
    private void salvar(){
       BancoSQLite db = new BancoSQLite(context);
-      if (!situacao.toLowerCase().equals("alt")) {
+      if (situacao.equals("inc")) {
          if (db.aceitar_cadastro("categorias", txtnome.getText().toString()) == false) {
             rotinas.alertCurto(context, "Categoria já cadastrada");
             return;
