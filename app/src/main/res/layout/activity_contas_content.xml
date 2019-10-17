@@ -7,20 +7,36 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".actContas"
     tools:showIn="@layout/activity_contas"
-    android:layout_marginTop="25dp">
+    >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_margin="@dimen/activity_margin">
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/menu_contas"/>
-        <EditText
+            android:layout_height="wrap_content"
+            android:id="@+id/cat_chave"
+            android:text="0"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/cnt_txtnome"
-            android:hint="Título"/>
+            android:orientation="horizontal"
+            >
+
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/menu_contas"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/cnt_txtnome"
+                android:hint="Título"/>
+        </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
