@@ -100,23 +100,21 @@ public class MainActivity extends AppCompatActivity {
                  public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                     switch(position){
                        case 0:
-                          Toast.makeText(getApplicationContext(),"visao geral",Toast.LENGTH_SHORT).show();
+//                          Toast.makeText(getApplicationContext(),"visao geral",Toast.LENGTH_SHORT).show();
                           abrefragment( new fraVisaoGeral());
                           break;
                        case 1:
-                          Toast.makeText(getApplicationContext(),"transações",Toast.LENGTH_SHORT).show();
+//                          Toast.makeText(getApplicationContext(),"transações",Toast.LENGTH_SHORT).show();
                           abrefragment( new fraTransacoes(TipoDado.extrato));
                           break;
-//                       case 2:
+                       case 2:
 //                          Toast.makeText(getApplicationContext(),"receitas",Toast.LENGTH_SHORT).show();
-//                          abrefragment( new fraTransacoes(TipoDado.entradas));
-//                          //abrefragment( new fraTransacoes_Manutencao());
-//                          break;
-//                       case 3:
+                          abrefragment( new fraTransacoes(TipoDado.entradas));
+                          break;
+                       case 3:
 //                          Toast.makeText(getApplicationContext(),"despesas",Toast.LENGTH_SHORT).show();
-//                          abrefragment( new fraTransacoes(TipoDado.saidas));
-//                          //abrefragment( new fraTransacoes_Manutencao());
-//                          break;
+                          abrefragment( new fraTransacoes(TipoDado.saidas));
+                          break;
                        case 4:
                           abreactivity("contas",TipoDado.nenhum);
                           break;
@@ -205,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
       if (requestCode==1 && resultCode == 1)
          mostrar_visaogeral = true;
-        // abrefragment(new fraVisaoGeral());
+      // abrefragment(new fraVisaoGeral());
 //      navigationDrwarerLeft.setSelection(0);
 //      if (requestCode == 1) {
 //         if(resultCode == Activity.RESULT_OK){
