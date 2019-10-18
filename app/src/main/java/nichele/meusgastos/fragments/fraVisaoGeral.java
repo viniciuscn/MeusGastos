@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -21,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import nichele.meusgastos.BancoSQLite;
+import nichele.meusgastos.MainActivity;
 import nichele.meusgastos.R;
 import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.util.datautil;
@@ -66,14 +68,16 @@ public class fraVisaoGeral extends Fragment  {
          window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
          window.setStatusBarColor(  getResources().getColor(R.color.colorPrimaryDark));
       }
-      toolbar.setBackgroundColor( getResources().getColor(R.color.colorPrimary));
+      toolbar.setBackgroundColor( getResources().getColor(R.color.colorPrimary) );
    }
 
 
    private void  montacardvalores(){
       TextView card_mes = view.findViewById(R.id.card_mes);
       TextView txtsldanterior = view.findViewById(R.id.card_sldanterior);
+      RelativeLayout layE = view.findViewById(R.id.layE);
       TextView txtreceitas = view.findViewById(R.id.card_vlrreceitas);
+      RelativeLayout layS = view.findViewById(R.id.layS);
       TextView txtdespesas = view.findViewById(R.id.card_vlrdespesas);
       TextView txtsldrd = view.findViewById(R.id.card_sldrd);
       TextView txtsldfinal = view.findViewById(R.id.card_sldfinal);
@@ -98,6 +102,22 @@ public class fraVisaoGeral extends Fragment  {
       txtsldrd.setText(rotinas.formatavalorBR(sldrd));
       txtsldfinal.setText(rotinas.formatavalorBR(sldfinal));
 
+      layE.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            ((MainActivity)getActivity()).fabmenu.collapse();
+            ((MainActivity)getActivity()).navigationDrwarerLeft.setSelection(1);
+            ((MainActivity)getActivity()).abrefragment(new fraTransacoes(TipoDado.entradas));
+         }
+      });
+      layS.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            ((MainActivity)getActivity()).fabmenu.collapse();
+            ((MainActivity)getActivity()).navigationDrwarerLeft.setSelection(1);
+            ((MainActivity)getActivity()).abrefragment(new fraTransacoes(TipoDado.saidas));
+         }
+      });
    }
 
    @Override

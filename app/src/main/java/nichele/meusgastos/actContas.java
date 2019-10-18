@@ -3,11 +3,9 @@ package nichele.meusgastos;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +14,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.Classes.Conta;
 import nichele.meusgastos.util.rotinas;
 
@@ -29,12 +26,16 @@ public class actContas extends AppCompatActivity {
    int chave;
    TextView txtnome;
 
+
+
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_contas);
+      setContentView(R.layout.activity_cadcontas);
+      overridePendingTransition(R.anim.filho_entrando,R.anim.main_saindo);
       Intent intent = getIntent();
       situacao = intent.getStringExtra("situacao").toLowerCase();
+      c = rotinas.conta;
       carregatela();
    }
 
@@ -71,7 +72,9 @@ public class actContas extends AppCompatActivity {
             }
          }
       });
+      txtchave = findViewById(R.id.cnt_chave);
       txtnome = findViewById(R.id.cnt_txtnome);
+      txtnome.requestFocus();
       BancoSQLite db = new BancoSQLite(context);
       if (situacao.equals("inc")) {
          chave=db.ultimocodigo("contas","codconta")+1;

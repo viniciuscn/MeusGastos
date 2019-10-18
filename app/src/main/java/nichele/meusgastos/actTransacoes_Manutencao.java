@@ -1,5 +1,6 @@
 package nichele.meusgastos;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -86,6 +88,7 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
 
       txtchave = findViewById(R.id.man_chave);
       txtvalor = findViewById(R.id.man_txtvalor);
+      txtvalor.requestFocus();
       cmdant = findViewById(R.id.man_cmdant);
       lbldata = findViewById(R.id.man_lbldata);
       txtdata = findViewById(R.id.man_txtdata);
@@ -107,7 +110,7 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
          }
       });
 
-carregacombos();
+      carregacombos();
 
 
       //tratamentos - eventos, valores iniciais
@@ -202,7 +205,7 @@ carregacombos();
             Intent intent = new Intent(context, actCategorias.class);
             intent.putExtra("situacao", "inc");
 
-            startActivity(intent);
+            startActivityForResult(intent, 1);
          }
       });
    }
@@ -256,9 +259,15 @@ carregacombos();
       }
    }
 
-   private void salvar(){
+   private void salvar() {
+      if (txtvalor.getText().toString().isEmpty()){
+         rotinas.msgboxOk(context, "Valor deve ser informado");
+         return;
+      }
+
       codconta = lstcontas.get(cmbconta.getSelectedItemPosition()).codigo;
       codcategoria = lstcategorias.get(cmbcategoria.getSelectedItemPosition()).codigo;
+
       String descricao = txtdescricao.getText().toString().trim();
       if(descricao.equals(""))
          descricao = lstcategorias.get(cmbcategoria.getSelectedItemPosition()).nome;
@@ -283,9 +292,14 @@ carregacombos();
    }
 
    @Override
-   protected void onResume() {
-      super.onResume();
+   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+      super.onActivityResult(requestCode, resultCode, data);
+      rotinas.logcat("result");
       carregacombos();
+      //categoria
+      if (requestCode == 1 && resultCode == Activity.RESULT_OK){
+         cmbcategoria.setSelection(lstcategorias.size()-1,true);
+      }
    }
 
    @Override

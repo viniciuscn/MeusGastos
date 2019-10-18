@@ -1,5 +1,6 @@
 package nichele.meusgastos;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +17,6 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import nichele.meusgastos.Classes.Categoria;
-import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.util.rotinas;
 
 public class actCategorias extends AppCompatActivity {
@@ -34,7 +33,7 @@ public class actCategorias extends AppCompatActivity {
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_categorias);
+      setContentView(R.layout.activity_cadcategorias);
       overridePendingTransition(R.anim.filho_entrando,R.anim.main_saindo);
       Intent intent = getIntent();
       situacao = intent.getStringExtra("situacao").toLowerCase();
@@ -74,10 +73,9 @@ public class actCategorias extends AppCompatActivity {
             }
          }
       });
-
       txtchave = findViewById(R.id.cat_chave);
       txtnome = findViewById(R.id.cat_txtnome);
-
+      txtnome.requestFocus();
       optE = findViewById(R.id.cat_optE);
       optS = findViewById(R.id.cat_optS);
 
@@ -157,6 +155,9 @@ public class actCategorias extends AppCompatActivity {
       rotinas.logcat(status);
 
       db.close();
+      Intent returnIntent = new Intent();
+      returnIntent.putExtra("id",chave);
+      setResult(Activity.RESULT_OK,returnIntent);
       finish();
    }
 

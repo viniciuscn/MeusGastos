@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -54,6 +55,10 @@ public class fraTransacoes extends Fragment {
 
       toolbar = getActivity().findViewById(R.id.toolbar);
       toolbar.setTitle("Transações");
+
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+         toolbar.setElevation(0);
+      }
       definecores();
 
       filtraperiodo();
@@ -69,12 +74,13 @@ public class fraTransacoes extends Fragment {
 
 
       BottomNavigationView bnv = view.findViewById(R.id.navegacao);
-
-      if(listar == TipoDado.entradas || listar == TipoDado.saidas) {
-         bnv.setVisibility(View.GONE);
-      }else{
+      if(listar.equals(TipoDado.entradas))
+         bnv.getMenu().findItem(R.id.mnuentradas).setChecked(true);
+      else if(listar.equals(TipoDado.saidas))
+         bnv.getMenu().findItem(R.id.mnusaidas).setChecked(true);
+      else
          bnv.getMenu().findItem(R.id.mnuextrato).setChecked(true);
-      }
+
 
       bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
          @Override
@@ -102,21 +108,24 @@ public class fraTransacoes extends Fragment {
 
    private void definecores(){
       if(listar == TipoDado.entradas){
-         primariaescura = getResources().getColor(R.color.verdeescuro);
-         primaria = getResources().getColor(R.color.verde);
+         primariaescura = getResources().getColor( R.color.verdeescuro );
+         primaria = getResources().getColor( R.color.verde );
       }else if(listar == TipoDado.saidas){
-         primariaescura = getResources().getColor(R.color.vermelhoescuro);
-         primaria = getResources().getColor(R.color.vermelho);
+         primariaescura = getResources().getColor( R.color.vermelhoescuro );
+         primaria = getResources().getColor( R.color.vermelho );
       }else if(listar == TipoDado.extrato){
-         primariaescura = getResources().getColor(R.color.cinzaescuro);
-         primaria = getResources().getColor(R.color.cinzaescuro);
+         primariaescura = getResources().getColor( R.color.colorPrimaryDark );
+         primaria = getResources().getColor( R.color.colorPrimary );
       }
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
          Window window = getActivity().getWindow();
          window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-         window.setStatusBarColor( primariaescura);
+         window.setStatusBarColor( primariaescura );
       }
       toolbar.setBackgroundColor(primaria);
+      RelativeLayout layfiltro = view.findViewById(R.id.layfiltro);
+      layfiltro.setBackgroundColor( primaria );
+
    }
 
    public void mostradados(){
@@ -126,6 +135,7 @@ public class fraTransacoes extends Fragment {
       ExtratoAdapter adapter = new ExtratoAdapter(dados);
 
       RecyclerView recyclerView = view.findViewById(R.id.lista_dados);
+      recyclerView.setHasFixedSize(true);
       recyclerView.setAdapter(adapter);
       recyclerView.setLayoutManager(new LinearLayoutManager( getContext()));
 
@@ -152,6 +162,7 @@ public class fraTransacoes extends Fragment {
    private GregorianCalendar gc = new GregorianCalendar();
 
    private void filtraperiodo(){
+
       cmdant = view.findViewById(R.id.cmdant);
       lblmesextenso = view.findViewById(R.id.lblmes_extenso);
       cmdnext = view.findViewById(R.id.cmdnext);

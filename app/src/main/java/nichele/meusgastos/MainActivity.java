@@ -31,8 +31,8 @@ import nichele.meusgastos.util.rotinas;
 public class MainActivity extends AppCompatActivity {
 
    public Toolbar toolbar;
-   private Drawer.Result navigationDrwarerLeft;
-   FloatingActionMenu fabmenu;
+   public Drawer.Result navigationDrwarerLeft;
+   public FloatingActionMenu fabmenu;
 
 
    @Override
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
       fabrec.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            //abrefragment(new fraTransacoes_Manutencao(TipoDado.entradas));
+
             abreactivity("manutencao", TipoDado.entradas);
             fabmenu.collapse();
          }
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Ajustes").withIcon(getResources().getDrawable(R.drawable.menu_ajustes)));
    }
 
-   private void abrefragment(Fragment f){
+   public void abrefragment(Fragment f){
       FragmentManager fm = getSupportFragmentManager();
       FragmentTransaction ft = fm.beginTransaction();
       ft.replace(R.id.frameLayout, f);

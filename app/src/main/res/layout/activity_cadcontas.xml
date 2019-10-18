@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".actCategorias">
+    tools:context=".actContas">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -43,6 +43,6 @@
         android:backgroundTint="@color/verde"
         app:srcCompat="@drawable/ic_salvar_white_24dp" />
 
-    <include layout="@layout/activity_categorias_content" />
+    <include layout="@layout/activity_cadcontas_content" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -48,9 +48,7 @@ public class fraListCategorias extends Fragment {
 
    @Override
    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
       view = inflater.inflate(R.layout.activity_lis_categorias_content_fragment, container, false);
-
       mostradados();
       return view;
    }
@@ -65,15 +63,15 @@ public class fraListCategorias extends Fragment {
       mostradados();
    }
    @Override
-   public void onStop() { super.onStop(); }
+   public void onStop() {
+      super.onStop();
+   }
    @Override
    public void onDetach(){
       super.onDetach();
    }
 
-
    public void mostradados(){
-
       BancoSQLite db = new BancoSQLite(getContext());
       ArrayList<Categoria> lstcategorias = db.listacategorias(listar);
       db.close();
@@ -82,9 +80,5 @@ public class fraListCategorias extends Fragment {
       recyclerView.setAdapter(rst);
       recyclerView.setLayoutManager(new LinearLayoutManager( getContext()));
       recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-
    }
-
-
 }

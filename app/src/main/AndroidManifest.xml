@@ -39,12 +39,14 @@
                 android:value="nichele.meusgastos.MainActivity" />
         </activity>
 
-        <activity android:name=".actLisContas" android:label="@string/caption_actliscategorias"
+        <activity android:name=".actLisContas" android:label="@string/caption_actlisccontas"
             android:parentActivityName="nichele.meusgastos.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nichele.meusgastos.MainActivity" />
         </activity>
+
+
         <activity
             android:name=".actContas"
             android:label="@string/title_activity_act_contas"

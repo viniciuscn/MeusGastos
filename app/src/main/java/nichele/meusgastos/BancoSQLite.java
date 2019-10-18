@@ -267,6 +267,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
             sql += " where tipo = 'E'";
         else if (tipodado.equals(TipoDado.saidas))
             sql += " where tipo = 'S'";
+        sql+= " order by codcategoria";
         rotinas.logcat( sql);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);

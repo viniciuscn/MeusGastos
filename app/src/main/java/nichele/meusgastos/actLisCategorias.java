@@ -39,17 +39,12 @@ public class actLisCategorias extends AppCompatActivity {
             //intent.putExtra("tipdado", (categorias.get(position).funcao.equals("E") ? TipoDado.entradas : TipoDado.saidas) );
             intent.putExtra("situacao", "INC");
             startActivity(intent);
-
          }
       });
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-      //@SuppressLint("WrongViewCast")
       TabLayout tabs = findViewById(R.id.tabs);
-      ViewPager pager = (ViewPager) findViewById(R.id.pager);
+      ViewPager pager = findViewById(R.id.pager);
       TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager(), getResources().getStringArray(R.array.categorias));
-
       pager.setAdapter(adapter);
       tabs.setupWithViewPager(pager);
    }

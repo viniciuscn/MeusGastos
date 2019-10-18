@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:id="@+id/filtro"
+        android:id="@+id/layfiltro"
         >
 
         <ImageButton
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/lblmes_extenso"
             android:text="Mes por extenso"
-            android:textSize="30sp"
+            android:textSize="25dp"
             android:layout_centerHorizontal="true"
 
             />
@@ -74,25 +74,13 @@
 
     </RelativeLayout>
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/cinza"
-        android:layout_below="@+id/filtro"
-        android:layout_above="@+id/navegacao"
-        >
         <include
             layout="@layout/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-
-
+            android:layout_below="@+id/layfiltro"
+            android:layout_above="@+id/navegacao"
             />
-    </RelativeLayout>
-
-
 
     <include
         layout="@layout/toolbar_bottom"
