@@ -217,23 +217,20 @@ public class MainActivity extends AppCompatActivity {
 
    int backButtonCount;
    @Override
-   public void onBackPressed()
-   {
+   public void onBackPressed() {
       fabmenu.setVisibility(View.VISIBLE);
-      if(backButtonCount >= 1)
-      {
+      if (backButtonCount >= 1) {
 //         Intent intent = new Intent(Intent.ACTION_MAIN);
 //         intent.addCategory(Intent.CATEGORY_HOME);
 //         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //         startActivity(intent);
-         System.exit(0 );
+         System.exit(0);
+      } else {
+         if(!getSupportFragmentManager().findFragmentById(R.id.frameLayout).getClass().getSimpleName().equals("Visão Geral")){
+            abrefragment(new fraVisaoGeral());
+         }else
+            Toast.makeText(this, "Pressione novamente para sair", Toast.LENGTH_SHORT).show();
       }
-      else
-      {
-         Toast.makeText(this, "Pressione novamente para sair", Toast.LENGTH_SHORT).show();
-         backButtonCount++;
-      }
+      backButtonCount++;
    }
-
-
 }
