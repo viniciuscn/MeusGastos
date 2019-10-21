@@ -2,64 +2,50 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-
-    >
-
+    android:orientation="vertical">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:id="@+id/layfiltro"
-        >
-
+        android:background="@color/primary">
         <ImageButton
             android:id="@+id/cmdant"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_previous_24dp"
-            />
-
+            android:src="@drawable/ic_previous_24dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/lblmes_extenso"
             android:text="Mes por extenso"
+            android:textColor="@color/colorWhite"
             android:textSize="25dp"
-            android:layout_centerHorizontal="true"
-
-            />
+            android:layout_centerHorizontal="true"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/lblmes_extenso"
             android:layout_centerHorizontal="true"
-            >
+            android:visibility="gone">
             <TextView
                 android:id="@+id/lbldatinicial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="inicio"
-                />
-
+                android:text="inicio"/>
             <TextView
                 android:id="@+id/lblate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" até "
-                />
-
+                android:text=" até "/>
             <TextView
                 android:id="@+id/lbldatfinal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="fim"
-                />
+                android:text="fim"/>
         </LinearLayout>
-
-
         <ImageButton
             android:id="@+id/cmdnext"
             android:layout_width="40dp"
@@ -67,28 +53,70 @@
             android:layout_alignParentRight="true"
             android:layout_centerHorizontal="true"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_next_24dp"
-            />
-
-
-
+            android:src="@drawable/ic_next_24dp"/>
     </RelativeLayout>
 
-        <include
-            layout="@layout/recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/layfiltro"
-            android:layout_above="@+id/navegacao"
-            />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/laytotal"
+        android:layout_below="@id/layfiltro"
+        android:padding="20dp">
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/laysldatual"
+            android:orientation="vertical"
+            android:layout_alignParentLeft="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Balanço Mensal"
+                android:textAlignment="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvbalmensal"
+                android:text="0,00"
+                android:textAlignment="center"/>
 
+        </LinearLayout>
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="30dp"
+            android:background="@color/cinzaescuro"
+            android:layout_centerInParent="true"/>
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/laybalanco"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Saldo Atual"
+                android:textAlignment="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvsldatual"
+                android:text="0,00"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+    <include
+        layout="@layout/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/laytotal"
+        android:layout_above="@+id/navegacao"/>
     <include
         layout="@layout/toolbar_bottom"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:id="@+id/navegacao"
         android:layout_alignParentBottom="true"/>
-
-
-
 </RelativeLayout>

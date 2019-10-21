@@ -4,22 +4,28 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TimePicker;
+
+import java.util.Calendar;
 
 public class actAjustes extends AppCompatActivity {
 
    Context context;
    private Toolbar mToolbar;
 
-   LinearLayout con_lay_comecardozero;
+   LinearLayout laycomecardozero;
+   LinearLayout laycopiaseguranca;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +46,13 @@ public class actAjustes extends AppCompatActivity {
    }
 
    public void carregatela(){
-      con_lay_comecardozero = findViewById(R.id.aju_lay_comecardozero);
-      con_lay_comecardozero.setOnClickListener(new View.OnClickListener() {
+      montalaycomecardozero();
+      montalaycopiaseguranca();
+   }
+
+   private void montalaycomecardozero(){
+      laycomecardozero = findViewById(R.id.laycomecardozero);
+      laycomecardozero.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
             final AlertDialog dialogBuilder = new AlertDialog.Builder(context).create();
@@ -75,6 +86,68 @@ public class actAjustes extends AppCompatActivity {
 
             dialogBuilder.setView(dialogView);
             dialogBuilder.show();
+         }
+      });
+   }
+
+   private void montalaycopiaseguranca(){
+      laycopiaseguranca = findViewById(R.id.laycopiaseguranca);
+      laycopiaseguranca.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            //startActivity(new Intent(context, actAjustes_CopiaSeguranca.class));
+
+            LayoutInflater inflater = getLayoutInflater();
+            final View dialoglayout = inflater.inflate(R.layout.activity_ajustes_copiaseguranca, null);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setView(dialoglayout);
+            builder.setTitle("Cópia de Segurança");
+            final AlertDialog ad = builder.show();
+
+            final Button btnhorabackup = dialoglayout.findViewById(R.id.btnhorabackup);
+            btnhorabackup.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                  //final Calendar c = Calendar.getInstance();
+                  //int mHour = c.get(Calendar.HOUR_OF_DAY);
+                  //int mMinute = c.get(Calendar.MINUTE);
+
+
+
+                  int mHour = new Integer(btnhorabackup.getText().subSequence(0, 2).toString());
+                  int mMinute = new Integer(btnhorabackup.getText().subSequence(3,5).toString());
+
+
+                  // Launch Time Picker Dialog
+                  TimePickerDialog timePickerDialog = new TimePickerDialog(context,
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                           @Override
+                           public void onTimeSet(TimePicker view, int hourOfDay,
+                                                 int minute) {
+
+                              btnhorabackup.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d",minute));
+                           }
+                        }, mHour, mMinute, true);
+                  timePickerDialog.show();
+
+               }
+            });
+            Button btnsalvar = dialoglayout.findViewById(R.id.btnsalvar);
+            btnsalvar.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+
+                  ad.dismiss();
+               }
+            });
+            Button btncancelar = dialoglayout.findViewById(R.id.btncancelar);
+            btncancelar.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                  ad.dismiss();
+               }
+            });
          }
       });
    }

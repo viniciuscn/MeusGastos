@@ -199,7 +199,7 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/resumo_lblsaldo_mes"
-                    android:text="Saldo (R-D):"
+                    android:text="Balanço Mensal:"
                     android:textSize="@dimen/FontSize"
                     android:layout_marginLeft="10dp"
                     />
@@ -238,7 +238,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/resumo_lblsaldo"
-                    android:text="Saldo (SA-R-D):"
+                    android:text="Saldo Atual:"
                     android:textSize="@dimen/FontSize"
                     android:layout_marginLeft="10dp"/>
 

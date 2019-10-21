@@ -46,17 +46,17 @@ public class fraVisaoGeral extends Fragment  {
       //toolbar.setTitle("Visão Geral");
       definecores();
 
-      textview = view.findViewById(R.id.txtsaldo);
+      //textview = view.findViewById(R.id.txtsaldo);
 
-      rotinas.animateTextView(0,200, textview);
+      //rotinas.animateTextView(0,200, textview);
 
-      Button cmd = view.findViewById(R.id.cmdrodanumeros);
-      cmd.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            rotinas.animateTextView(0,200.50f,textview);
-         }
-      });
+//      Button cmd = view.findViewById(R.id.cmdrodanumeros);
+//      cmd.setOnClickListener(new View.OnClickListener() {
+//         @Override
+//         public void onClick(View v) {
+//            rotinas.animateTextView(0,200.50f,textview);
+//         }
+//      });
 
       montacardvalores();
       return view;
@@ -74,13 +74,13 @@ public class fraVisaoGeral extends Fragment  {
 
    private void  montacardvalores(){
       TextView card_mes = view.findViewById(R.id.card_mes);
-      TextView txtsldanterior = view.findViewById(R.id.card_sldanterior);
+      TextView tvsldanterior = view.findViewById(R.id.card_sldanterior);
       RelativeLayout layE = view.findViewById(R.id.layE);
-      TextView txtreceitas = view.findViewById(R.id.card_vlrreceitas);
+      TextView tvreceitas = view.findViewById(R.id.card_vlrreceitas);
       RelativeLayout layS = view.findViewById(R.id.layS);
-      TextView txtdespesas = view.findViewById(R.id.card_vlrdespesas);
-      TextView txtsldrd = view.findViewById(R.id.card_sldrd);
-      TextView txtsldfinal = view.findViewById(R.id.card_sldfinal);
+      TextView tvdespesas = view.findViewById(R.id.card_vlrdespesas);
+      TextView tvsldrd = view.findViewById(R.id.card_sldrd);
+      TextView tvsldfinal = view.findViewById(R.id.card_sldfinal);
 
       card_mes.setText(datautil.formatadata(new Date(),"mmm, yy"));
 
@@ -93,14 +93,18 @@ public class fraVisaoGeral extends Fragment  {
       float receitas = db.buscavalores(TipoDado.entradas, datinicial, datfinal);
       float despesas = db.buscavalores(TipoDado.saidas, datinicial, datfinal);
       float sldrd = receitas - despesas;
-      float sldfinal = sldanterior+sldrd;
+      float sldatual = sldanterior+sldrd;
       db.close();
 
-      txtsldanterior.setText(rotinas.formatavalorBR(sldanterior));
-      txtreceitas.setText(rotinas.formatavalorBR(receitas));
-      txtdespesas.setText(rotinas.formatavalorBR(despesas));
-      txtsldrd.setText(rotinas.formatavalorBR(sldrd));
-      txtsldfinal.setText(rotinas.formatavalorBR(sldfinal));
+      tvsldanterior.setText(rotinas.formatavalorBR(sldanterior));
+      tvreceitas.setText(rotinas.formatavalorBR(receitas));
+      tvdespesas.setText(rotinas.formatavalorBR(despesas));
+      tvsldrd.setText(rotinas.formatavalorBR(sldrd));
+      tvsldfinal.setText(rotinas.formatavalorBR(sldatual));
+      if (sldatual < 0)
+         tvsldfinal.setTextColor(getResources().getColor(R.color.vermelho));
+      else
+         tvsldfinal.setTextColor(getResources().getColor(R.color.verde));
 
       layE.setOnClickListener(new View.OnClickListener() {
          @Override

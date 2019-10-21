@@ -19,6 +19,7 @@ import java.util.Locale;
 import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.Classes.Conta;
 import nichele.meusgastos.Classes.Transacao;
+import nichele.meusgastos.R;
 
 /**
  * Created by vinicius on 16/06/2016.
@@ -37,7 +38,7 @@ public class rotinas {
 
     public static String limpacampovalor(String valor){
         //String replaceable = String.format("[%s,.\\s]", NumberFormat.getCurrencyInstance(locale).getCurrency().getSymbol());
-        String replaceable = String.format("[%s\\s]", NumberFormat.getCurrencyInstance(locale).getCurrency().getSymbol());
+        String replaceable = String.format("[%s,\\s]", NumberFormat.getCurrencyInstance(locale).getCurrency().getSymbol());
         String valorlimpo = valor.replaceAll(replaceable, "");
         rotinas.logcat(valorlimpo);
         return valorlimpo;
@@ -53,7 +54,15 @@ public class rotinas {
         return df.format(Float.parseFloat(valor.toString()));
     }
 
-    public void EscondeTeclado(Activity c) {
+	public static void setColorCampoValor(Context context, TextView campoValor) {
+        if (format(campoValor.getText().toString()) < 0)
+            campoValor.setTextColor( context.getResources().getColor(R.color.vermelho) );
+        else
+            campoValor.setTextColor( context.getResources().getColor(R.color.verde) );
+
+	}
+
+	public void EscondeTeclado(Activity c) {
         c.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 

@@ -9,8 +9,8 @@
     <string name="title_activity_act_categorias">Categorias</string>
     <string name="caption_actlisccontas">Gerenciar Contas</string>
     <string name="caption_actliscategorias">Gerenciar Categorias</string>
-<!--    <string name="tab_text_1">Tab 1</string>-->
-<!--    <string name="tab_text_2">Tab 2</string>-->
+    <!--    <string name="tab_text_1">Tab 1</string>-->
+    <!--    <string name="tab_text_2">Tab 2</string>-->
 
     <string-array name="categorias">
         <item>Receitas</item>

@@ -32,6 +32,7 @@ import nichele.meusgastos.Classes.Transacao;
 import nichele.meusgastos.adapters.ExtratoAdapter;
 import nichele.meusgastos.R;
 import nichele.meusgastos.util.TipoDado;
+import nichele.meusgastos.util.rotinas;
 
 public class fraTransacoes extends Fragment {
 
@@ -131,7 +132,23 @@ public class fraTransacoes extends Fragment {
    public void mostradados(){
       BancoSQLite db = new BancoSQLite(getContext());
       ArrayList<Transacao> dados = db.getTransacoes(listar,lbldatinicial.getText().toString(),lbldatfinal.getText().toString());
+
+      float sldanterior = db.buscavalores(TipoDado.sldanterior, lbldatinicial.getText().toString(), "");
+      float receitas = db.buscavalores(TipoDado.entradas, lbldatinicial.getText().toString(),lbldatfinal.getText().toString());
+      float despesas = db.buscavalores(TipoDado.saidas, lbldatinicial.getText().toString(),lbldatfinal.getText().toString());
+      float balmensal = receitas - despesas;
+      float sldatual = sldanterior+balmensal;
+
+      TextView lblbalmensal = view.findViewById(R.id.tvbalmensal);
+      lblbalmensal.setText(rotinas.formatavalorBR(balmensal));
+      rotinas.setColorCampoValor(getContext(),lblbalmensal);
+
+      TextView tvsldatual = view.findViewById(R.id.tvsldatual);
+      tvsldatual.setText(rotinas.formatavalorBR(sldatual));
+      rotinas.setColorCampoValor(getContext(),tvsldatual);
+
       db.close();
+
       ExtratoAdapter adapter = new ExtratoAdapter(dados);
 
       RecyclerView recyclerView = view.findViewById(R.id.lista_dados);
