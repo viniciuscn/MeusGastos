@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -21,157 +22,172 @@ import nichele.meusgastos.util.rotinas;
 
 public class actAjustes extends AppCompatActivity {
 
-   Context context;
-   private Toolbar mToolbar;
+	Context context;
+	private Toolbar mToolbar;
 
-   LinearLayout laycomecardozero;
-   LinearLayout laycopiaseguranca;
+	SharedPreferences sp;
 
-   @Override
-   protected void onCreate(Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_ajustes);
-      context=this;
-      overridePendingTransition(R.anim.filho_entrando, R.anim.main_saindo);
-      //setTheme(R.style.AppTheme);
+	LinearLayout laycomecardozero;
+	LinearLayout laycopiaseguranca;
 
-      mToolbar = findViewById(R.id.toolbar);
-      mToolbar.setTitle("Ajustes");
-      //mToolbar.setSubtitle("subtitulo");
-      setSupportActionBar(mToolbar);
-      getSupportActionBar().setHomeButtonEnabled(true);
-      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_ajustes);
+		context=this;
+		overridePendingTransition(R.anim.filho_entrando, R.anim.main_saindo);
+		//setTheme(R.style.AppTheme);
 
-      carregatela();
-   }
+		mToolbar = findViewById(R.id.toolbar);
+		mToolbar.setTitle("Ajustes");
+		//mToolbar.setSubtitle("subtitulo");
+		setSupportActionBar(mToolbar);
+		getSupportActionBar().setHomeButtonEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-   public void carregatela(){
-      montalaycomecardozero();
-      montalaycopiaseguranca();
-   }
+		sp = getSharedPreferences(rotinas.cfg, Context.MODE_PRIVATE);
+		carregatela();
+	}
 
-   private void montalaycomecardozero(){
-      laycomecardozero = findViewById(R.id.laycomecardozero);
-      laycomecardozero.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            final AlertDialog dialogBuilder = new AlertDialog.Builder(context).create();
-            View dialogView = LayoutInflater.from(context).inflate(R.layout.confirma_comecardozero, null);
+	public void carregatela(){
+		montalaycomecardozero();
+		montalaycopiaseguranca();
+	}
 
-            final EditText confirma = dialogView.findViewById(R.id.confirma);
-            Button btnnao =  dialogView.findViewById(R.id.btnnao);
-            Button btnsim = dialogView.findViewById(R.id.btnsim);
+	private void montalaycomecardozero(){
+		laycomecardozero = findViewById(R.id.laycomecardozero);
+		laycomecardozero.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final AlertDialog dialogBuilder = new AlertDialog.Builder(context).create();
+				View dialogView = LayoutInflater.from(context).inflate(R.layout.confirma_comecardozero, null);
 
-            btnsim.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                  if (confirma.getText().toString().trim().toLowerCase().equals("recomeçar")) {
-                     BancoSQLite db = new BancoSQLite(getApplicationContext());
-                     db.zerabanco();
-                     db.close();
-                     Intent intent = new Intent();
-                     setResult(1, intent);
-                     dialogBuilder.dismiss();
-                     finish();
-                  }
-               }
-            });
-            btnnao.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                  // DO SOMETHINGS
-                  dialogBuilder.dismiss();
-               }
-            });
+				final EditText confirma = dialogView.findViewById(R.id.confirma);
+				Button btnnao =  dialogView.findViewById(R.id.btnnao);
+				Button btnsim = dialogView.findViewById(R.id.btnsim);
 
-            dialogBuilder.setView(dialogView);
-            dialogBuilder.show();
-         }
-      });
-   }
+				btnsim.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						if (confirma.getText().toString().trim().toLowerCase().equals("recomeçar")) {
+							BancoSQLite db = new BancoSQLite(getApplicationContext());
+							db.zerabanco();
+							db.close();
+							Intent intent = new Intent();
+							setResult(1, intent);
+							dialogBuilder.dismiss();
+							finish();
+						}
+					}
+				});
+				btnnao.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						// DO SOMETHINGS
+						dialogBuilder.dismiss();
+					}
+				});
 
-   private void montalaycopiaseguranca(){
-      laycopiaseguranca = findViewById(R.id.laycopiaseguranca);
+				dialogBuilder.setView(dialogView);
+				dialogBuilder.show();
+			}
+		});
+	}
 
-      laycopiaseguranca.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            //startActivity(new Intent(context, actAjustes_CopiaSeguranca.class));
+	private void montalaycopiaseguranca(){
+		laycopiaseguranca = findViewById(R.id.laycopiaseguranca);
 
-            LayoutInflater inflater = getLayoutInflater();
-            final View dialoglayout = inflater.inflate(R.layout.activity_ajustes_copiaseguranca, null);
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setView(dialoglayout);
-            builder.setTitle("Cópia de Segurança");
-            final AlertDialog ad = builder.show();
+		laycopiaseguranca.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//startActivity(new Intent(context, actAjustes_CopiaSeguranca.class));
 
-            final Button btnhorabackup = dialoglayout.findViewById(R.id.btnhorabackup);
+				LayoutInflater inflater = getLayoutInflater();
+				final View dialoglayout = inflater.inflate(R.layout.activity_ajustes_copiaseguranca, null);
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				builder.setView(dialoglayout);
+				builder.setTitle("Cópia de Segurança");
+				final AlertDialog ad = builder.show();
+
+				final Button btnhorabackup = dialoglayout.findViewById(R.id.btnhorabackup);
+				btnhorabackup.setText(sp.getString(rotinas.cfg_keyhorabkp, "23:00"));
+
+				final Switch chkbackup = dialoglayout.findViewById(R.id.chkbackup);
+				boolean rodar_bkp = sp.getBoolean(rotinas.cfg_keybkpativo, false);
+				chkbackup.setChecked(rodar_bkp);
+
+				if(rodar_bkp == true) {
+					btnhorabackup.setEnabled(true);
+				}else {
+					btnhorabackup.setEnabled(false);
+				}
+				chkbackup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+					@Override
+					public void onCheckedChanged(CompoundButton cb, boolean on){
+						if(on)
+							btnhorabackup.setEnabled(true);
+						else
+							btnhorabackup.setEnabled(false);
+					}
+				});
+
+				btnhorabackup.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						//final Calendar c = Calendar.getInstance();
+						//int mHour = c.get(Calendar.HOUR_OF_DAY);
+						//int mMinute = c.get(Calendar.MINUTE);
+
+						int mHour = new Integer(btnhorabackup.getText().subSequence(0, 2).toString());
+						int mMinute = new Integer(btnhorabackup.getText().subSequence(3,5).toString());
 
 
-            final Switch chkbackup = dialoglayout.findViewById(R.id.chkbackup);
-            boolean rodar_bkp = context.getSharedPreferences(rotinas.mgbkpativo, Context.MODE_PRIVATE).getBoolean(rotinas.mgbkpativo, false);
-            chkbackup.setChecked(rodar_bkp);
-            if(rodar_bkp == true) {
-               btnhorabackup.setEnabled(true);
-            }else {
-               btnhorabackup.setEnabled(false);
-            }
+						// Launch Time Picker Dialog
+						TimePickerDialog timePickerDialog = new TimePickerDialog(context,
+								new TimePickerDialog.OnTimeSetListener() {
 
-            btnhorabackup.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                  //final Calendar c = Calendar.getInstance();
-                  //int mHour = c.get(Calendar.HOUR_OF_DAY);
-                  //int mMinute = c.get(Calendar.MINUTE);
+									@Override
+									public void onTimeSet(TimePicker view, int hourOfDay,
+									                      int minute) {
 
-                  int mHour = new Integer(btnhorabackup.getText().subSequence(0, 2).toString());
-                  int mMinute = new Integer(btnhorabackup.getText().subSequence(3,5).toString());
+										btnhorabackup.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d",minute));
+									}
+								}, mHour, mMinute, true);
+						timePickerDialog.show();
 
+					}
+				});
+				Button btnsalvar = dialoglayout.findViewById(R.id.btnsalvar);
 
-                  // Launch Time Picker Dialog
-                  TimePickerDialog timePickerDialog = new TimePickerDialog(context,
-                        new TimePickerDialog.OnTimeSetListener() {
+				btnsalvar.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
 
-                           @Override
-                           public void onTimeSet(TimePicker view, int hourOfDay,
-                                                 int minute) {
+						SharedPreferences.Editor editor = sp.edit();
+						editor.putBoolean(rotinas.cfg_keybkpativo, chkbackup.isChecked());
+						editor.apply();
 
-                              btnhorabackup.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d",minute));
-                           }
-                        }, mHour, mMinute, true);
-                  timePickerDialog.show();
+						editor = sp.edit();
+						editor.putString(rotinas.cfg_keyhorabkp, chkbackup.isChecked() == true ? btnhorabackup.getText().toString() : "");
+						editor.apply();
+						rotinas.startAlertAtParticularTime(context);
+						ad.dismiss();
+					}
+				});
+				Button btncancelar = dialoglayout.findViewById(R.id.btncancelar);
+				btncancelar.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						ad.dismiss();
+					}
+				});
+			}
+		});
+	}
 
-               }
-            });
-            Button btnsalvar = dialoglayout.findViewById(R.id.btnsalvar);
-            btnsalvar.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                  SharedPreferences.Editor editor = getSharedPreferences(rotinas.mgbkpativo, Context.MODE_PRIVATE).edit();
-                  editor.putBoolean(rotinas.mgbkpativo, chkbackup.isChecked());
-                  editor.apply();
-
-                  editor = getSharedPreferences(rotinas.mghorabkp, Context.MODE_PRIVATE).edit();
-                  editor.putString(rotinas.mghorabkp, btnhorabackup.getText().toString());
-                  editor.apply();
-                  rotinas.startAlertAtParticularTime(context);
-                  ad.dismiss();
-               }
-            });
-            Button btncancelar = dialoglayout.findViewById(R.id.btncancelar);
-            btncancelar.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                  ad.dismiss();
-               }
-            });
-         }
-      });
-   }
-
-   @Override
-   public void finish() {
-      super.finish();
-      overridePendingTransition(R.anim.main_entrando, R.anim.filho_saindo);
-   }
+	@Override
+	public void finish() {
+		super.finish();
+		overridePendingTransition(R.anim.main_entrando, R.anim.filho_saindo);
+	}
 }

@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,13 +21,8 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
-import nichele.meusgastos.backup.AlarmReceiver;
 import nichele.meusgastos.fragments.fraTransacoes;
 import nichele.meusgastos.fragments.fraVisaoGeral;
 import nichele.meusgastos.util.TipoDado;
@@ -46,23 +39,19 @@ public class MainActivity extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
-
       rotinas.locale = new Locale("pt", "BR");
 
-      SharedPreferences sharedPreferences = getSharedPreferences(rotinas.keyfirstopen, Context.MODE_PRIVATE);
-
-
-
       BancoSQLite db = new BancoSQLite(this);
-      String firstopen = sharedPreferences.getString(rotinas.keyfirstopen, "S");
+      SharedPreferences sp = getSharedPreferences(rotinas.cfg, Context.MODE_PRIVATE);
+      String firstopen = sp.getString(rotinas.cfg_keyfirstopen, "S");
       if (firstopen == "S"){
          db.zerabanco();
-         SharedPreferences.Editor editor = sharedPreferences.edit();
-         editor.putString(rotinas.keyfirstopen,"N");
+         SharedPreferences.Editor editor = sp.edit();
+         editor.putString(rotinas.cfg_keyfirstopen,"N");
          editor.apply();
 
-         editor = getSharedPreferences(rotinas.mgbkpativo, Context.MODE_PRIVATE).edit();
-         editor.putBoolean(rotinas.mgbkpativo,false);
+         editor = sp.edit();
+         editor.putBoolean(rotinas.cfg_keybkpativo,false);
          editor.apply();
       }
 

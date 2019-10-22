@@ -21,6 +21,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+
+		new CriaBackup(context).executeLocal("");
+
 		//Toast.makeText(context, "Time Up... Now Vibrating !!!", Toast.LENGTH_LONG).show();
 		rotinas.logcat("backup");
 		Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
