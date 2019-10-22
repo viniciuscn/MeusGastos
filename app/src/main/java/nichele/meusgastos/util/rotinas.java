@@ -2,8 +2,12 @@ package nichele.meusgastos.util;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -14,23 +18,31 @@ import androidx.appcompat.app.AlertDialog;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.Classes.Conta;
 import nichele.meusgastos.Classes.Transacao;
 import nichele.meusgastos.R;
+import nichele.meusgastos.backup.AlarmReceiver;
+
+import static android.content.Context.ALARM_SERVICE;
 
 /**
  * Created by vinicius on 16/06/2016.
  */
 public class rotinas {
+    public static String keyfirstopen = "firstopen";
 
+    public static String mgbkpativo = "mg_bkp_ativo";
+    public static String mghorabkp = "mg_hora_bkp";
     public static final String tag = "inspetor";
     public static Locale locale = Locale.getDefault();
     public static Transacao transacao;
     public static Conta conta;
     public static Categoria categoria;
+
 
     public static void logcat(String msg){
         Log.v(tag,msg);
@@ -54,15 +66,15 @@ public class rotinas {
         return df.format(Float.parseFloat(valor.toString()));
     }
 
-	public static void setColorCampoValor(Context context, TextView campoValor) {
+    public static void setColorCampoValor(Context context, TextView campoValor) {
         if (format(campoValor.getText().toString()) < 0)
             campoValor.setTextColor( context.getResources().getColor(R.color.vermelho) );
         else
             campoValor.setTextColor( context.getResources().getColor(R.color.verde) );
 
-	}
+    }
 
-	public void EscondeTeclado(Activity c) {
+    public void EscondeTeclado(Activity c) {
         c.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
@@ -80,13 +92,13 @@ public class rotinas {
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder( context );
         alertDialogBuilder.setMessage(mensagem);
         alertDialogBuilder.setPositiveButton("Ok",
-                new DialogInterface.OnClickListener() {
+              new DialogInterface.OnClickListener() {
 
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        //alertDialog.show();
-                    }
-                });
+                  @Override
+                  public void onClick(DialogInterface arg0, int arg1) {
+                      //alertDialog.show();
+                  }
+              });
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
@@ -104,4 +116,23 @@ public class rotinas {
         valueAnimator.start();
     }
 
+    public static void startAlertAtParticularTime(Context context) {
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+
+        boolean rodar_bkp = context.getSharedPreferences(rotinas.mgbkpativo, Context.MODE_PRIVATE).getBoolean(rotinas.mgbkpativo, false);
+        if (rodar_bkp == true) {
+            String shora = context.getSharedPreferences(rotinas.mghorabkp, Context.MODE_PRIVATE).getString(rotinas.mghorabkp, "");
+            if (!shora.equals("")) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(shora.substring(0, 2)));
+                calendar.set(Calendar.MINUTE, Integer.parseInt(shora.substring(3, 5)));
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+                //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_HOUR, pendingIntent);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            }
+        }
+    }
 }

@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,9 +14,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TimePicker;
 
-import java.util.Calendar;
+import nichele.meusgastos.util.rotinas;
 
 public class actAjustes extends AppCompatActivity {
 
@@ -92,6 +92,7 @@ public class actAjustes extends AppCompatActivity {
 
    private void montalaycopiaseguranca(){
       laycopiaseguranca = findViewById(R.id.laycopiaseguranca);
+
       laycopiaseguranca.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
@@ -105,14 +106,23 @@ public class actAjustes extends AppCompatActivity {
             final AlertDialog ad = builder.show();
 
             final Button btnhorabackup = dialoglayout.findViewById(R.id.btnhorabackup);
+
+
+            final Switch chkbackup = dialoglayout.findViewById(R.id.chkbackup);
+            boolean rodar_bkp = context.getSharedPreferences(rotinas.mgbkpativo, Context.MODE_PRIVATE).getBoolean(rotinas.mgbkpativo, false);
+            chkbackup.setChecked(rodar_bkp);
+            if(rodar_bkp == true) {
+               btnhorabackup.setEnabled(true);
+            }else {
+               btnhorabackup.setEnabled(false);
+            }
+
             btnhorabackup.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
                   //final Calendar c = Calendar.getInstance();
                   //int mHour = c.get(Calendar.HOUR_OF_DAY);
                   //int mMinute = c.get(Calendar.MINUTE);
-
-
 
                   int mHour = new Integer(btnhorabackup.getText().subSequence(0, 2).toString());
                   int mMinute = new Integer(btnhorabackup.getText().subSequence(3,5).toString());
@@ -137,7 +147,14 @@ public class actAjustes extends AppCompatActivity {
             btnsalvar.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
+                  SharedPreferences.Editor editor = getSharedPreferences(rotinas.mgbkpativo, Context.MODE_PRIVATE).edit();
+                  editor.putBoolean(rotinas.mgbkpativo, chkbackup.isChecked());
+                  editor.apply();
 
+                  editor = getSharedPreferences(rotinas.mghorabkp, Context.MODE_PRIVATE).edit();
+                  editor.putString(rotinas.mghorabkp, btnhorabackup.getText().toString());
+                  editor.apply();
+                  rotinas.startAlertAtParticularTime(context);
                   ad.dismiss();
                }
             });

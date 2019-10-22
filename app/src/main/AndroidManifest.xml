@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="nichele.meusgastos">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="false"
         android:icon="@drawable/ic_app"
@@ -74,6 +75,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nichele.meusgastos.MainActivity" />
         </activity>
+
+
 <!--        <activity-->
 <!--            android:name=".actAjustes_CopiaSeguranca"-->
 <!--            android:label=""-->
@@ -89,8 +92,11 @@
         <!--            android:name=".calculadora.DialogCalc"-->
         <!--            android:excludeFromRecents="true"-->
         <!--            android:theme="@style/Theme.AppCompat.Dialog" />-->
-    </application>
 
+        <receiver android:name=".backup.AlarmReceiver"></receiver>
+    </application>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 

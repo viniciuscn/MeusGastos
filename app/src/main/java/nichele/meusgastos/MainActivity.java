@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,8 +23,13 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
+import nichele.meusgastos.backup.AlarmReceiver;
 import nichele.meusgastos.fragments.fraTransacoes;
 import nichele.meusgastos.fragments.fraVisaoGeral;
 import nichele.meusgastos.util.TipoDado;
@@ -41,20 +48,26 @@ public class MainActivity extends AppCompatActivity {
       setContentView(R.layout.activity_main);
 
       rotinas.locale = new Locale("pt", "BR");
-      String keyfirstopen = "firstopen";
-      SharedPreferences sharedPreferences = getSharedPreferences(keyfirstopen, Context.MODE_PRIVATE);
+
+      SharedPreferences sharedPreferences = getSharedPreferences(rotinas.keyfirstopen, Context.MODE_PRIVATE);
+
 
 
       BancoSQLite db = new BancoSQLite(this);
-      String firstopen = sharedPreferences.getString(keyfirstopen, "S");
+      String firstopen = sharedPreferences.getString(rotinas.keyfirstopen, "S");
       if (firstopen == "S"){
          db.zerabanco();
          SharedPreferences.Editor editor = sharedPreferences.edit();
-         editor.putString(keyfirstopen,"N");
+         editor.putString(rotinas.keyfirstopen,"N");
+         editor.apply();
+
+         editor = getSharedPreferences(rotinas.mgbkpativo, Context.MODE_PRIVATE).edit();
+         editor.putBoolean(rotinas.mgbkpativo,false);
          editor.apply();
       }
 
       db.close();
+      rotinas.startAlertAtParticularTime(this);
 
       toolbar = findViewById(R.id.toolbar);
       toolbar.setTitle("Visão Geral");
@@ -151,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Ajustes").withIcon(getResources().getDrawable(R.drawable.menu_ajustes)));
    }
 
+
+
    public void abrefragment(Fragment f){
       FragmentManager fm = getSupportFragmentManager();
       FragmentTransaction ft = fm.beginTransaction();
@@ -193,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
    @Override
    public void onResume() {
       super.onResume();
+
       if(mostrar_visaogeral){
          mostrar_visaogeral=false;
          abrefragment(new fraVisaoGeral());
@@ -214,6 +230,8 @@ public class MainActivity extends AppCompatActivity {
 //         }
 //      }
    }//onAct
+
+
 
    int backButtonCount;
    @Override
