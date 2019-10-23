@@ -31,6 +31,9 @@ import nichele.meusgastos.BancoSQLite;
 import nichele.meusgastos.Classes.Transacao;
 import nichele.meusgastos.adapters.ExtratoAdapter;
 import nichele.meusgastos.R;
+import nichele.meusgastos.exemplo_recview_group.CustomAdapter;
+import nichele.meusgastos.exemplo_recview_group.HeaderModel;
+import nichele.meusgastos.exemplo_recview_group.iRelatorio;
 import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.util.rotinas;
 
@@ -141,7 +144,7 @@ public class fraTransacoes extends Fragment {
 
       TextView lblbalmensal = view.findViewById(R.id.tvbalmensal);
       lblbalmensal.setText(rotinas.formatavalorBR(balmensal));
-      //rotinas.setColorCampoValor(getContext(),lblbalmensal);
+      rotinas.setColorCampoValor(getContext(),lblbalmensal);
 
       TextView tvsldatual = view.findViewById(R.id.tvsldatual);
       tvsldatual.setText(rotinas.formatavalorBR(sldatual));
@@ -149,13 +152,28 @@ public class fraTransacoes extends Fragment {
 
       db.close();
 
-      ExtratoAdapter adapter = new ExtratoAdapter(dados);
+
+
+
 
       RecyclerView recyclerView = view.findViewById(R.id.lista_dados);
       recyclerView.setHasFixedSize(true);
-      recyclerView.setAdapter(adapter);
       recyclerView.setLayoutManager(new LinearLayoutManager( getContext()));
+      ExtratoAdapter adapter = new ExtratoAdapter(dados);
+      recyclerView.setAdapter(adapter);
 
+      ArrayList<iRelatorio> gdados = new ArrayList<>();
+      String data = "";
+      //for (int i = 0; i < dados.size(); i++){
+      for (Transacao t : dados){
+         if (!t.getData().equals(data))
+            gdados.add(new HeaderModel(t.getData()));
+         data = t.getData();
+      }
+
+
+      //CustomAdapter customAdapter = new CustomAdapter(getContext(), gdados);
+      //recyclerView.setAdapter(customAdapter);
    }
 
    @Override

@@ -43,4 +43,6 @@ dependencies {
     // menus in tela - https://github.com/dazhaoDai/FloatingActionButtonDemo
     implementation 'com.ddz.materialdesign:FloatingActionButton:1.0.4'
 
+    implementation 'org.zakariya.stickyheaders:stickyheaders:0.7.10'
+
 }
