@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
       }
 
       db.close();
-      rotinas.startAlertAtParticularTime(this);
+      //rotinas.startAlertAtParticularTime(this);
 
       toolbar = findViewById(R.id.toolbar);
       toolbar.setTitle("Visão Geral");
@@ -233,7 +233,8 @@ public class MainActivity extends AppCompatActivity {
 //         startActivity(intent);
          System.exit(0);
       } else {
-         if(!getSupportFragmentManager().findFragmentById(R.id.frameLayout).getClass().getSimpleName().equals("Visão Geral")){
+         rotinas.logcat( getSupportFragmentManager().findFragmentById(R.id.frameLayout).getClass().getSimpleName());
+         if(!getSupportFragmentManager().findFragmentById(R.id.frameLayout).getClass().getSimpleName().equals("fraVisaoGeral")){
             abrefragment(new fraVisaoGeral());
          }else
             Toast.makeText(this, "Pressione novamente para sair", Toast.LENGTH_SHORT).show();

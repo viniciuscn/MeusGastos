@@ -60,6 +60,19 @@ public class rotinas {
 
 	public static float format(String valor){
 		return Float.parseFloat(limpacampovalor(valor));
+//		logcat("valor recebido " + valor);
+//		String vlralt = valor.replace(",",".");
+//		logcat("valor alterado " + vlralt);
+//		return Float.parseFloat(vlralt);
+	}
+
+	public static String formatvalor_edicao(String valor){
+		DecimalFormat df = new DecimalFormat("#.00");
+		return df.format(Float.parseFloat(valor));
+		//return String.format(Float.parseFloat(limpacampovalor(valor)));
+		//return String.format("%.2f", Float.parseFloat(valor.replace(".","").replace(",",".")));
+		//return String.format("%.2f", Float.parseFloat(valor));
+
 	}
 
 	public static String formatavalorBR(Object valor) {
@@ -119,9 +132,11 @@ public class rotinas {
 	}
 
 	public static void startAlertAtParticularTime(Context context) {
+		AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+
 		Intent intent = new Intent(context, AlarmReceiver.class);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 34, intent, 0);
-		AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+
 
 		boolean rodar_bkp = context.getSharedPreferences(rotinas.cfg, Context.MODE_PRIVATE).getBoolean(rotinas.cfg_keybkpativo, false);
 		if (rodar_bkp == true) {
@@ -131,7 +146,7 @@ public class rotinas {
 			calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(shora.substring(0, 2)));
 			calendar.set(Calendar.MINUTE, Integer.parseInt(shora.substring(3, 5)));
 			//alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_HOUR, pendingIntent);
-			alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 		}else{
 			try{
 				alarmManager.cancel(pendingIntent);

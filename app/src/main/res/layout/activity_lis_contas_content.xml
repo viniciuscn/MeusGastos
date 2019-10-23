@@ -8,9 +8,7 @@
     tools:context=".actLisContas"
     tools:showIn="@layout/activity_lis_contas"
     android:background="@color/cinza"
-    android:paddingTop="10dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+   >
 
     <include layout="@layout/recyclerview"/>
 

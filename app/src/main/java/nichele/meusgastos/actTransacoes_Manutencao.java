@@ -129,7 +129,10 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       }
       else{
          chave=t.id;
-         txtvalor.setText(t.getValorString());
+
+         //txtvalor.setText( rotinas.formatvalor_edicao(t.getValorString()) );
+         txtvalor.setText( t.getValorString() ) ;
+
          txtdescricao.setText(t.descricao);
 
          String data = t.getData();

@@ -59,7 +59,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
                 ", tipo VarChar(1)" +
                 ", ordem int" +
                 ", Primary key(codcategoria))");
-        rotinas.logcat( "criou as tabelas");
+        //rotinas.logcat( "criou as tabelas");
 //        db.execSQL("CREATE TABLE configuracoes(" +
 //                "pedsenha Int," +
 //                "senha VarChar(10)," +
@@ -360,7 +360,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
             strand += " AND data <= '" + datfinal + "'";
 
         String sql = "select sum(valor) from transacoes where id > 0" + strand;
-        rotinas.logcat(tipodado.toString() +" "+sql);
+        //rotinas.logcat(tipodado.toString() +" "+sql);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
         if(cursor.moveToFirst()) {
@@ -383,7 +383,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
    public boolean cadastro_em_uso(String campo, int campo_valor) {
        boolean status = false;
        String sql = "SELECT * FROM Transacoes WHERE " + campo + " = " + campo_valor;
-       rotinas.logcat( sql );
+       //rotinas.logcat( sql );
        SQLiteDatabase db = this.getReadableDatabase();
        Cursor cursor = db.rawQuery(sql, null);
        if(cursor.moveToFirst()) {

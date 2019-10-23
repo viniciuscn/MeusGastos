@@ -141,11 +141,11 @@ public class fraTransacoes extends Fragment {
 
       TextView lblbalmensal = view.findViewById(R.id.tvbalmensal);
       lblbalmensal.setText(rotinas.formatavalorBR(balmensal));
-      rotinas.setColorCampoValor(getContext(),lblbalmensal);
+      //rotinas.setColorCampoValor(getContext(),lblbalmensal);
 
       TextView tvsldatual = view.findViewById(R.id.tvsldatual);
       tvsldatual.setText(rotinas.formatavalorBR(sldatual));
-      rotinas.setColorCampoValor(getContext(),tvsldatual);
+      //rotinas.setColorCampoValor(getContext(),tvsldatual);
 
       db.close();
 
