@@ -341,25 +341,35 @@ public class BancoSQLite extends SQLiteOpenHelper {
     public float buscavalores(TipoDado tipodado, String datinicial, String datfinal){
         float valor = 0;
 
-        String strand = "";
+        String sql = "SELECT SUM(valor) FROM Transacoes WHERE data >= '" + datinicial + "' AND data <= '" + datfinal + "'";
         switch (tipodado){
+            case sldanterior:
+                sql = "SELECT SUM(E) - SUM(S) FROM " +
+                      "(SELECT SUM(valor) E, 0 S FROM Transacoes WHERE funcao = 'E' AND data < '" + datinicial +
+                      "' UNION " +
+                      "SELECT 0, SUM(valor) FROM Transacoes WHERE funcao = 'S' AND data < '" + datinicial + "') sldanterior";
+                break;
             case entradas:
-                strand = " and funcao = 'E'";
+                sql += " and funcao = 'E'";
                 break;
             case saidas:
-                strand = " and funcao = 'S'";
+                sql += " and funcao = 'S'";
                 break;
+
         }
 
-        if (!datinicial.equals(""))
-            if (tipodado.equals(TipoDado.sldanterior))
-                strand += " AND data < '" + datinicial + "'";
-            else
-                strand += " AND data >= '" + datinicial + "'";
-        if (!datfinal.equals(""))
-            strand += " AND data <= '" + datfinal + "'";
+//        if (!datinicial.equals(""))
+//            if (tipodado.equals(TipoDado.sldanterior))
+//                //strand += " AND data < '" + datinicial + "'";
+//            sql = "SELECT SUM(Valor) FROM Transacoes WHERE funcao = 'E' AND data < '" + datinicial +
+//                  "' UNION " +
+//                  "SELECT SUM(Valor) FROM Transacoes WHERE funcao = 'S' AND data < '" + datinicial + "'";
+//            else
+//                strand += " AND data >= '" + datinicial + "'";
+//        if (!datfinal.equals(""))
+//            strand += " AND data <= '" + datfinal + "'";
 
-        String sql = "select sum(valor) from transacoes where id > 0" + strand;
+        //String sql = "select sum(valor) from transacoes where id > 0" + strand;
         //rotinas.logcat(tipodado.toString() +" "+sql);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
