@@ -44,5 +44,11 @@ dependencies {
     implementation 'com.ddz.materialdesign:FloatingActionButton:1.0.4'
 
     implementation 'org.zakariya.stickyheaders:stickyheaders:0.7.10'
+    implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.0.4'
+
+    //integração google drive api
+    implementation 'com.google.api-client:google-api-client:1.23.0'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+    implementation 'com.google.apis:google-api-services-drive:v3-rev110-1.23.0'
 
 }
