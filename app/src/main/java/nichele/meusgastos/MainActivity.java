@@ -10,13 +10,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ddz.floatingactionbutton.FloatingActionButton;
 import com.ddz.floatingactionbutton.FloatingActionMenu;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -34,11 +42,43 @@ public class MainActivity extends AppCompatActivity {
    public Drawer.Result navigationDrwarerLeft;
    public FloatingActionMenu fabmenu;
 
+   GoogleSignInAccount account;
+   GoogleSignInClient mGoogleSignInClient;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
+
+      GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+      mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+      (findViewById(R.id.cmdrodanumeros)).setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+
+            //mGoogleSignInClient.signOut();
+         if (account != null) mGoogleSignInClient.signOut();
+
+            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+            startActivityForResult(signInIntent, 2);
+
+//            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
+//            GoogleAccountCredential credential = GoogleAccountCredential.usingOAuth2(
+//                        getContext(), Collections.singleton(DriveScopes.DRIVE_FILE));
+//            credential.setSelectedAccount(account.getAccount());
+//            com.google.api.services.drive.Drive googleDriveService =
+//                  new com.google.api.services.drive.Drive.Builder(
+//                        AndroidHttp.newCompatibleTransport(),
+//                        new GsonFactory(),
+//                        credential)
+//                        .setApplicationName("Meus Gastos")
+//                        .build();
+//            DriveServiceHelper dsh = new DriveServiceHelper(googleDriveService);
+
+
+         }
+      });
       rotinas.locale = new Locale("pt", "BR");
 
       BancoSQLite db = new BancoSQLite(this);
@@ -206,8 +246,13 @@ public class MainActivity extends AppCompatActivity {
 
    @Override
    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-      if (requestCode==1 && resultCode == 1)
+      if (requestCode==1 && resultCode == 1){
          mostrar_visaogeral = true;
+      }else if(requestCode==2){
+         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+         handleSignInResult(task);
+      }
+
       // abrefragment(new fraVisaoGeral());
 //      navigationDrwarerLeft.setSelection(0);
 //      if (requestCode == 1) {
@@ -218,8 +263,26 @@ public class MainActivity extends AppCompatActivity {
 //            //Write your code if there's no result
 //         }
 //      }
-   }//onAct
 
+   }
+
+   private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+      try {
+
+
+         account = completedTask.getResult(ApiException.class);
+         rotinas.alertCurto(this,"logado");
+         rotinas.alertCurto(this,account.getEmail());
+         // Signed in successfully, show authenticated UI.
+         //updateUI(account);
+      } catch (ApiException e) {
+         rotinas.alertCurto(this,"erro");
+         // The ApiException status code indicates the detailed failure reason.
+         // Please refer to the GoogleSignInStatusCodes class reference for more information.
+         Log.w(rotinas.tag, "signInResult:failed code=" + e.getStatusCode());
+         //updateUI(null);
+      }
+   }
 
 
    int backButtonCount;

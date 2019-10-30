@@ -1,29 +1,41 @@
 package nichele.meusgastos.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.services.drive.DriveScopes;
 
-import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 
 import nichele.meusgastos.BancoSQLite;
 import nichele.meusgastos.MainActivity;
 import nichele.meusgastos.R;
+import nichele.meusgastos.backup.DriveServiceHelper;
 import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.util.datautil;
 import nichele.meusgastos.util.rotinas;
@@ -34,10 +46,13 @@ public class fraVisaoGeral extends Fragment  {
    Toolbar toolbar;
    TextView textview;
 
+
+
    public fraVisaoGeral() {
       // Required empty public constructor
    }
 
+   public int RC_SIGN_IN;
    @Override
    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                             Bundle savedInstanceState) {
@@ -50,7 +65,7 @@ public class fraVisaoGeral extends Fragment  {
 
       //rotinas.animateTextView(0,200, textview);
 
-//      Button cmd = view.findViewById(R.id.cmdrodanumeros);
+
 //      cmd.setOnClickListener(new View.OnClickListener() {
 //         @Override
 //         public void onClick(View v) {
@@ -137,6 +152,17 @@ public class fraVisaoGeral extends Fragment  {
    public void onDetach() { super.onDetach(); }
 
 
+   @Override
+   public void onActivityResult(int requestCode, int resultCode, Intent data) {
+      super.onActivityResult(requestCode, resultCode, data);
+
+      // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+      //if (requestCode == RC_SIGN_IN) {
+         // The Task returned from this call is always completed, no need to attach
+         // a listener.
+
+      //}
+   }
 
 
 }
