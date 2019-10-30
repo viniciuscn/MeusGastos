@@ -8,9 +8,12 @@ import android.net.Uri;
 import android.provider.OpenableColumns;
 import android.util.Pair;
 
+import androidx.annotation.Nullable;
+
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.api.client.http.ByteArrayContent;
+import com.google.api.client.http.FileContent;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
@@ -19,8 +22,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import nichele.meusgastos.util.rotinas;
 
 public class DriveServiceHelper {
 	private final Executor mExecutor = Executors.newSingleThreadExecutor();
@@ -149,4 +156,51 @@ public class DriveServiceHelper {
 			return Pair.create(name, content);
 		});
 	}
+
+	public Task<GoogleDriveFileHolder> uploadFile(final java.io.File localFile, final String mimeType, @Nullable final String folderId) {
+		return Tasks.call(mExecutor, new Callable<GoogleDriveFileHolder>() {
+			@Override
+			public GoogleDriveFileHolder call() throws Exception {
+				// Retrieve the metadata as a File object.
+
+				List<String> root;
+				if (folderId == null) {
+					root = Collections.singletonList("root");
+				} else {
+
+					root = Collections.singletonList(folderId);
+				}
+
+				File metadata = new File()
+						.setParents(root)
+						.setMimeType(mimeType)
+						.setName(localFile.getName());
+
+				FileContent fileContent = new FileContent(mimeType, localFile);
+
+				File fileMeta = mDriveService.files().create(metadata, fileContent).execute();
+				GoogleDriveFileHolder googleDriveFileHolder = new GoogleDriveFileHolder();
+				googleDriveFileHolder.setId(fileMeta.getId());
+				googleDriveFileHolder.setName(fileMeta.getName());
+				return googleDriveFileHolder;
+			}
+		});
+	}
+
+	public static String TYPE_AUDIO = "application/vnd.google-apps.audio";
+	public static String TYPE_GOOGLE_DOCS = "application/vnd.google-apps.document";
+	public static String TYPE_GOOGLE_DRAWING = "application/vnd.google-apps.drawing";
+	public static String TYPE_GOOGLE_DRIVE_FILE = "application/vnd.google-apps.file";
+	//public static String TYPE_GOOGLE_DRIVE_FOLDER = DriveFolder.MIME_TYPE;
+	public static String TYPE_GOOGLE_FORMS = "application/vnd.google-apps.form";
+	public static String TYPE_GOOGLE_FUSION_TABLES = "application/vnd.google-apps.fusiontable";
+	public static String TYPE_GOOGLE_MY_MAPS = "application/vnd.google-apps.map";
+	public static String TYPE_PHOTO = "application/vnd.google-apps.photo";
+	public static String TYPE_GOOGLE_SLIDES = "application/vnd.google-apps.presentation";
+	public static String TYPE_GOOGLE_APPS_SCRIPTS = "application/vnd.google-apps.script";
+	public static String TYPE_GOOGLE_SITES = "application/vnd.google-apps.site";
+	public static String TYPE_GOOGLE_SHEETS = "application/vnd.google-apps.spreadsheet";
+	public static String TYPE_UNKNOWN = "application/vnd.google-apps.unknown";
+	public static String TYPE_VIDEO = "application/vnd.google-apps.video";
+	public static String TYPE_3_RD_PARTY_SHORTCUT = "application/vnd.google-apps.drive-sdk";
 }
