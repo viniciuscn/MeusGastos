@@ -3,10 +3,13 @@ package nichele.meusgastos;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.util.rotinas;
+import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class actCategorias extends AppCompatActivity {
 
@@ -29,6 +33,13 @@ public class actCategorias extends AppCompatActivity {
    TextView txtnome;
    RadioButton optE;
    RadioButton optS;
+
+   ImageButton btncor;
+
+
+   Toolbar toolbar; AppBarLayout mAppBarLayout; FloatingActionButton fab;
+
+   int cor = Color.RED;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +53,23 @@ public class actCategorias extends AppCompatActivity {
    }
 
    private void carregatela(){
-      context = this;
-      Toolbar toolbar = findViewById(R.id.toolbar);
-      setSupportActionBar(toolbar);
+      toolbar = findViewById(R.id.toolbar);
+      mAppBarLayout = findViewById(R.id.app_bar);
+      fab = findViewById(R.id.fab);
 
-      FloatingActionButton fab = findViewById(R.id.fab);
+      txtchave = findViewById(R.id.cat_chave);
+      txtnome = findViewById(R.id.cat_txtnome);
+      txtnome.requestFocus();
+      optE = findViewById(R.id.cat_optE);
+      optS = findViewById(R.id.cat_optS);
+
+      btncor = findViewById(R.id.btncor);
+
+      carregatela2();
+   }
+   private void carregatela2(){
+      context = this;
+      setSupportActionBar(toolbar);
       fab.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
@@ -55,7 +78,7 @@ public class actCategorias extends AppCompatActivity {
          }
       });
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      AppBarLayout mAppBarLayout = findViewById(R.id.app_bar);
+
       mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
          boolean isShow = false;
          int scrollRange = -1;
@@ -73,16 +96,12 @@ public class actCategorias extends AppCompatActivity {
             }
          }
       });
-      txtchave = findViewById(R.id.cat_chave);
-      txtnome = findViewById(R.id.cat_txtnome);
-      txtnome.requestFocus();
-      optE = findViewById(R.id.cat_optE);
-      optS = findViewById(R.id.cat_optS);
+
 
       BancoSQLite db = new BancoSQLite(context);
+
       if (situacao.equals("inc")) {
          chave=db.ultimocodigo("categorias","codcategoria")+1;
-
       }
       else{
          chave = c.getCodigoInt();
@@ -95,10 +114,50 @@ public class actCategorias extends AppCompatActivity {
             optS.setChecked(true);
             optE.setEnabled(false);
          }
+         //pega cor gravada
+         //btncor
+
       }
+      GradientDrawable gradientDrawable = (GradientDrawable) btncor.getBackground().mutate();
+      gradientDrawable.setColor(cor);
       db.close();
       txtchave.setText(String.valueOf(chave));
 
+      btncor.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            final ColorPicker colorPicker = new ColorPicker(actCategorias.this);
+            colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+               @Override
+               public void onChooseColor(int position, int color) {
+                  // put code
+                  //Toast.makeText(MainActivity.this, "aqui",Toast.LENGTH_SHORT).show();
+                  //btn.setColorFilter(color);
+                  GradientDrawable gradientDrawable = (GradientDrawable) btncor.getBackground().mutate();
+                  gradientDrawable.setColor(color);
+                  cor = color;
+               }
+
+               @Override
+               public void onCancel() {
+                  // put code
+               }
+            })
+//						.addListenerButton("newButton", new ColorPicker.OnButtonListener() {
+//							@Override
+//							public void onClick(View v, int position, int color) {
+//								// put code
+//							}
+//						})
+                  //.disableDefaultButtons(true)
+                  //Color.parseColor("#f84c44")
+                  .setDefaultColorButton(cor)
+                  .setRoundColorButton(true)
+                  .setColumns(5)
+                  //.setDialogFullHeight()
+                  .show();
+         }
+      });
    }
 
 //   @Override

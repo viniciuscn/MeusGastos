@@ -4,11 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,43 +11,28 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.json.gson.GsonFactory;
-import com.google.api.services.drive.DriveScopes;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
-import java.util.Collections;
 import java.util.Date;
 
 import nichele.meusgastos.BancoSQLite;
 import nichele.meusgastos.MainActivity;
 import nichele.meusgastos.R;
-import nichele.meusgastos.backup.DriveServiceHelper;
 import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.util.datautil;
 import nichele.meusgastos.util.rotinas;
 
 public class fraVisaoGeral extends Fragment  {
 
-   private View view;
    Toolbar toolbar;
-   TextView textview;
-
-
+   private View view;
 
    public fraVisaoGeral() {
       // Required empty public constructor
    }
 
-   public int RC_SIGN_IN;
    @Override
    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                             Bundle savedInstanceState) {

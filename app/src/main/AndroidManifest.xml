@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="nichele.meusgastos">
 
-    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="false"
         android:icon="@drawable/ic_app"
@@ -12,6 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-6921285893625664~2786768063"/>
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -100,7 +103,10 @@
         </receiver>
 
         <activity android:name=".backup.NotificationView" />
+
+
     </application>
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -110,5 +116,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
 
 </manifest>

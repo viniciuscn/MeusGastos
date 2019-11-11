@@ -21,17 +21,22 @@ import android.widget.Toast;
 
 import com.ddz.floatingactionbutton.FloatingActionButton;
 import com.ddz.floatingactionbutton.FloatingActionMenu;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+//import com.google.android.gms.auth.api.signin.GoogleSignIn;
+//import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+//import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+//import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.json.gson.GsonFactory;
-import com.google.api.services.drive.DriveScopes;
+//import com.google.android.gms.tasks.Task;
+//import com.google.android.gms.tasks.Tasks;
+//import com.google.api.client.extensions.android.http.AndroidHttp;
+//import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+//import com.google.api.client.json.gson.GsonFactory;
+//import com.google.api.services.drive.DriveScopes;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -42,13 +47,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import nichele.meusgastos.backup.DriveServiceHelper;
+//import nichele.meusgastos.backup.DriveServiceHelper;
 import nichele.meusgastos.fragments.fraTransacoes;
 import nichele.meusgastos.fragments.fraVisaoGeral;
 import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.util.rotinas;
 
-import static nichele.meusgastos.backup.DriveServiceHelper.TYPE_GOOGLE_DRIVE_FILE;
+//import static nichele.meusgastos.backup.DriveServiceHelper.TYPE_GOOGLE_DRIVE_FILE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,52 +61,52 @@ public class MainActivity extends AppCompatActivity {
    public Drawer.Result navigationDrwarerLeft;
    public FloatingActionMenu fabmenu;
 
-   GoogleSignInAccount account;
-   GoogleSignInClient mGoogleSignInClient;
+//   GoogleSignInAccount account;
+//   GoogleSignInClient mGoogleSignInClient;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
 
-      GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-      mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+//      GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+//      mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
       (findViewById(R.id.cmdrodanumeros)).setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
 
             //mGoogleSignInClient.signOut();
-            if (account == null) {
-               Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-               startActivityForResult(signInIntent, 2);
-            }else{
-               GoogleAccountCredential credential = GoogleAccountCredential.usingOAuth2(
-                     MainActivity.this, Collections.singleton(DriveScopes.DRIVE_FILE));
-               credential.setSelectedAccount(account.getAccount());
-               com.google.api.services.drive.Drive googleDriveService =
-                     new com.google.api.services.drive.Drive.Builder(
-                           AndroidHttp.newCompatibleTransport(),
-                           new GsonFactory(),
-                           credential)
-                           .setApplicationName("Meus Gastos")
-                           .build();
-               DriveServiceHelper dsh = new DriveServiceHelper(googleDriveService);
-
-               File data = Environment.getDataDirectory();
-               File currentDB;
-               try {
-                  String currentDBPath = "/data/nichele.meusgastos/databases/meusgastos";
-                  currentDB = new File(data, currentDBPath);
-                  //source = new FileInputStream(currentDB).getChannel();
-
-                  dsh.uploadFile(currentDB, TYPE_GOOGLE_DRIVE_FILE,"");
-               } catch (Exception e) {
-                  //Log.e("bkp - origem", e.getMessage());
-                  rotinas.logcat(e.getMessage());
-               }
-
-            }
+//            if (account == null) {
+//               Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+//               startActivityForResult(signInIntent, 2);
+//            }else{
+//               GoogleAccountCredential credential = GoogleAccountCredential.usingOAuth2(
+//                     MainActivity.this, Collections.singleton(DriveScopes.DRIVE_FILE));
+//               credential.setSelectedAccount(account.getAccount());
+//               com.google.api.services.drive.Drive googleDriveService =
+//                     new com.google.api.services.drive.Drive.Builder(
+//                           AndroidHttp.newCompatibleTransport(),
+//                           new GsonFactory(),
+//                           credential)
+//                           .setApplicationName("Meus Gastos")
+//                           .build();
+//               DriveServiceHelper dsh = new DriveServiceHelper(googleDriveService);
+//
+//               File data = Environment.getDataDirectory();
+//               File currentDB;
+//               try {
+//                  String currentDBPath = "/data/nichele.meusgastos/databases/meusgastos";
+//                  currentDB = new File(data, currentDBPath);
+//                  //source = new FileInputStream(currentDB).getChannel();
+//
+//                  dsh.uploadFile(currentDB, TYPE_GOOGLE_DRIVE_FILE,"");
+//               } catch (Exception e) {
+//                  //Log.e("bkp - origem", e.getMessage());
+//                  rotinas.logcat(e.getMessage());
+//               }
+//
+//            }
             rotinas.logcat("aqui");
 
 
@@ -172,6 +177,13 @@ public class MainActivity extends AppCompatActivity {
          }
       });
 
+
+
+      monta_menu(savedInstanceState);
+      monta_adMob();
+   }
+
+   private void monta_menu(Bundle savedInstanceState){
       navigationDrwarerLeft =new Drawer()
             .withActivity(this)
             .withToolbar(toolbar)
@@ -236,7 +248,16 @@ public class MainActivity extends AppCompatActivity {
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Ajustes").withIcon(getResources().getDrawable(R.drawable.menu_ajustes)));
    }
 
-
+   private void monta_adMob(){
+      MobileAds.initialize(this, new OnInitializationCompleteListener() {
+         @Override
+         public void onInitializationComplete(InitializationStatus initializationStatus) {
+         }
+      });
+      AdView mAdView = findViewById(R.id.adView);
+      AdRequest adRequest = new AdRequest.Builder().build();
+      mAdView.loadAd(adRequest);
+   }
 
    public void abrefragment(Fragment f){
       FragmentManager fm = getSupportFragmentManager();
@@ -292,24 +313,24 @@ public class MainActivity extends AppCompatActivity {
       if (requestCode==1 && resultCode == 1){
          mostrar_visaogeral = true;
       }else if(requestCode==2){
-         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-         handleSignInResult(task);
+//         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+//         handleSignInResult(task);
       }
    }
 
-   private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-      try {
-         account = completedTask.getResult(ApiException.class);
-         // Signed in successfully, show authenticated UI.
-         //updateUI(account);
-      } catch (ApiException e) {
-         rotinas.alertCurto(this,"erro");
-         // The ApiException status code indicates the detailed failure reason.
-         // Please refer to the GoogleSignInStatusCodes class reference for more information.
-         Log.w(rotinas.tag, "signInResult:failed code=" + e.getStatusCode());
-         //updateUI(null);
-      }
-   }
+//   private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+//      try {
+//         account = completedTask.getResult(ApiException.class);
+//         // Signed in successfully, show authenticated UI.
+//         //updateUI(account);
+//      } catch (ApiException e) {
+//         rotinas.alertCurto(this,"erro");
+//         // The ApiException status code indicates the detailed failure reason.
+//         // Please refer to the GoogleSignInStatusCodes class reference for more information.
+//         Log.w(rotinas.tag, "signInResult:failed code=" + e.getStatusCode());
+//         //updateUI(null);
+//      }
+//   }
 
 
 

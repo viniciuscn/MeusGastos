@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.maltaisn.calcdialog.CalcDialog;
+
 
 import java.math.BigDecimal;
 
@@ -18,7 +18,7 @@ import nichele.meusgastos.R;
 import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.calculadora.DialogCalc;
 
-public class fraTransacoes_Manutencao extends Fragment implements CalcDialog.CalcDialogCallback {
+public class fraTransacoes_Manutencao extends Fragment  {
 
    TextView txtvalor;
    TextView txtdescricao;
@@ -108,11 +108,6 @@ TextView txtdata;
 
    }
 
-   @Override
-   public void onValueEntered(int requestCode, @Nullable BigDecimal value) {
-
-      this.value = value;
-   }
 
 
    //handles
