@@ -67,6 +67,7 @@ public class actCategorias extends AppCompatActivity {
 
       carregatela2();
    }
+
    private void carregatela2(){
       context = this;
       setSupportActionBar(toolbar);
