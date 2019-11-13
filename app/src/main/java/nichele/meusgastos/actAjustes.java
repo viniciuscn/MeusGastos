@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import nichele.meusgastos.util.rotinas;
@@ -29,6 +31,7 @@ public class actAjustes extends AppCompatActivity {
 
 	LinearLayout laycomecardozero;
 	LinearLayout laycopiaseguranca;
+	LinearLayout laysobre;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,7 @@ public class actAjustes extends AppCompatActivity {
 	public void carregatela(){
 		montalaycomecardozero();
 		montalaycopiaseguranca();
+		montalaysobre();
 	}
 
 	private void montalaycomecardozero(){
@@ -181,6 +185,42 @@ public class actAjustes extends AppCompatActivity {
 						ad.dismiss();
 					}
 				});
+			}
+		});
+	}
+
+	private void montalaysobre() {
+		laysobre = findViewById(R.id.laysobre);
+
+		laysobre.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final AlertDialog dialogBuilder = new AlertDialog.Builder(context).create();
+				View dialogView = LayoutInflater.from(context).inflate(R.layout.activity_ajustes_sobre, null);
+
+				TextView vs = findViewById(R.id.lblversao);
+
+//				try {
+//					vs.setText(context.getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+//				} catch (PackageManager.NameNotFoundException e) {
+//					e.printStackTrace();
+//				}
+
+
+				Button btnvoltar = dialogView.findViewById(R.id.btnvoltar);
+
+				btnvoltar.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+
+						dialogBuilder.dismiss();
+
+					}
+				});
+
+
+				dialogBuilder.setView(dialogView);
+				dialogBuilder.show();
 			}
 		});
 	}

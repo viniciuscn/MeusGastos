@@ -37,6 +37,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
         this.contexto = context;
     }
 
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table transacoes("+
@@ -70,6 +71,10 @@ public class BancoSQLite extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //onCreate(db);
+        switch (newVersion){
+            case 2:
+
+        }
     }
 
     public void execute(String sql) {

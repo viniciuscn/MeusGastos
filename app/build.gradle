@@ -46,37 +46,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
     //Menu Lateral
     implementation('com.mikepenz.materialdrawer:library:2.8.2@aar') {
         transitive = true
     }
-
     implementation 'androidx.recyclerview:recyclerview-selection:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-
     implementation 'com.google.android.material:material:1.0.0'
-
-
-
     // menus in tela - https://github.com/dazhaoDai/FloatingActionButtonDemo
     implementation 'com.ddz.materialdesign:FloatingActionButton:1.0.4'
-
     //dialog para listar cores
     implementation 'petrov.kristiyan:colorpicker-library:1.1.10'
-
-
-    //integração google drive api
-//    implementation 'com.google.android.gms:play-services-auth:17.0.0'
-//    implementation 'com.google.http-client:google-http-client-gson:1.26.0'
-//    implementation('com.google.api-client:google-api-client-android:1.26.0') {
-//        exclude group: 'org.apache.httpcomponents'
-//    }
-//    implementation('com.google.apis:google-api-services-drive:v3-rev136-1.25.0') {
-//        exclude group: 'org.apache.httpcomponents'
-//    }
-
     implementation 'com.google.android.gms:play-services-ads:18.2.0'
-
-
 }

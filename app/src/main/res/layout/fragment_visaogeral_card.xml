@@ -15,7 +15,6 @@
         android:id="@+id/resumo_card"
         android:layout_gravity="center"
         card_view:cardCornerRadius="20dp"
-
         android:layout_margin="20dp"
         android:clickable="true"
         android:backgroundTint="@color/cinza">

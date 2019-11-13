@@ -121,4 +121,5 @@
         android:layout_height="56dp"
         android:id="@+id/navegacao"
         android:layout_alignParentBottom="true"/>
+
 </RelativeLayout>

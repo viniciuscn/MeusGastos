@@ -66,7 +66,7 @@ public class fraTransacoes extends Fragment {
       mostradados();
 
       FloatingActionMenu fabmenu = getActivity().findViewById(R.id.fabmenu);
-
+fabmenu.setTop(fabmenu.getTop()-200);
 //      RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)fabmenu.getLayoutParams();
 //      params.setMargins(0,0,0,200 );
 //      //params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
