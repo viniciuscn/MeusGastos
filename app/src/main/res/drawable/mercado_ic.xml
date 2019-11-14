@@ -13,8 +13,8 @@
         </shape>
     </item>
     <item android:drawable="@drawable/mercado"
-        android:width="18dp"
-        android:height="18dp"
-        android:top="3dp"
-        android:left="3dp"/>
+        android:width="14dp"
+        android:height="14dp"
+        android:top="5dp"
+        android:left="5dp"/>
 </layer-list>

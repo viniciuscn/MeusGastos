@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_margin="10dp"
+
+
+        >
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical"
+                android:layout_centerInParent="true"
+                >
+
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/logo1"
+                    android:src="@drawable/ic_app"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/appname"
+                    android:layout_toRightOf="@+id/logo1"
+                    android:layout_toLeftOf="@+id/logo2"
+                    android:textSize="30sp"
+                    android:padding="5dp"
+                    android:textAlignment="center"
+                    android:text="Meus Gastos"/>
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/logo2"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_app"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblversao"
+                    android:textSize="16dp"
+                    android:padding="5dp"
+                    android:textAlignment="center"
+                    android:text="Versão"
+                    android:layout_below="@+id/appname"
+                    />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:padding="5dp"
+                    android:textAlignment="center"
+                    android:text="Desenvolvido por Vinicius Nichele"
+                    android:layout_below="@+id/lblversao"/>
+
+
+            </RelativeLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnvoltar"
+                android:layout_alignParentRight="true"
+                android:text="voltar"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+

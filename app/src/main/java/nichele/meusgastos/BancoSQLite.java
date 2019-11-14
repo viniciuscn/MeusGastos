@@ -37,6 +37,15 @@ public class BancoSQLite extends SQLiteOpenHelper {
         this.contexto = context;
     }
 
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //onCreate(db);
+        switch (newVersion){
+            case 2:
+
+        }
+    }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -68,14 +77,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
 //                "email VarChar(255))");
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //onCreate(db);
-        switch (newVersion){
-            case 2:
 
-        }
-    }
 
     public void execute(String sql) {
         SQLiteDatabase db = getReadableDatabase();
