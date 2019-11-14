@@ -44,7 +44,10 @@
         android:layout_below="@+id/login"
         android:layout_above="@+id/adView"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="0dp" />
+        android:layout_marginTop="0dp" >
+
+
+    </FrameLayout>
 
     <com.ddz.floatingactionbutton.FloatingActionMenu
         android:layout_width="wrap_content"
@@ -54,7 +57,7 @@
         android:layout_alignParentBottom="true"
         app:fab_labelStyle="@style/textfab"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="110dp"
         app:fab_addButton_collapsed_rotation="0"
         app:fab_addButton_expanded_rotation="45"
         app:fab_labelsPosition="left">

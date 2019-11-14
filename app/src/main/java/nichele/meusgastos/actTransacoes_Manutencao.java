@@ -2,6 +2,7 @@ package nichele.meusgastos;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +33,7 @@ import java.util.GregorianCalendar;
 import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.Classes.Conta;
 import nichele.meusgastos.Classes.Transacao;
+import nichele.meusgastos.util.DateDialog;
 import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.util.datautil;
 import nichele.meusgastos.util.rotinas;
@@ -60,6 +62,8 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
    int codconta, codcategoria;
 
    CheckBox chk;
+
+
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +118,14 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
          }
       });
 
-
+      lbldata.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            DateDialog dialog=new DateDialog(v,txtdata);
+            FragmentTransaction ft =getFragmentManager().beginTransaction();
+            dialog.show(ft, "DatePicker");
+         }
+      });
       carregacombos();
 
 
@@ -282,11 +293,11 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
 
       BancoSQLite db = new BancoSQLite(context);
       String resultado = db.gravatransacoes(situacao, chave, txtdata.getText().toString(),
-              tipodado == TipoDado.entradas ? "E" : "S",
-              codconta,
-              codcategoria,
-              descricao,
-              txtvalor.getText().toString(),(chk.isChecked() == true ? "S" : "N"));
+            tipodado == TipoDado.entradas ? "E" : "S",
+            codconta,
+            codcategoria,
+            descricao,
+            txtvalor.getText().toString(),(chk.isChecked() == true ? "S" : "N"));
       db.close();
       rotinas.logcat( resultado);
       finish();
