@@ -37,6 +37,7 @@ import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.util.rotinas;
 
 import static nichele.meusgastos.SectionedRecyclerView.RecyclerViewType.LINEAR_HORIZONTAL;
+import static nichele.meusgastos.SectionedRecyclerView.RecyclerViewType.LINEAR_VERTICAL;
 
 public class fraTransacoes extends Fragment {
 
@@ -163,17 +164,20 @@ public class fraTransacoes extends Fragment {
 
       db.close();
 
-      populateRecyclerView();
+
 
       recyclerView = view.findViewById(R.id.lista_dados);
       recyclerView.setHasFixedSize(true);
-      LinearLayoutManager llm = new LinearLayoutManager( getContext());
+      LinearLayoutManager llm = new LinearLayoutManager( getContext() );
 
       recyclerView.setLayoutManager(llm);
       recyclerView.setAdapter(adapter);
-      ExtratoAdapter adapter2 = new ExtratoAdapter(dados);
-      //recyclerView.setAdapter(adapter);
-
+//      if(listar.equals(TipoDado.extrato))
+         populateRecyclerView();
+//      else{
+//         ExtratoAdapter adapter = new ExtratoAdapter(dados);
+//         recyclerView.setAdapter(adapter);
+//      }
    }
 
 
@@ -291,9 +295,9 @@ public class fraTransacoes extends Fragment {
    private void populateRecyclerView() {
       //lista transações gravadas
       BancoSQLite db = new BancoSQLite(getContext());
-      lctos_by_date = db.transacoespordata(lbldatinicial.getText() , lbldatfinal.getText());
+      lctos_by_date = db.transacoespordata(listar, lbldatinicial.getText(), lbldatfinal.getText());
       db.close();
-      adapter = new SectionRecyclerViewAdapter(LINEAR_HORIZONTAL, lctos_by_date);
+      adapter = new SectionRecyclerViewAdapter(getContext(),LINEAR_VERTICAL, lctos_by_date);
 
    }
 }

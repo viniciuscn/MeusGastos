@@ -22,23 +22,23 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
 	private RecyclerViewType recyclerViewType;
 	private ArrayList<SectionModel> sectionModelArrayList;
 
-	public SectionRecyclerViewAdapter(RecyclerViewType recyclerViewType, ArrayList<SectionModel> sectionModelArrayList) {
+	public SectionRecyclerViewAdapter(Context context,RecyclerViewType recyclerViewType, ArrayList<SectionModel> sectionModelArrayList) {
+		this.context = context;
 		this.recyclerViewType = recyclerViewType;
 		this.sectionModelArrayList = sectionModelArrayList;
 	}
 
 	@Override
 	public SectionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		context = parent.getContext();
-		View view = LayoutInflater.from(context).inflate(R.layout.sectioned_recyclerview_section_custom_row_layout, parent, false);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sectioned_recyclerview_section_custom_row_layout, parent, false);
 		return new SectionViewHolder(view);
 	}
 
 	@Override
 	public void onBindViewHolder(SectionViewHolder holder, int position) {
-		final SectionModel sectionModel = sectionModelArrayList.get(position);
-		holder.header_texto.setText(sectionModel.getHeaderTexto());
-		holder.header_saldo.setText(sectionModel.getHeaderSaldo());
+		final SectionModel grupo = sectionModelArrayList.get(position);
+		holder.header_texto.setText(grupo.getHeaderTexto());
+		holder.header_saldo.setText(grupo.getSaldo());
 
 		//recycler view for items
 		holder.itemRecyclerView.setHasFixedSize(true);
@@ -59,10 +59,10 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
 				holder.itemRecyclerView.setLayoutManager(gridLayoutManager);
 				break;
 		}
-		if (sectionModel.getLctos() != null) {
-			ItemRecyclerViewAdapter adapter = new ItemRecyclerViewAdapter(context, sectionModel.getLctos());
+		//if (grupo.getLctos() != null) {
+			ItemRecyclerViewAdapter adapter = new ItemRecyclerViewAdapter(context, grupo.getLctos());
 			holder.itemRecyclerView.setAdapter(adapter);
-		}
+		//}
 		//show toast on click of show all button
 		holder.header_saldo.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -72,7 +72,9 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
 		});
 
 
-		//totais receitas, despesas e saldo
+		holder.lblreceitas.setText(grupo.getReceitas());
+		holder.lbldespesas.setText(grupo.getDespesas());
+		holder.lblsaldo.setText(grupo.getSaldo());
 	}
 
 	@Override
@@ -84,11 +86,18 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
 		private TextView header_texto, header_saldo;
 		private RecyclerView itemRecyclerView;
 
+		TextView lblreceitas, lbldespesas, lblsaldo;
+
+
 		public SectionViewHolder(View itemView) {
 			super(itemView);
 			header_texto = itemView.findViewById(R.id.section_label);
 			header_saldo = itemView.findViewById(R.id.section_show_all_button);
 			itemRecyclerView = itemView.findViewById(R.id.item_recycler_view);
+
+			lblreceitas = itemView.findViewById(R.id.section_footer_vlrreceitas);
+			lbldespesas = itemView.findViewById(R.id.section_footer_vlrdespesas);
+			lblsaldo = itemView.findViewById(R.id.section_footer_vlrsaldo);
 		}
 	}
 }

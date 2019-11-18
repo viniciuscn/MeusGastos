@@ -12,40 +12,39 @@ import nichele.meusgastos.Classes.Transacao;
 
 public class SectionModel {
 	private String headertexto;
-	private String headerentradas;
-	private String headersaidas;
-	private String headersaldo;
-	//private ArrayList<String> itemArrayList;
+	private String receitas;
+	private String despesas;
+	private String saldo;
+
 	private ArrayList<Transacao> lctos;
 
 	public SectionModel(String headertexto,
-	                    String headerentradas,
-	                    String headersaidas,
-	                    String headersaldo,
+	                    String receitas,
+	                    String despesas,
+	                    String saldo,
 	                    ArrayList<Transacao> lctos) {
 		this.headertexto = headertexto;
-		this.headerentradas = headerentradas;
-		this.headersaidas = headersaidas;
-		this.headersaldo = headersaldo;
 		this.lctos = lctos;
+		this.receitas = receitas;
+		this.despesas = despesas;
+		this.saldo = saldo;
 	}
-
 
 
 	public String getHeaderTexto() {
 		return headertexto;
 	}
 
-	public String getHeaderEntradas() {
-		return headerentradas;
+	public String getReceitas() {
+		return receitas;
 	}
 
-	public String getHeaderSaidas() {
-		return headersaidas;
+	public String getDespesas() {
+		return despesas;
 	}
 
-	public String getHeaderSaldo() {
-		return headersaldo;
+	public String getSaldo() {
+		return saldo;
 	}
 
 	public ArrayList<Transacao> getLctos() {
