@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.Classes.Conta;
 import nichele.meusgastos.Classes.Transacao;
+import nichele.meusgastos.SectionedRecyclerView.SectionModel;
+import nichele.meusgastos.SectionedRecyclerView.SectionRecyclerViewAdapter;
 import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.util.rotinas;
 
@@ -50,25 +52,25 @@ public class BancoSQLite extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table transacoes("+
-                "id int not null" +
-                ", data SmallDateTime"+
-                ", funcao varchar(1)"+
-                ", codconta int"+
-                ", codcategoria int"+
-                ", descricao varchar(255)"+
-                ", valor float"+
-                ", quitado varchar(1)"+
-                ", primary key(id))");
+              "id int not null" +
+              ", data SmallDateTime"+
+              ", funcao varchar(1)"+
+              ", codconta int"+
+              ", codcategoria int"+
+              ", descricao varchar(255)"+
+              ", valor float"+
+              ", quitado varchar(1)"+
+              ", primary key(id))");
         db.execSQL("CREATE TABLE contas(" +
-                "codconta Int Not Null" +
-                ", nome VarChar(30)" +
-                ", Primary key(codconta))");
+              "codconta Int Not Null" +
+              ", nome VarChar(30)" +
+              ", Primary key(codconta))");
         db.execSQL("CREATE TABLE categorias(" +
-                "codcategoria Int Not Null" +
-                ", nome VarChar(30)" +
-                ", tipo VarChar(1)" +
-                ", ordem int" +
-                ", Primary key(codcategoria))");
+              "codcategoria Int Not Null" +
+              ", nome VarChar(30)" +
+              ", tipo VarChar(1)" +
+              ", ordem int" +
+              ", Primary key(codcategoria))");
         //rotinas.logcat( "criou as tabelas");
 //        db.execSQL("CREATE TABLE configuracoes(" +
 //                "pedsenha Int," +
@@ -178,12 +180,12 @@ public class BancoSQLite extends SQLiteOpenHelper {
         }
 
         String sql = "SELECT t.*, cnt.nome nomeconta, cat.nome catnome, cat.tipo cattipo " +
-                " FROM Transacoes t, contas cnt, categorias cat" +
-                " WHERE t.codconta = cnt.codconta and t.codcategoria = cat.codcategoria" +
-                funcao +
-                " AND data >= '"+datinicial+"'" +
-                " AND data <= '"+datfinal+"'" +
-                " ORDER BY data DESC, id DESC, ordem";
+              " FROM Transacoes t, contas cnt, categorias cat" +
+              " WHERE t.codconta = cnt.codconta and t.codcategoria = cat.codcategoria" +
+              funcao +
+              " AND data >= '"+datinicial+"'" +
+              " AND data <= '"+datfinal+"'" +
+              " ORDER BY data DESC, id DESC, ordem";
         rotinas.logcat( sql);
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -191,17 +193,17 @@ public class BancoSQLite extends SQLiteOpenHelper {
         if(cursor.moveToFirst()) {
             do {
                 transacoes.add(new Transacao(cursor.getInt(cursor.getColumnIndex("id")),
-                                cursor.getString(cursor.getColumnIndex("data")),
-                                cursor.getString(cursor.getColumnIndex("funcao")),
-                                new Conta(cursor.getInt(cursor.getColumnIndex("codconta")),
-                                        cursor.getString(cursor.getColumnIndex("nomeconta"))),
-                                new Categoria(cursor.getInt(cursor.getColumnIndex("codcategoria")),
-                                        cursor.getString(cursor.getColumnIndex("catnome")),
-                                        cursor.getString(cursor.getColumnIndex("cattipo"))),
-                                cursor.getString(cursor.getColumnIndex("descricao")),
-                                cursor.getFloat(cursor.getColumnIndex("valor")),
-                                cursor.getString(cursor.getColumnIndex("quitado"))
-                        )
+                            cursor.getString(cursor.getColumnIndex("data")),
+                            cursor.getString(cursor.getColumnIndex("funcao")),
+                            new Conta(cursor.getInt(cursor.getColumnIndex("codconta")),
+                                  cursor.getString(cursor.getColumnIndex("nomeconta"))),
+                            new Categoria(cursor.getInt(cursor.getColumnIndex("codcategoria")),
+                                  cursor.getString(cursor.getColumnIndex("catnome")),
+                                  cursor.getString(cursor.getColumnIndex("cattipo"))),
+                            cursor.getString(cursor.getColumnIndex("descricao")),
+                            cursor.getFloat(cursor.getColumnIndex("valor")),
+                            cursor.getString(cursor.getColumnIndex("quitado"))
+                      )
                 );
             }while (cursor.moveToNext());
         }
@@ -220,8 +222,8 @@ public class BancoSQLite extends SQLiteOpenHelper {
             if(cursor.moveToFirst()) {
                 do {
                     contas.add(new Conta(cursor.getInt(cursor.getColumnIndex("codconta")),
-                                    cursor.getString(cursor.getColumnIndex("nome"))
-                            )
+                                cursor.getString(cursor.getColumnIndex("nome"))
+                          )
                     );
                     rotinas.logcat(cursor.getString(cursor.getColumnIndex("nome")));
                 } while (cursor.moveToNext());
@@ -281,9 +283,9 @@ public class BancoSQLite extends SQLiteOpenHelper {
         if(cursor.moveToFirst()) {
             do {
                 categorias.add(new Categoria(cursor.getInt(cursor.getColumnIndex("codcategoria")),
-                                cursor.getString(cursor.getColumnIndex("nome")),
-                                cursor.getString(cursor.getColumnIndex("tipo"))
-                        )
+                            cursor.getString(cursor.getColumnIndex("nome")),
+                            cursor.getString(cursor.getColumnIndex("tipo"))
+                      )
                 );
                 rotinas.logcat( cursor.getString(cursor.getColumnIndex("tipo")));
             } while (cursor.moveToNext());
@@ -397,21 +399,50 @@ public class BancoSQLite extends SQLiteOpenHelper {
         execute("delete from categorias where codcategoria = " + id);
     }
 
-   public boolean cadastro_em_uso(String campo, int campo_valor) {
-       boolean status = false;
-       String sql = "SELECT * FROM Transacoes WHERE " + campo + " = " + campo_valor;
-       //rotinas.logcat( sql );
-       SQLiteDatabase db = this.getReadableDatabase();
-       Cursor cursor = db.rawQuery(sql, null);
-       if(cursor.moveToFirst()) {
-           status = true;
-       }
-       cursor.close();
-       db.close();
-       return status;
+    public boolean cadastro_em_uso(String campo, int campo_valor) {
+        boolean status = false;
+        String sql = "SELECT * FROM Transacoes WHERE " + campo + " = " + campo_valor;
+        //rotinas.logcat( sql );
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        if(cursor.moveToFirst()) {
+            status = true;
+        }
+        cursor.close();
+        db.close();
+        return status;
 
-   }
+    }
 
 
+    public ArrayList<SectionModel> transacoespordata(CharSequence datinicial, CharSequence datfinal) {
+        ArrayList<SectionModel> rpt = new ArrayList<>();
+        String sql = "SELECT data FROM transacoes WHERE data >= '" + datinicial + "' AND data <= '" + datfinal + "' GROUP BY data";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        if(cursor.moveToFirst()) {
+            do {
+                String data = cursor.getString(cursor.getColumnIndex("data"));
+                float entradas = buscavalores(TipoDado.entradas, data, data);
+                float saidas = buscavalores(TipoDado.saidas, data, data);
+                float saldo = entradas - saidas;
+
+                ArrayList<Transacao> lcto_do_dia = getTransacoes(TipoDado.extrato,datinicial.toString(),datfinal.toString());
+                rotinas.logcat(lcto_do_dia.size());
+
+                rpt.add(new SectionModel(
+                      data,
+                      rotinas.formatavalorBR( entradas ),
+                      rotinas.formatavalorBR( saidas ),
+                      rotinas.formatavalorBR( saldo ),
+                      lcto_do_dia
+                      )
+                );
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return rpt;
+    }
 }
 

@@ -29,10 +29,14 @@ import java.util.GregorianCalendar;
 
 import nichele.meusgastos.BancoSQLite;
 import nichele.meusgastos.Classes.Transacao;
+import nichele.meusgastos.SectionedRecyclerView.SectionModel;
+import nichele.meusgastos.SectionedRecyclerView.SectionRecyclerViewAdapter;
 import nichele.meusgastos.adapters.ExtratoAdapter;
 import nichele.meusgastos.R;
 import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.util.rotinas;
+
+import static nichele.meusgastos.SectionedRecyclerView.RecyclerViewType.LINEAR_HORIZONTAL;
 
 public class fraTransacoes extends Fragment {
 
@@ -40,6 +44,16 @@ public class fraTransacoes extends Fragment {
    private Toolbar toolbar;
    private int primariaescura, primaria;
    private TipoDado listar;
+
+   private TextView lblmesextenso, lbldatinicial, lbldatfinal;
+   private ImageButton cmdant, cmdnext;
+   private GregorianCalendar gc = new GregorianCalendar();
+   RecyclerView recyclerView;
+   FloatingActionMenu fabmenu;
+
+   ArrayList<SectionModel> lctos_by_date;
+   SectionRecyclerViewAdapter adapter;
+
    public fraTransacoes() {
       // Required empty public constructor
    }
@@ -65,8 +79,8 @@ public class fraTransacoes extends Fragment {
       filtraperiodo();
       mostradados();
 
-      FloatingActionMenu fabmenu = getActivity().findViewById(R.id.fabmenu);
-fabmenu.setTop(fabmenu.getTop()-200);
+      fabmenu = getActivity().findViewById(R.id.fabmenu);
+      fabmenu.setTop(fabmenu.getTop()-200);
 //      RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)fabmenu.getLayoutParams();
 //      params.setMargins(0,0,0,200 );
 //      //params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
@@ -149,15 +163,20 @@ fabmenu.setTop(fabmenu.getTop()-200);
 
       db.close();
 
-      RecyclerView recyclerView = view.findViewById(R.id.lista_dados);
-      recyclerView.setHasFixedSize(true);
-      recyclerView.setLayoutManager(new LinearLayoutManager( getContext()));
-      ExtratoAdapter adapter = new ExtratoAdapter(dados);
-      recyclerView.setAdapter(adapter);
+      populateRecyclerView();
 
-      //GroupAdapter customAdapter = new GroupAdapter(getContext(), gdados);
-      //recyclerView.setAdapter(customAdapter);
+      recyclerView = view.findViewById(R.id.lista_dados);
+      recyclerView.setHasFixedSize(true);
+      LinearLayoutManager llm = new LinearLayoutManager( getContext());
+
+      recyclerView.setLayoutManager(llm);
+      recyclerView.setAdapter(adapter);
+      ExtratoAdapter adapter2 = new ExtratoAdapter(dados);
+      //recyclerView.setAdapter(adapter);
+
    }
+
+
 
    @Override
    public void onStart() {
@@ -175,9 +194,7 @@ fabmenu.setTop(fabmenu.getTop()-200);
       super.onDetach();
    }
 
-   private TextView lblmesextenso, lbldatinicial, lbldatfinal;
-   private ImageButton cmdant, cmdnext;
-   private GregorianCalendar gc = new GregorianCalendar();
+
 
    private void filtraperiodo(){
 
@@ -269,5 +286,14 @@ fabmenu.setTop(fabmenu.getTop()-200);
       array[0] = Character.toUpperCase(array[0]);
       // Return string.
       return new String(array);
+   }
+
+   private void populateRecyclerView() {
+      //lista transações gravadas
+      BancoSQLite db = new BancoSQLite(getContext());
+      lctos_by_date = db.transacoespordata(lbldatinicial.getText() , lbldatfinal.getText());
+      db.close();
+      adapter = new SectionRecyclerViewAdapter(LINEAR_HORIZONTAL, lctos_by_date);
+
    }
 }

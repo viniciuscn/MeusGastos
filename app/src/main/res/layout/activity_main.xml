@@ -60,7 +60,8 @@
         android:layout_marginBottom="110dp"
         app:fab_addButton_collapsed_rotation="0"
         app:fab_addButton_expanded_rotation="45"
-        app:fab_labelsPosition="left">
+        app:fab_labelsPosition="left"
+        >
 
         <com.ddz.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
@@ -84,7 +85,7 @@
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"

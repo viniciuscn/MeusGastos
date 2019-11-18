@@ -46,8 +46,8 @@ public class rotinas {
 	public static Categoria categoria;
 
 
-	public static void logcat(String msg){
-		Log.v(tag,msg);
+	public static void logcat(Object msg){
+		Log.v(tag, String.valueOf(msg));
 	}
 
 	public static String limpacampovalor(String valor){

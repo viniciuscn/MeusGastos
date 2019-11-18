@@ -15,23 +15,93 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:id="@+id/item_frame"
+        android:orientation="vertical"
+        >
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:src="@mipmap/ic_launcher_round" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_data"
+                android:text="Data"
+                android:textStyle="bold"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_descricao"
+                android:layout_toRightOf="@+id/item_data"
+                android:text="Descrição"
+                android:ellipsize="middle"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_valor"
+                android:text="0,00"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
 
         <TextView
-            android:id="@+id/item_label"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:textColor="@android:color/black"
-            android:textSize="15sp"
-            android:text="texto aqui"/>
+            android:id="@+id/item_funcao"
+            android:text="função"
+            android:visibility="gone"
+            />
+
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_codcategoria"
+                android:text="codigo da categoria"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_nomecategoria"
+                android:text="   categoria   "
+                android:textSize="30px"
+                android:background="@drawable/bordaarredondada"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_codconta"
+                android:text="codigo da conta"
+                android:visibility="gone"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_nomeconta"
+                android:text="   Nome da Conta   "
+                android:textSize="30px"
+                android:background="@drawable/bordaarredondada"
+                android:layout_toRightOf="@id/item_nomecategoria"
+                />
+
+
+        </RelativeLayout>
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -60,7 +60,6 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.ExtratoV
         gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(data.subSequence(8,10).toString()));
 
         holder.txtdata.setText(datautil.formatadata(gc.getTime(), "dddd, dd"));
-
         holder.txtfuncao.setText(extrato.get(position).getFuncao());
         holder.txtcodcategoria.setText(extrato.get(position).categoria.getCodigoString());
         holder.txtnomecategoria.setText("   "+extrato.get(position).categoria.getNome()+"   ");

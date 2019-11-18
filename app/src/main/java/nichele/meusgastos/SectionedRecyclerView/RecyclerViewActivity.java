@@ -57,7 +57,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
 	//setup recycler view
 	private void setUpRecyclerView() {
-		recyclerView = (RecyclerView) findViewById(R.id.sectioned_recycler_view);
+		recyclerView = findViewById(R.id.sectioned_recycler_view);
 		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 		recyclerView.setLayoutManager(linearLayoutManager);
@@ -65,23 +65,22 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
 	//populate recycler view
 	private void populateRecyclerView() {
-		ArrayList<SectionModel> sectionModelArrayList = new ArrayList<>();
-		//for loop for sections
-		for (int i = 1; i <= 5; i++) {
-			ArrayList<String> itemArrayList = new ArrayList<>();
-			//for loop for items
-			for (int j = 1; j <= 10; j++) {
-				itemArrayList.add("Item " + j);
-			}
-
-			//add the section and items to array list
-			sectionModelArrayList.add(new SectionModel("Section " + i, itemArrayList));
-			//sectionModelArrayList.add(new SectionModel("Section b " + i, new ArrayList<String>()));
-		}
-
-		SectionRecyclerViewAdapter adapter = new SectionRecyclerViewAdapter(this, recyclerViewType, sectionModelArrayList);
-		recyclerView.setAdapter(adapter);
+//		ArrayList<SectionModel> sectionModelArrayList = new ArrayList<>();
+//		//for loop for sections
+//		for (int i = 1; i <= 5; i++) {
+//			ArrayList<String> itemArrayList = new ArrayList<>();
+//			//for loop for items
+//			for (int j = 1; j <= 10; j++) {
+//				itemArrayList.add("Item " + j);
+//			}
+//			//add the section and items to array list
+//			sectionModelArrayList.add(new SectionModel("Section " + i,"", itemArrayList));
+//		}
+//		SectionRecyclerViewAdapter adapter = new SectionRecyclerViewAdapter( recyclerViewType, sectionModelArrayList);
+//		recyclerView.setAdapter(adapter);
 	}
+
+
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

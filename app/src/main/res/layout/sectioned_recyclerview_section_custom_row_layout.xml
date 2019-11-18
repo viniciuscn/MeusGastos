@@ -20,15 +20,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:background="@color/colorPrimary"
+
         android:paddingBottom="8dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="8dp"
-        android:text="show all"
-        android:textAllCaps="true"
-        android:textColor="@android:color/white"
-        android:textSize="12sp" />
+        android:text="R$ 0,00"
+
+        android:textColor="@color/verdeescuro"
+         />
 
     <!--  recycler view for items -->
     <androidx.recyclerview.widget.RecyclerView
@@ -45,23 +45,68 @@
         android:orientation="vertical"
         android:id="@+id/section_footer"
         android:layout_below="@id/item_recycler_view">
-        <TextView
-            android:id="@+id/section_footer_receitas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/section_footer_receitas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:padding="5dp"
+                android:text="Total de Receitas"/>
+            <TextView
+                android:id="@+id/section_footer_vlrreceitas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
 
-            android:padding="10dp"
-            android:text="Total de Receitas"/>
+                android:padding="5dp"
+                android:text="0,00"/>
 
-        <TextView
-            android:id="@+id/section_footer_despesas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:textColor="@android:color/black"
-            android:padding="10dp"
-            android:text="Total de Despesas"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/section_footer_despesas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:padding="5dp"
+                android:text="Total de Despesas"/>
+            <TextView
+                android:id="@+id/section_footer_vlrdespesas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="5dp"
+                android:text="0,00"/>
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/section_footer_saldo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:padding="5dp"
+                android:text="Saldo"/>
+            <TextView
+                android:id="@+id/section_footer_vlrsaldo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="5dp"
+                android:text="0,00"/>
+        </RelativeLayout>
+
+
     </LinearLayout>
 
 </RelativeLayout>
