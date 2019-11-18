@@ -1,9 +1,11 @@
 package nichele.meusgastos.SectionedRecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +15,8 @@ import java.util.GregorianCalendar;
 
 import nichele.meusgastos.Classes.Transacao;
 import nichele.meusgastos.R;
+import nichele.meusgastos.actTransacoes_Manutencao;
+import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.util.datautil;
 import nichele.meusgastos.util.rotinas;
 
@@ -21,11 +25,11 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
 
 	private Context context;
-	private ArrayList<Transacao> arrayList;
+	private ArrayList<Transacao> extrato;
 
-	public ItemRecyclerViewAdapter(Context context, ArrayList<Transacao> arrayList) {
+	public ItemRecyclerViewAdapter(Context context, ArrayList<Transacao> extrato) {
 		this.context = context;
-		this.arrayList = arrayList;
+		this.extrato = extrato;
 	}
 
 	@Override
@@ -36,33 +40,44 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
 	@Override
 	public void onBindViewHolder(ItemViewHolder holder, int position) {
-		holder.lbldescricao.setText(arrayList.get(position).getDescricao());
+		holder.frame.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context, actTransacoes_Manutencao.class );
+				intent.putExtra("tipdado", (extrato.get(position).funcao.equals("E") ? TipoDado.entradas : TipoDado.saidas) );
+				intent.putExtra("situacao", "ALT");
+				rotinas.transacao =  extrato.get(position);
+				context.startActivity(intent);
+			}
+		});
+		holder.lbldescricao.setText(extrato.get(position).getDescricao());
 
 		GregorianCalendar gc=new GregorianCalendar();
-		String data = arrayList.get(position).getData();
+		String data = extrato.get(position).getData();
 		gc.set(GregorianCalendar.YEAR, Integer.valueOf(data.subSequence(0,4).toString()));
 		gc.set(GregorianCalendar.MONTH, Integer.valueOf(data.subSequence(5,7).toString())-1);
 		gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(data.subSequence(8,10).toString()));
 		holder.lbldata.setText(datautil.formatadata(gc.getTime(), "dddd, dd"));
-		holder.lblfuncao.setText(arrayList.get(position).getFuncao());
-		holder.lblcodcategoria.setText(arrayList.get(position).categoria.getCodigoString());
-		holder.lblnomecategoria.setText("   "+arrayList.get(position).categoria.getNome()+"   ");
-		holder.lblcodconta.setText(arrayList.get(position).conta.getCodigoString());
-		holder.lblnomeconta.setText("   "+arrayList.get(position).conta.getNome()+"   ");
-		holder.lbldescricao.setText(arrayList.get(position).getDescricao());
-		holder.lblvalor.setText(rotinas.formatavalorBR(arrayList.get(position).getValorString()));
-		if (arrayList.get(position).getFuncao().equals("E") && arrayList.get(position).getQuitado().equals("S"))
+		holder.lblfuncao.setText(extrato.get(position).getFuncao());
+		holder.lblcodcategoria.setText(extrato.get(position).categoria.getCodigoString());
+		holder.lblnomecategoria.setText("   "+extrato.get(position).categoria.getNome()+"   ");
+		holder.lblcodconta.setText(extrato.get(position).conta.getCodigoString());
+		holder.lblnomeconta.setText("   "+extrato.get(position).conta.getNome()+"   ");
+		holder.lbldescricao.setText(extrato.get(position).getDescricao());
+		holder.lblvalor.setText(rotinas.formatavalorBR(extrato.get(position).getValorString()));
+		if (extrato.get(position).getFuncao().equals("E") && extrato.get(position).getQuitado().equals("S"))
 			holder.lblvalor.setTextColor(context.getResources().getColor(R.color.verde));
-		else if (arrayList.get(position).getFuncao().equals("S") && arrayList.get(position).getQuitado().equals("S"))
+		else if (extrato.get(position).getFuncao().equals("S") && extrato.get(position).getQuitado().equals("S"))
 			holder.lblvalor.setTextColor(context.getResources().getColor(R.color.vermelho));
 	}
 
 	@Override
 	public int getItemCount() {
-		return arrayList.size();
+		return extrato.size();
 	}
 
 	class ItemViewHolder extends RecyclerView.ViewHolder {
+		LinearLayout frame;
 		TextView lbldata;
 		TextView lblfuncao;
 		TextView lblcodconta;
@@ -73,6 +88,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 		TextView lblvalor;
 		ItemViewHolder(View itemView) {
 			super(itemView);
+			frame = itemView.findViewById(R.id.item_frame);
 			lbldata = itemView.findViewById(R.id.item_data);
 			lblfuncao = itemView.findViewById(R.id.item_funcao);
 			lblcodconta= itemView.findViewById(R.id.item_codconta);

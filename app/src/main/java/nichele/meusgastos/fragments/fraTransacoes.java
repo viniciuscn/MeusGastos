@@ -164,16 +164,15 @@ public class fraTransacoes extends Fragment {
 
       db.close();
 
-
-
       recyclerView = view.findViewById(R.id.lista_dados);
       recyclerView.setHasFixedSize(true);
       LinearLayoutManager llm = new LinearLayoutManager( getContext() );
 
       recyclerView.setLayoutManager(llm);
+      populateRecyclerView();
       recyclerView.setAdapter(adapter);
 //      if(listar.equals(TipoDado.extrato))
-         populateRecyclerView();
+
 //      else{
 //         ExtratoAdapter adapter = new ExtratoAdapter(dados);
 //         recyclerView.setAdapter(adapter);
