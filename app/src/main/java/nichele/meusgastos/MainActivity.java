@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,6 +31,7 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import java.io.File;
 import java.util.Locale;
 
 import nichele.meusgastos.fragments.fraTransacoes;
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
       carregatela();
       monta_menu(savedInstanceState);
       monta_adMob();
+
+      criapastabkp();
    }
 
    private void PedePermissao(){
@@ -64,14 +68,21 @@ public class MainActivity extends AppCompatActivity {
       }
    }
    @Override
-   public void onRequestPermissionsResult(int requestCode,
-                                          @NonNull String[] permissions,
-                                          @NonNull int[] garantResults){
-//      switch (requestCode){
-//         case 1000:
-//
-//      }
+   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] garantResults){
+//      switch (requestCode){//         case 1000://      }
+   }
 
+   private void criapastabkp(){
+      try{
+         //rotinas.cambkp = Environment.getExternalStorageDirectory() + "/"+ getResources().getString(R.string.app_name);
+         File folder = new File(rotinas.cambkp);
+         if (!folder.exists()) {
+            folder.mkdir();
+         }
+      } catch (Exception e) {
+         e.printStackTrace();
+         rotinas.logcat(e.getMessage());
+      }
    }
 
    private void VerificaPrimeiroAcesso(){

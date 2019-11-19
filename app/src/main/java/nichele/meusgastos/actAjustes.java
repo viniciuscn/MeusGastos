@@ -8,7 +8,6 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +19,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import nichele.meusgastos.backup.CriaBackup;
 import nichele.meusgastos.util.rotinas;
 
 public class actAjustes extends AppCompatActivity {
@@ -54,7 +54,7 @@ public class actAjustes extends AppCompatActivity {
 
 	public void carregatela(){
 		montalaycomecardozero();
-		montalaycopiaseguranca();
+		monta_lay_copia_seguranca();
 		montalaysobre();
 	}
 
@@ -98,93 +98,129 @@ public class actAjustes extends AppCompatActivity {
 		});
 	}
 
-	private void montalaycopiaseguranca(){
+	private void monta_lay_copia_seguranca(){
 		laycopiaseguranca = findViewById(R.id.laycopiaseguranca);
 
 		laycopiaseguranca.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//startActivity(new Intent(context, actAjustes_CopiaSeguranca.class));
+				startActivity(new Intent(context, actAjustesBD.class));
 
-				LayoutInflater inflater = getLayoutInflater();
-				final View dialoglayout = inflater.inflate(R.layout.activity_ajustes_copiaseguranca, null);
-				AlertDialog.Builder builder = new AlertDialog.Builder(context);
-				builder.setView(dialoglayout);
-				builder.setTitle("Cópia de Segurança");
-				final AlertDialog ad = builder.show();
-
-				final Button btnhorabackup = dialoglayout.findViewById(R.id.btnhorabackup);
-				btnhorabackup.setText(sp.getString(rotinas.cfg_keyhorabkp, "23:00"));
-
-				final Switch chkbackup = dialoglayout.findViewById(R.id.chkbackup);
-				boolean rodar_bkp = sp.getBoolean(rotinas.cfg_keybkpativo, false);
-				chkbackup.setChecked(rodar_bkp);
-
-				if(rodar_bkp == true) {
-					btnhorabackup.setEnabled(true);
-				}else {
-					btnhorabackup.setEnabled(false);
-				}
-				chkbackup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
-					@Override
-					public void onCheckedChanged(CompoundButton cb, boolean on){
-						if(on)
-							btnhorabackup.setEnabled(true);
-						else
-							btnhorabackup.setEnabled(false);
-					}
-				});
-
-				btnhorabackup.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						//final Calendar c = Calendar.getInstance();
-						//int mHour = c.get(Calendar.HOUR_OF_DAY);
-						//int mMinute = c.get(Calendar.MINUTE);
-
-						int mHour = new Integer(btnhorabackup.getText().subSequence(0, 2).toString());
-						int mMinute = new Integer(btnhorabackup.getText().subSequence(3,5).toString());
-
-
-						// Launch Time Picker Dialog
-						TimePickerDialog timePickerDialog = new TimePickerDialog(context,
-								new TimePickerDialog.OnTimeSetListener() {
-
-									@Override
-									public void onTimeSet(TimePicker view, int hourOfDay,
-									                      int minute) {
-
-										btnhorabackup.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d",minute));
-									}
-								}, mHour, mMinute, true);
-						timePickerDialog.show();
-
-					}
-				});
-				Button btnsalvar = dialoglayout.findViewById(R.id.btnsalvar);
-
-				btnsalvar.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-
-						SharedPreferences.Editor editor = sp.edit();
-						editor.putBoolean(rotinas.cfg_keybkpativo, chkbackup.isChecked());
-						editor.apply();
-
-						editor = sp.edit();
-						editor.putString(rotinas.cfg_keyhorabkp, chkbackup.isChecked() == true ? btnhorabackup.getText().toString() : "");
-						editor.apply();
-						rotinas.startAlertAtParticularTime(context);
-						ad.dismiss();
-					}
-				});
-				Button btncancelar = dialoglayout.findViewById(R.id.btncancelar);
-				btncancelar.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						ad.dismiss();
-					}
-				});
+//				LayoutInflater inflater = getLayoutInflater();
+//				final View dialoglayout = inflater.inflate(R.layout.activity_ajustes_copiaseguranca, null);
+//				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//				builder.setView(dialoglayout);
+//				builder.setTitle("Cópia de Segurança");
+//				final AlertDialog ad = builder.show();
+//
+//				final Button btnexportaBD = dialoglayout.findViewById(R.id.btn_exportaBD);
+//				btnexportaBD.setOnClickListener(new View.OnClickListener() {
+//					@Override
+//					public void onClick(View v) {
+//
+//						LayoutInflater inflater = getLayoutInflater();
+//						final View dialoglayout = inflater.inflate(R.layout.activity_ajustes_copiaseguranca_exportabd, null);
+//						AlertDialog.Builder alert = new AlertDialog.Builder(context);
+//						alert.setCancelable(false);
+//
+//						alert.setView(dialoglayout);
+//						alert.setTitle("Exporta Banco de Dados");
+//						final AlertDialog ad = alert.show();
+//
+//						EditText txtnomearquivo = dialoglayout.findViewById(R.id.txtnomearquivo);
+//						final Switch chkenvemail = dialoglayout.findViewById(R.id.chkenvemail);
+//
+//						Button btnsalvar = dialoglayout.findViewById(R.id.btnsalvar);
+//						btnsalvar.setOnClickListener(new View.OnClickListener() {
+//							@Override
+//							public void onClick(View v) {
+////								if(txtnomearquivo.getText().equals("") )
+////									return;
+//								new CriaBackup( context ).executeLocal( txtnomearquivo.getText().toString(), chkenvemail.isChecked() );
+//
+//
+//								ad.dismiss();
+//
+//							}
+//						});
+//
+//
+//					}
+//				});
+//
+//				final Button btnhorabackup = dialoglayout.findViewById(R.id.btnhorabackup);
+//				btnhorabackup.setText(sp.getString(rotinas.cfg_keyhorabkp, "23:00"));
+//
+//				final Switch chkbackup = dialoglayout.findViewById(R.id.chkbackup);
+//				boolean rodar_bkp = sp.getBoolean(rotinas.cfg_keybkpativo, false);
+//				chkbackup.setChecked(rodar_bkp);
+//
+//				if(rodar_bkp == true) {
+//					btnhorabackup.setEnabled(true);
+//				}else {
+//					btnhorabackup.setEnabled(false);
+//				}
+//				chkbackup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+//					@Override
+//					public void onCheckedChanged(CompoundButton cb, boolean on){
+//						if(on)
+//							btnhorabackup.setEnabled(true);
+//						else
+//							btnhorabackup.setEnabled(false);
+//					}
+//				});
+//
+//				btnhorabackup.setOnClickListener(new View.OnClickListener() {
+//					@Override
+//					public void onClick(View v) {
+//						//final Calendar c = Calendar.getInstance();
+//						//int mHour = c.get(Calendar.HOUR_OF_DAY);
+//						//int mMinute = c.get(Calendar.MINUTE);
+//
+//						int mHour = new Integer(btnhorabackup.getText().subSequence(0, 2).toString());
+//						int mMinute = new Integer(btnhorabackup.getText().subSequence(3,5).toString());
+//
+//
+//						// Launch Time Picker Dialog
+//						TimePickerDialog timePickerDialog = new TimePickerDialog(context,
+//								new TimePickerDialog.OnTimeSetListener() {
+//
+//									@Override
+//									public void onTimeSet(TimePicker view, int hourOfDay,
+//									                      int minute) {
+//
+//										btnhorabackup.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d",minute));
+//									}
+//								}, mHour, mMinute, true);
+//						timePickerDialog.show();
+//
+//					}
+//				});
+//
+//				Button btnsalvar = dialoglayout.findViewById(R.id.btnsalvar);
+//				btnsalvar.setOnClickListener(new View.OnClickListener() {
+//					@Override
+//					public void onClick(View v) {
+//
+//						SharedPreferences.Editor editor = sp.edit();
+//						editor.putBoolean(rotinas.cfg_keybkpativo, chkbackup.isChecked());
+//						editor.apply();
+//
+//						editor = sp.edit();
+//						editor.putString(rotinas.cfg_keyhorabkp, chkbackup.isChecked() == true ? btnhorabackup.getText().toString() : "");
+//						editor.apply();
+//						rotinas.startAlertAtParticularTime(context);
+//						ad.dismiss();
+//					}
+//				});
+//
+//				Button btncancelar = dialoglayout.findViewById(R.id.btncancelar);
+//				btncancelar.setOnClickListener(new View.OnClickListener() {
+//					@Override
+//					public void onClick(View v) {
+//						ad.dismiss();
+//					}
+//				});
 			}
 		});
 	}

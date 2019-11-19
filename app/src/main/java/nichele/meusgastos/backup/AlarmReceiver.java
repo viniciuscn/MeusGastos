@@ -30,7 +30,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 
 		//if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-			new CriaBackup(context).executeLocal("");
+			new CriaBackup(context).executeLocal("",false);
 
 			//Toast.makeText(context, "Time Up... Now Vibrating !!!", Toast.LENGTH_LONG).show();
 			rotinas.logcat("backup");

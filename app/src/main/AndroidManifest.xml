@@ -79,7 +79,14 @@
                 android:value="nichele.meusgastos.MainActivity" />
         </activity>
 
-
+        <activity
+            android:name=".actAjustesBD"
+            android:label=""
+            android:parentActivityName=".actAjustes">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nichele.meusgastos.actAjustes" />
+        </activity>
 <!--        <activity-->
 <!--            android:name=".actAjustes_CopiaSeguranca"-->
 <!--            android:label=""-->
@@ -104,6 +111,14 @@
 
         <activity android:name=".backup.NotificationView" />
 
+<!--        <receiver android:name=".sync.SyncSchedulerBroadcastReceiver">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
+<!--                <action android:name="${applicationId}.intent.action.START_SYNC_SERVICE" />-->
+<!--                <action android:name="${applicationId}.intent.action.STOP_SYNC_SERVICE" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <receiver android:name=".sync.SyncBroadcastReceiver" />-->
 
     </application>
     <uses-permission android:name="android.permission.VIBRATE" />

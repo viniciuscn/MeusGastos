@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Environment;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ import static android.content.Context.ALARM_SERVICE;
  */
 public class rotinas {
 
-
+	public static String cambkp =  Environment.getExternalStorageDirectory() + "/Meus Gastos";
 	public static String cfg = "mg.cfg";
 	public static String cfg_keyfirstopen = "firstopen";
 	public static String cfg_keybkpativo = "bkp_ativo";
