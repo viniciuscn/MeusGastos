@@ -59,24 +59,34 @@ public class fraVisaoGeral extends Fragment  {
 
 		montacardvalores();
 
-		EditText limite = view.findViewById(R.id.limite);
-		EditText consumo = view.findViewById(R.id.consumo);
+		String newline = "\n";
+		TextView si= view.findViewById(R.id.SystemInformation);
+		si.setText("Versão Android:" + System.getProperty("os.version") + newline +
+				"API Level:" +android.os.Build.VERSION.SDK + newline +
+				"Device:" + android.os.Build.DEVICE + newline +
+				"Model:" +android.os.Build.MODEL + newline +
+				"Product:" + android.os.Build.PRODUCT);
 
-		View vlimite = view.findViewById(R.id.vlimite);
-		View vconsumo = view.findViewById(R.id.vconsumo);
-		vconsumo.setLayoutParams(new LinearLayout.LayoutParams(0, 30));
+		EditText txtlimite = view.findViewById(R.id.limite);
+		EditText txtconsumo = view.findViewById(R.id.consumo);
 
+		ProgressBar prg = view.findViewById(R.id.progressBar);
 		Button cmdaplica_limite = view.findViewById(R.id.cmdaplica_limite);
 		cmdaplica_limite.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				prg.setMax(Integer.valueOf(txtlimite.getText().toString()));
 			}
 		});
 		Button cmdaplicar_consumo = view.findViewById(R.id.cmdaplicar_consumo);
+
 		cmdaplicar_consumo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+
+				prg.setProgress(
+					prg.getProgress() + Math.round(Float.valueOf(txtconsumo.getText().toString()))
+				);
 
 			}
 		});

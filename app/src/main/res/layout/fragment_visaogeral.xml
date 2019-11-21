@@ -6,10 +6,10 @@
     android:layout_height="fill_parent"
     android:fillViewport="true">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/fundo_tela">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fundo_tela">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,19 +19,16 @@
 
             <include layout="@layout/fragment_visaogeral_card"/>
 
-            <View
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:id="@+id/vconsumo"
-                android:background="@color/md_red_500"/>
-            <View
-                android:layout_width="300dp"
-                android:layout_height="30dp"
-                android:id="@+id/vlimite"
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-                android:background="@color/cinza"
+                android:progress="20"
+                android:scaleY="3"
+
                 />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,8 +74,15 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/cmdaplicar_consumo"
                     android:text="aplicar consumo"/>
+
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/SystemInformation"
+                android:textColor="@color/white"
+                android:text="Versão Android:\nAPI Level:\nDevice:\nModel:\nProduct:\n"/>
         </LinearLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
 </ScrollView>
