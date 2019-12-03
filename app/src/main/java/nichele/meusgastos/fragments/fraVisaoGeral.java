@@ -2,6 +2,7 @@ package nichele.meusgastos.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +12,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import java.util.Date;
+
 
 import nichele.meusgastos.BancoSQLite;
 import nichele.meusgastos.MainActivity;
@@ -91,9 +92,31 @@ public class fraVisaoGeral extends Fragment  {
 			}
 		});
 
+		testando_entrada_de_dados();
+
+
+
 
 		return view;
 	}
+
+	private boolean isDecimalSeparatorComma = false;
+	EditText editText;
+
+	private void testando_entrada_de_dados(){
+		editText = view.findViewById(R.id.txtvalor);
+editText.setText("1.000,00");
+editText.requestFocus();
+
+//		int position = etmsg.length();
+//		Editable etext = etmsg.getText();
+//		Selection.setSelection(etext, position);
+
+
+
+	}
+
+
 
 	private void definecores(){
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -181,6 +204,7 @@ public class fraVisaoGeral extends Fragment  {
 
 		//}
 	}
+
 
 
 }

@@ -41,7 +41,7 @@ public class rotinas {
 	public static String cfg_keyhorabkp = "hora_bkp";
 
 	public static final String tag = "inspetor";
-	public static Locale locale = Locale.getDefault();
+	public static Locale regiao = Locale.getDefault();
 	public static Transacao transacao;
 	public static Conta conta;
 	public static Categoria categoria;
@@ -52,8 +52,8 @@ public class rotinas {
 	}
 
 	public static String limpacampovalor(String valor){
-		//String replaceable = String.format("[%s,.\\s]", NumberFormat.getCurrencyInstance(locale).getCurrency().getSymbol());
-		String replaceable = String.format("[%s,\\s]", NumberFormat.getCurrencyInstance(locale).getCurrency().getSymbol());
+		//String replaceable = String.format("[%s,.\\s]", NumberFormat.getCurrencyInstance(regiao).getCurrency().getSymbol());
+		String replaceable = String.format("[%s,\\s]", NumberFormat.getCurrencyInstance(regiao).getCurrency().getSymbol());
 		String valorlimpo = valor.replaceAll(replaceable, "");
 		rotinas.logcat(valorlimpo);
 		return valorlimpo;

@@ -58,4 +58,6 @@ dependencies {
     //dialog para listar cores
     implementation 'petrov.kristiyan:colorpicker-library:1.1.10'
     implementation 'com.google.android.gms:play-services-ads:18.2.0'
+
+    implementation 'com.github.BlacKCaT27:CurrencyEditText:2.0.2'
 }

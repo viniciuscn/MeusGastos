@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
       PedePermissao();
 
-      rotinas.locale = new Locale("pt", "BR");
+      rotinas.regiao = new Locale("pt", "BR");
 
       VerificaPrimeiroAcesso();
       carregatela();

@@ -1,9 +1,7 @@
 package nichele.meusgastos;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.app.FragmentTransaction;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +11,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -178,7 +174,8 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       }
       db.close();
       txtchave.setText(String.valueOf(chave));
-
+      txtvalor.requestFocus();
+      txtvalor.setSelection(txtvalor.getText().length());
 
 
       cmdant.setOnClickListener(new View.OnClickListener() {
