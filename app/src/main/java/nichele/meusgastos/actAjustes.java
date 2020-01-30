@@ -55,6 +55,15 @@ public class actAjustes extends AppCompatActivity {
 	public void carregatela(){
 		montalaycomecardozero();
 		monta_lay_copia_seguranca();
+
+		((LinearLayout)findViewById(R.id.laypreferencias)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(context, actAjustesPreferencias.class));
+			}
+		});
+
+
 		montalaysobre();
 	}
 
@@ -223,6 +232,8 @@ public class actAjustes extends AppCompatActivity {
 //				});
 			}
 		});
+
+
 	}
 
 	private void montalaysobre() {
@@ -235,26 +246,13 @@ public class actAjustes extends AppCompatActivity {
 				View dialogView = LayoutInflater.from(context).inflate(R.layout.activity_ajustes_sobre, null);
 
 				TextView vs = findViewById(R.id.lblversao);
-
-//				try {
-//					vs.setText(context.getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
-//				} catch (PackageManager.NameNotFoundException e) {
-//					e.printStackTrace();
-//				}
-
-
 				Button btnvoltar = dialogView.findViewById(R.id.btnvoltar);
-
 				btnvoltar.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-
 						dialogBuilder.dismiss();
-
 					}
 				});
-
-
 				dialogBuilder.setView(dialogView);
 				dialogBuilder.show();
 			}
