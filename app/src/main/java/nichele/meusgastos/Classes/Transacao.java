@@ -36,6 +36,8 @@ public class Transacao {
         return data;
     }
 
+
+
     public String getQuitado() { return quitado; }
 
 

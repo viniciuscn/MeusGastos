@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -33,6 +34,9 @@ TextView txtdata;
    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                             Bundle savedInstanceState) {
       View view =inflater.inflate(R.layout.fragment_transacoes_manutencao, container, false);
+
+
+
 //      Toolbar toolbar =  getActivity().findViewById(R.id.toolbar);
 //      toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_close_white));
 //      toolbar.setNavigationOnClickListener(new View.OnClickListener() {

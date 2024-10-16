@@ -1,36 +1,36 @@
 package nichele.meusgastos;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.provider.Telephony;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
 import com.ddz.floatingactionbutton.FloatingActionButton;
 import com.ddz.floatingactionbutton.FloatingActionMenu;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import nichele.meusgastos.fragments.fraTransacoes;
@@ -44,47 +44,16 @@ public class MainActivity extends AppCompatActivity {
    public Drawer.Result navigationDrwarerLeft;
    public FloatingActionMenu fabmenu;
 
+   private ArrayList<String> smsList = new ArrayList<>();
+   private ListView listView;
+   private static final int READ_SMS_PERMISSION_CODE = 1;
+
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
+      rotinas.locale = new Locale("pt", "BR");
 
-      PedePermissao();
-
-      rotinas.regiao = new Locale("pt", "BR");
-
-      VerificaPrimeiroAcesso();
-      carregatela();
-      monta_menu(savedInstanceState);
-      monta_adMob();
-
-      criapastabkp();
-   }
-
-   private void PedePermissao(){
-      if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-         requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1000);
-      }
-   }
-   @Override
-   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] garantResults){
-//      switch (requestCode){//         case 1000://      }
-   }
-
-   private void criapastabkp(){
-      try{
-         //rotinas.cambkp = Environment.getExternalStorageDirectory() + "/"+ getResources().getString(R.string.app_name);
-         File folder = new File(rotinas.cambkp);
-         if (!folder.exists()) {
-            folder.mkdir();
-         }
-      } catch (Exception e) {
-         e.printStackTrace();
-         rotinas.logcat(e.getMessage());
-      }
-   }
-
-   private void VerificaPrimeiroAcesso(){
       BancoSQLite db = new BancoSQLite(this);
       SharedPreferences sp = getSharedPreferences(rotinas.cfg, Context.MODE_PRIVATE);
       String firstopen = sp.getString(rotinas.cfg_keyfirstopen, "S");
@@ -98,23 +67,31 @@ public class MainActivity extends AppCompatActivity {
          editor.putBoolean(rotinas.cfg_keybkpativo,false);
          editor.apply();
       }
-      db.close();
-   }
 
-   private void carregatela(){
+      db.close();
+      //rotinas.startAlertAtParticularTime(this);
+
       toolbar = findViewById(R.id.toolbar);
       toolbar.setTitle("Visão Geral");
+      //mToolbar.setSubtitle("subtitulo");
+
       setSupportActionBar(toolbar);
+
       abrefragment(new fraVisaoGeral());
+      //abreactivity("categorias",TipoDado.nenhum);
+
+      //abrefragment(new fraTransacoes_Manutencao());
       fabmenu = findViewById(R.id.fabmenu);
       FloatingActionButton fabrec = findViewById(R.id.fabrec);
       fabrec.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
+
             abreactivity("manutencao", TipoDado.entradas);
             fabmenu.collapse();
          }
       });
+
       FloatingActionButton fabdes = findViewById(R.id.fabdes);
       fabdes.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -124,57 +101,55 @@ public class MainActivity extends AppCompatActivity {
             fabmenu.collapse();
          }
       });
-   }
 
-   private void monta_menu(Bundle savedInstanceState){
       navigationDrwarerLeft =new Drawer()
-            .withActivity(this)
-            .withToolbar(toolbar)
-            .withDisplayBelowToolbar(true)
-            .withActionBarDrawerToggleAnimated(true)
-            .withDrawerGravity(Gravity.LEFT)
-            .withSavedInstance(savedInstanceState)
-            .withSelectedItem(0)
-            .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-               @Override
-               public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-                  switch(position){
-                     case 0:
+              .withActivity(this)
+              .withToolbar(toolbar)
+              .withDisplayBelowToolbar(true)
+              .withActionBarDrawerToggleAnimated(true)
+              .withDrawerGravity(Gravity.LEFT)
+              .withSavedInstance(savedInstanceState)
+              .withSelectedItem(0)
+              .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                 @Override
+                 public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+                    switch(position){
+                       case 0:
 //                          Toast.makeText(getApplicationContext(),"visao geral",Toast.LENGTH_SHORT).show();
-                        abrefragment( new fraVisaoGeral());
-                        break;
-                     case 1:
+                          abrefragment( new fraVisaoGeral());
+                          break;
+                       case 1:
 //                          Toast.makeText(getApplicationContext(),"transações",Toast.LENGTH_SHORT).show();
-                        abrefragment( new fraTransacoes(TipoDado.extrato));
-                        break;
-                     case 2:
+                          abrefragment( new fraTransacoes(TipoDado.extrato));
+                          break;
+                       case 2:
 //                          Toast.makeText(getApplicationContext(),"receitas",Toast.LENGTH_SHORT).show();
-                        abrefragment( new fraTransacoes(TipoDado.entradas));
-                        break;
-                     case 3:
+                          abrefragment( new fraTransacoes(TipoDado.entradas));
+                          break;
+                       case 3:
 //                          Toast.makeText(getApplicationContext(),"despesas",Toast.LENGTH_SHORT).show();
-                        abrefragment( new fraTransacoes(TipoDado.saidas));
-                        break;
-                     case 4:
-                        abreactivity("contas",TipoDado.nenhum);
-                        break;
-                     case 5:
-                        abreactivity("categorias",TipoDado.nenhum);
-                        break;
-                     case 6:
-                        abreactivity("ajustes",TipoDado.nenhum);
-                        break;
-                  }
-               }
-            })
-            .withOnDrawerItemLongClickListener(new Drawer.OnDrawerItemLongClickListener() {
-               @Override
-               public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-                  Toast.makeText(MainActivity.this  ,"onItemLongClick",Toast.LENGTH_SHORT).show();
-                  return false;
-               }
-            })
-            .build();
+                          abrefragment( new fraTransacoes(TipoDado.saidas));
+                          break;
+                       case 4:
+                          abreactivity("contas",TipoDado.nenhum);
+                          break;
+                       case 5:
+                          abreactivity("categorias",TipoDado.nenhum);
+                          break;
+                       case 6:
+                          abreactivity("ajustes",TipoDado.nenhum);
+                          break;
+                    }
+                 }
+              })
+              .withOnDrawerItemLongClickListener(new Drawer.OnDrawerItemLongClickListener() {
+                 @Override
+                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+                    Toast.makeText(MainActivity.this  ,"onItemLongClick",Toast.LENGTH_SHORT).show();
+                    return false;
+                 }
+              })
+              .build();
       //0
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName( "Visão Geral").withIcon(getResources().getDrawable(R.drawable.menu_visaogeral)));
       //1
@@ -189,18 +164,58 @@ public class MainActivity extends AppCompatActivity {
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Categorias").withIcon(getResources().getDrawable(R.drawable.menu_categorias)));
       //6
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Ajustes").withIcon(getResources().getDrawable(R.drawable.menu_ajustes)));
+
+      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Resumido por conta").withIcon(getResources().getDrawable(R.drawable.menu_ajustes)));
+      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Resumido por categoria").withIcon(getResources().getDrawable(R.drawable.menu_ajustes)));
+
+
+
+      if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_SMS}, READ_SMS_PERMISSION_CODE);
+      } else {
+         readSms();
+      }
+
+      //listView = findViewById(R.id.listView);
+      //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, smsList);
+      //listView.setAdapter(adapter);
+
    }
 
-   private void monta_adMob(){
-      MobileAds.initialize(this, new OnInitializationCompleteListener() {
-         @Override
-         public void onInitializationComplete(InitializationStatus initializationStatus) {
-         }
-      });
-      AdView mAdView = findViewById(R.id.adView);
-      AdRequest adRequest = new AdRequest.Builder().build();
-      mAdView.loadAd(adRequest);
+   private void readSms() {
+      ContentResolver contentResolver = getContentResolver();
+      Cursor cursor = contentResolver.query(
+            Telephony.Sms.CONTENT_URI,
+            null,
+            null,
+            null,
+            null);
+
+      if (cursor != null && cursor.moveToFirst()) {
+         do {
+            String address = cursor.getString(cursor.getColumnIndexOrThrow(Telephony.Sms.ADDRESS));
+            String body = cursor.getString(cursor.getColumnIndexOrThrow(Telephony.Sms.BODY));
+            smsList.add("Sender: " + address + "\nMessage: " + body);
+         } while (cursor.moveToNext());
+      }
+
+      if (cursor != null) {
+         cursor.close();
+      }
    }
+
+//   @Override
+//   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+//                                          @NonNull int[] grantResults) {
+//      super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//      if (requestCode == READ_SMS_PERMISSION_CODE) {
+//         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//            readSms();
+//            ArrayAdapter<String> adapter = (ArrayAdapter<String>) listView.getAdapter();
+//            adapter.notifyDataSetChanged();
+//         }
+//      }
+//   }
 
    public void abrefragment(Fragment f){
       FragmentManager fm = getSupportFragmentManager();
@@ -253,27 +268,19 @@ public class MainActivity extends AppCompatActivity {
 
    @Override
    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-      if (requestCode==1 && resultCode == 1){
+      if (requestCode==1 && resultCode == 1)
          mostrar_visaogeral = true;
-      }else if(requestCode==2){
-//         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-//         handleSignInResult(task);
-      }
-   }
-
-//   private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-//      try {
-//         account = completedTask.getResult(ApiException.class);
-//         // Signed in successfully, show authenticated UI.
-//         //updateUI(account);
-//      } catch (ApiException e) {
-//         rotinas.alertCurto(this,"erro");
-//         // The ApiException status code indicates the detailed failure reason.
-//         // Please refer to the GoogleSignInStatusCodes class reference for more information.
-//         Log.w(rotinas.tag, "signInResult:failed code=" + e.getStatusCode());
-//         //updateUI(null);
+      // abrefragment(new fraVisaoGeral());
+//      navigationDrwarerLeft.setSelection(0);
+//      if (requestCode == 1) {
+//         if(resultCode == Activity.RESULT_OK){
+//            String result=data.getStringExtra("result");
+//         }
+//         if (resultCode == Activity.RESULT_CANCELED) {
+//            //Write your code if there's no result
+//         }
 //      }
-//   }
+   }//onAct
 
 
 

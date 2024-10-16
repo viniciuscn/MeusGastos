@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="nichele.meusgastos">
 
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
     <application
         android:allowBackup="false"
         android:icon="@drawable/ic_app"
@@ -10,32 +15,40 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:allowBackup">
+        tools:replace="android:allowBackup"
+        android:requestLegacyExternalStorage="true"
+        >
 
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-6921285893625664~2786768063"/>
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".actTransacoes_Manutencao"
             android:label="Lançamento"
-            android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="stateVisible">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"
-                />
-
+                android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".actLisCategorias"
             android:label="@string/caption_actliscategorias"
@@ -53,8 +66,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".actLisCategorias" />
-        </activity> <!-- android:parentActivityName=".MainActivity" -->
-
+        </activity>
         <activity
             android:name=".actLisContas"
             android:label="@string/caption_actlisccontas"
@@ -71,8 +83,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nichele.meusgastos.actLisContas" />
-        </activity>
-
+        </activity> <!-- android:parentActivityName=".MainActivity" -->
         <activity
             android:name=".actAjustes"
             android:label=""
@@ -81,59 +92,40 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nichele.meusgastos.MainActivity" />
         </activity>
-
-        <activity
-            android:name=".actAjustesBD"
-            android:label=""
-            android:parentActivityName=".actAjustes">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="nichele.meusgastos.actAjustes" />
-        </activity>
-<!--        <activity-->
-<!--            android:name=".actAjustes_CopiaSeguranca"-->
-<!--            android:label=""-->
-<!--            android:parentActivityName=".actAjustes"-->
-<!--            android:excludeFromRecents="true"-->
-<!--            android:theme="@style/Theme.AppCompat.Dialog" >-->
-<!--            <meta-data-->
-<!--                android:name="android.support.PARENT_ACTIVITY"-->
-<!--                android:value="nichele.meusgastos.actAjustes" />-->
-<!--        </activity>-->
-
-        <!--        <activity-->
-        <!--            android:name=".calculadora.DialogCalc"-->
-        <!--            android:excludeFromRecents="true"-->
-        <!--            android:theme="@style/Theme.AppCompat.Dialog" />-->
-
-        <receiver android:name=".backup.AlarmReceiver">
+        <activity android:name=".backup.NotificationView" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" /> <!-- <activity -->
+        <receiver
+            android:name=".backup.AlarmReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
-        <activity android:name=".backup.NotificationView" />
-
-<!--        <receiver android:name=".sync.SyncSchedulerBroadcastReceiver">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
-<!--                <action android:name="${applicationId}.intent.action.START_SYNC_SERVICE" />-->
-<!--                <action android:name="${applicationId}.intent.action.STOP_SYNC_SERVICE" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
-<!--        <receiver android:name=".sync.SyncBroadcastReceiver" />-->
-
     </application>
+
+    <meta-data
+        android:name="com.google.android.gms.ads.APPLICATION_ID"
+        android:value="ca-app-pub-6921285893625664~2786768063" />
+
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
     <uses-permission android:name="android.permission.READ_SMS" />
 
 

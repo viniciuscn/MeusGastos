@@ -23,32 +23,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/laycomecardozero"
-                android:orientation="vertical"
-                >
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="22sp"
-                    android:padding="5dp"
-                    android:text="Começar do zero"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:padding="5dp"
-                    android:text="Apague todos os lançamentos"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/cinzaescuro"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/laycopiaseguranca"
                 android:orientation="vertical"
 
@@ -60,6 +34,32 @@
                     android:textSize="22sp"
                     android:padding="5dp"
                     android:text="Cópia de Segurança"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:padding="5dp"
+                    android:text="Mantenha seus dados sempre seguros"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/cinzaescuro"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/laycomecardozero"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:padding="5dp"
+                    android:text="Começar do zero"/>
 
 
                 <TextView
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:padding="5dp"
-                    android:text="Mantenha seus dados sempre seguros"/>
+                    android:text="Apague todos os lançamentos"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"

@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             >
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/man_txtvalor"
                 android:inputType="numberDecimal"
@@ -41,6 +41,11 @@
                 android:hint="Insira o valor"
 
                 />
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/cmdscannota"
+                android:background="@android:drawable/ic_menu_camera"></ImageButton>
 
         </LinearLayout>
 
@@ -66,14 +71,16 @@
                 android:background="@drawable/circulo"
                 android:src="@drawable/ic_previous_24dp"
                 />
+
             <TextView
+                android:id="@+id/man_lbldata"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/man_lbldata"
-                android:text="Seg, 07 out de 2019"
                 android:layout_alignTop="@id/man_cmdant"
                 android:layout_centerHorizontal="true"
+                android:text="Seg, 01 Mar de 2024"
                 android:textSize="20dp"
+
                 />
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -81,12 +88,12 @@
                 android:layout_below="@id/man_lbldata"
                 android:layout_centerHorizontal="true"
                 >
+
                 <TextView
                     android:id="@+id/man_txtdata"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2019-10-07"
-                    />
+                    android:text="2024-03-01" />
             </LinearLayout>
 
 
@@ -180,11 +187,86 @@
                 android:src="@drawable/ic_add"
                 />
         </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.498" >
+
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_repetir" />
+<!--            <Switch-->
+<!--                android:id="@+id/optrepetir"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Repetir"-->
+<!--                android:layout_centerVertical="true"/>-->
+
+
+<!--            <EditText-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/man_txtrepetir"-->
+<!--                android:inputType="number"-->
+<!--                android:maxLength="2"-->
+<!--                android:text="1"-->
+<!--                android:layout_toRightOf="@id/optrepetir"-->
+<!--                android:gravity="center"-->
+<!--                android:visibility="invisible"-->
+
+<!--                />-->
+
+            <!--            <Spinner-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:id="@+id/man_cmbrepetir"-->
+<!--                android:layout_toRightOf="@id/switch1"-->
+
+<!--                android:spinnerMode="dialog"-->
+<!--                android:background="@color/md_blue_300"-->
+<!--                />-->
+            <!--            <Spinner-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:id="@+id/man_cmbfrequencia"-->
+<!--                android:layout_toRightOf="@id/man_cmbrepetir"-->
+
+<!--                android:spinnerMode="dialog"-->
+<!--                android:background="@color/md_blue_600"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                />-->
+<!--            <ImageButton-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:id="@+id/man_addcat"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:background="@drawable/circulo"-->
+<!--                android:src="@drawable/ic_add"-->
+<!--                />-->
+
+
+        </RelativeLayout>
+
         <CheckBox
+            android:id="@+id/man_chkrecpag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/man_chkrecpag"
-            android:text="quitado"/>
+            android:text="Efetivada" />
 
         <!--salvar-->
         <Button

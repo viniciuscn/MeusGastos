@@ -61,24 +61,29 @@
         android:layout_height="wrap_content"
         android:id="@+id/laytotal"
         android:layout_below="@id/layfiltro"
-        android:padding="20dp">
+        android:padding="10dp">
+
         <LinearLayout
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/laysldatual"
             android:orientation="vertical"
             android:layout_alignParentLeft="true">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Balanço Mensal"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textSize="14sp" />
+
             <TextView
+                android:id="@+id/tvbalmensal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvbalmensal"
                 android:text="0,00"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -86,27 +91,179 @@
             android:layout_width="3dp"
             android:layout_height="30dp"
             android:background="@color/cinzaescuro"
-            android:layout_centerInParent="true"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
         <LinearLayout
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/laybalanco"
             android:orientation="vertical"
             android:layout_alignParentRight="true">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Saldo Atual"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textSize="14sp" />
+
             <TextView
+                android:id="@+id/tvsldatual"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvsldatual"
                 android:text="0,00"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textSize="20sp" />
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="40dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/layE"
+                android:background="@android:color/transparent"
+                android:padding="5dp"
+                >
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="@dimen/AltBarCar"
+                    android:background="@color/verde"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/resumo_lblrenda"
+                    android:text="Receitas:"
+                    android:textSize="@dimen/FontSize"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ext_vlrreceitas"
+                    android:text="0,00"
+                    android:textSize="@dimen/FontSize"
+                    android:textColor="@color/verde"
+                    android:layout_toLeftOf="@+id/rec_simbol"
+                    android:layout_marginRight="5dp"
+                    android:gravity="right"
+                    />
+
+                <TextView
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/rec_simbol"
+                    android:text="+"
+                    android:textColor="@color/verde"
+                    android:textAlignment="center"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/layS"
+                android:background="@android:color/transparent"
+                android:padding="5dp">
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="@dimen/AltBarCar"
+                    android:background="@color/vermelho"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/resumo_lbldespesa"
+                    android:text="Despesas:"
+                    android:textSize="@dimen/FontSize"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ext_vlrdespesas"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/des_simbol"
+                    android:gravity="right"
+                    android:text="0,00"
+                    android:textSize="@dimen/FontSize"
+                    android:textColor="@color/vermelho" />
+
+                <TextView
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/des_simbol"
+                    android:text="-"
+                    android:textColor="@color/vermelho"
+                    android:textAlignment="center"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
     </RelativeLayout>
+
+<!--    <HorizontalScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/layformato"-->
+<!--        android:layout_below="@id/laytotal"-->
+<!--        android:orientarion="vertical"-->
+<!--        >-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:padding="5dp"-->
+<!--            android:layout_gravity="center">-->
+<!--            <Button-->
+<!--                android:id="@+id/cmdgeral"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="10dp"-->
+<!--                android:textColor="#ffffff"-->
+<!--                android:background="@drawable/mybutton"-->
+<!--                android:text="geral"-->
+<!--                />-->
+<!--            <Button-->
+<!--                android:id="@+id/cmdconta"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="10dp"-->
+<!--                android:textColor="#ffffff"-->
+<!--                android:background="@drawable/mybutton"-->
+<!--                android:text="conta"/>-->
+<!--            <Button-->
+<!--                android:id="@+id/cmdcategoria"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="10dp"-->
+<!--                android:textColor="#ffffff"-->
+<!--                android:background="@drawable/mybutton"-->
+<!--                android:text="Categoria" />-->
+
+
+
+
+<!--        </LinearLayout>-->
+<!--    </HorizontalScrollView>-->
+
     <include
         layout="@layout/recyclerview"
         android:layout_width="match_parent"

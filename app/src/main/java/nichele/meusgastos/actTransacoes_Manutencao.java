@@ -1,7 +1,8 @@
 package nichele.meusgastos;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +11,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +37,6 @@ import java.util.GregorianCalendar;
 import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.Classes.Conta;
 import nichele.meusgastos.Classes.Transacao;
-import nichele.meusgastos.util.DateDialog;
 import nichele.meusgastos.util.TipoDado;
 import nichele.meusgastos.util.datautil;
 import nichele.meusgastos.util.rotinas;
@@ -59,7 +66,8 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
 
    CheckBox chk;
 
-
+   Switch optrepetir;
+   EditText txtrepetir;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +90,9 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
          toolbar.setTitle("Nova Receita");
       else
          toolbar.setTitle("Nova Despesa");
+
+
+
 
 
       //mToolbar.setSubtitle("subtitulo");
@@ -114,18 +125,51 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
          }
       });
 
-      lbldata.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            DateDialog dialog=new DateDialog(v,txtdata);
-            FragmentTransaction ft =getFragmentManager().beginTransaction();
-            dialog.show(ft, "DatePicker");
-         }
-      });
+
       carregacombos();
 
 
       //tratamentos - eventos, valores iniciais
+      lbldata.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            //Toast.makeText(context, lbldata.getText(), Toast.LENGTH_SHORT).show();
+            final Calendar c = Calendar.getInstance();
+
+            // on below line we are getting
+            // our day, month and year.
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // on below line we are creating a variable for date picker dialog.
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                  // on below line we are passing context.
+                  context,
+                  new DatePickerDialog.OnDateSetListener() {
+                     @Override
+                     public void onDateSet(DatePicker view, int year,
+                                           int monthOfYear, int dayOfMonth) {
+                        // on below line we are setting date to our edit text.
+                        txtdata.setText(year+"-"+ String.format("%02d", monthOfYear+1)+"-"+ String.format("%02d", dayOfMonth) );
+
+                        gc.set(GregorianCalendar.YEAR, Integer.valueOf(txtdata.getText().subSequence(0,4).toString()));
+                        gc.set(GregorianCalendar.MONTH, Integer.valueOf(txtdata.getText().subSequence(5,7).toString())-1);
+                        gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(txtdata.getText().subSequence(8,10).toString()));
+
+                        lbldata.setText(datautil.formatadata(gc.getTime(),"ddd, dd mmm yyyy"));
+                        //txtdata.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                     }
+                  },
+                  // on below line we are passing year,
+                  // month and day for selected date in our date picker.
+                  year, month, day);
+            // at last we are calling show to
+            // display our date picker dialog.
+            datePickerDialog.show();
+         }
+      });
+
       txtvalor.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
@@ -174,9 +218,6 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
       }
       db.close();
       txtchave.setText(String.valueOf(chave));
-      txtvalor.requestFocus();
-      txtvalor.setSelection(txtvalor.getText().length());
-
 
       cmdant.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -188,18 +229,14 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
             mostradatas();
          }
       });
-
-
       cmdnext.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-
             gc.set(GregorianCalendar.YEAR, Integer.valueOf(txtdata.getText().subSequence(0,4).toString()));
             gc.set(GregorianCalendar.MONTH, Integer.valueOf(txtdata.getText().subSequence(5,7).toString())-1);
             gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(txtdata.getText().subSequence(8,10).toString()));
             gc.setTime( datautil.DateAdd( datautil.DateInterval.dia,1, gc.getTime()) );
             mostradatas();
-
          }
       });
 
@@ -224,6 +261,21 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
             startActivityForResult(intent, 1);
          }
       });
+
+      CalendarView frmCalendario=(CalendarView) findViewById(R.id.calendario);
+
+//      optrepetir = findViewById(R.id.optrepetir);
+//      txtrepetir = findViewById(R.id.man_txtrepetir);
+//      optrepetir.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//            if (isChecked) {
+//               txtrepetir.setVisibility(View.VISIBLE);
+//            } else {
+//               txtrepetir.setVisibility(View.INVISIBLE);
+//               txtrepetir.setText("0");
+//            }
+//         }
+//      });
    }
 
    private void carregacombos(){
@@ -241,8 +293,6 @@ public class actTransacoes_Manutencao extends AppCompatActivity  {
    }
 
    private void mostradatas(){
-
-
       lbldata.setText(datautil.formatadata(gc.getTime(),"ddd, dd mmm yyyy"));
       txtdata.setText( gc.get(Calendar.YEAR) + "-" + String.format("%02d", new Integer(gc.get(Calendar.MONTH)+1 )) + "-" + String.format("%02d", gc.get(Calendar.DAY_OF_MONTH)));
    }

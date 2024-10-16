@@ -8,60 +8,34 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <include layout="@layout/toolbar"
-        />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/login"
-        android:orientation="vertical"
-        android:layout_below="@+id/toolbar"
-        android:visibility="gone"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtsaldo"
-            android:text="0,00"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cmdrodanumeros"
-            android:text="Logar"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtemail"
-            android:text="email"
-            />
-
-    </LinearLayout>
+    <include layout="@layout/toolbar"/>
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login"
-        android:layout_above="@+id/adView"
-        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/toolbar"
         android:layout_marginTop="0dp" >
 
-
+       
     </FrameLayout>
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <com.ddz.floatingactionbutton.FloatingActionMenu
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fabmenu"
+        app:fab_labelStyle="@style/textfab"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        app:fab_labelStyle="@style/textfab"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="110dp"
+        android:layout_marginBottom="50dp"
         app:fab_addButton_collapsed_rotation="0"
         app:fab_addButton_expanded_rotation="45"
-        app:fab_labelsPosition="left"
-        >
+        app:fab_labelsPosition="left">
 
         <com.ddz.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
@@ -82,15 +56,5 @@
             app:fab_title="Despesa" />
     </com.ddz.floatingactionbutton.FloatingActionMenu>
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-6921285893625664/5379968355">
-    </com.google.android.gms.ads.AdView>
 
 </RelativeLayout>

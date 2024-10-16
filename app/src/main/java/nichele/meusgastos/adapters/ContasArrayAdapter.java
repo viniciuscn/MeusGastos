@@ -38,6 +38,7 @@ public class ContasArrayAdapter extends RecyclerView.Adapter<ContasArrayAdapter.
    @Override
    public void onBindViewHolder(final ViewHolder holder, final int position) {
       final Conta cnt = contas.get(position);
+
       holder.frame.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {

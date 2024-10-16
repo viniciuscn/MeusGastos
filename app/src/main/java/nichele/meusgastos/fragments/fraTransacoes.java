@@ -3,6 +3,8 @@ package nichele.meusgastos.fragments;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.zip.Inflater;
 
 import nichele.meusgastos.BancoSQLite;
 import nichele.meusgastos.Classes.Transacao;
@@ -71,6 +74,7 @@ public class fraTransacoes extends Fragment {
 
       toolbar = getActivity().findViewById(R.id.toolbar);
       toolbar.setTitle("Transações");
+      //toolbar.inflateMenu(R.menu.mnufiltransacoes);
 
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
          toolbar.setElevation(0);
@@ -161,6 +165,12 @@ public class fraTransacoes extends Fragment {
       TextView tvsldatual = view.findViewById(R.id.tvsldatual);
       tvsldatual.setText(rotinas.formatavalorBR(sldatual));
       //rotinas.setColorCampoValor(getContext(),tvsldatual);
+
+      TextView txtrec = view.findViewById(R.id.ext_vlrreceitas);
+      txtrec.setText(rotinas.formatavalorBR(receitas));
+
+      TextView txtdesp = view.findViewById(R.id.ext_vlrdespesas);
+      txtdesp.setText(rotinas.formatavalorBR(despesas));
 
       db.close();
 
@@ -299,4 +309,16 @@ public class fraTransacoes extends Fragment {
       adapter = new SectionRecyclerViewAdapter(getContext(),LINEAR_VERTICAL, lctos_by_date);
 
    }
+
+//   @Override
+//   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+///*
+//      menu.clear();
+//      getActivity().getMenuInflater().inflate(R.menu.mnufiltransacoes, menu);
+//
+//      super.onCreateOptionsMenu(menu, inflater);
+//
+// */
+//   }
+
 }

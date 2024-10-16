@@ -1,5 +1,6 @@
 package nichele.meusgastos;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -164,6 +165,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
 
     }
 
+    @SuppressLint("Range")
     public ArrayList<Transacao> getTransacoes(TipoDado listar, String datinicial, String datfinal) {
         String funcao = "";
         switch (listar){
@@ -211,6 +213,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
         return transacoes;
     }
 
+    @SuppressLint("Range")
     public ArrayList<Conta> listacontas() {
         ArrayList<Conta> contas = new ArrayList<Conta>();
         try{
@@ -264,6 +267,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
         }
     }
 
+    @SuppressLint("Range")
     public ArrayList<Categoria> listacategorias(TipoDado tipodado) {
         ArrayList<Categoria> categorias = new ArrayList<Categoria>();
         String sql = "select * from categorias";// where tipo = ";
@@ -292,6 +296,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
     }
 
     ///////////////////////////ROTINAS GLOBAIS///////////////////////////
+    @SuppressLint("Range")
     public int ultimocodigo(String nomedatabela, String nomedocampo) {
         SQLiteDatabase ult = getReadableDatabase();
         int chave = 0;
@@ -311,6 +316,7 @@ public class BancoSQLite extends SQLiteOpenHelper {
         return chave;
     }
 
+    @SuppressLint("Range")
     public int abrircomsenha() {
 
         SQLiteDatabase db2 = this.getReadableDatabase();
