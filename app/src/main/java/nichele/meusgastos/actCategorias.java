@@ -21,7 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.util.rotinas;
-import petrov.kristiyan.colorpicker.ColorPicker;
+//import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class actCategorias extends AppCompatActivity {
 
@@ -127,23 +127,23 @@ public class actCategorias extends AppCompatActivity {
       btncor.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            final ColorPicker colorPicker = new ColorPicker(actCategorias.this);
-            colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
-               @Override
-               public void onChooseColor(int position, int color) {
-                  // put code
-                  //Toast.makeText(MainActivity.this, "aqui",Toast.LENGTH_SHORT).show();
-                  //btn.setColorFilter(color);
-                  GradientDrawable gradientDrawable = (GradientDrawable) btncor.getBackground().mutate();
-                  gradientDrawable.setColor(color);
-                  cor = color;
-               }
-
-               @Override
-               public void onCancel() {
-                  // put code
-               }
-            })
+            //final ColorPicker colorPicker = new ColorPicker(actCategorias.this);
+//            colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+//               @Override
+//               public void onChooseColor(int position, int color) {
+//                  // put code
+//                  //Toast.makeText(MainActivity.this, "aqui",Toast.LENGTH_SHORT).show();
+//                  //btn.setColorFilter(color);
+//                  GradientDrawable gradientDrawable = (GradientDrawable) btncor.getBackground().mutate();
+//                  gradientDrawable.setColor(color);
+//                  cor = color;
+//               }
+//
+//               @Override
+//               public void onCancel() {
+//                  // put code
+//               }
+//            })
 //						.addListenerButton("newButton", new ColorPicker.OnButtonListener() {
 //							@Override
 //							public void onClick(View v, int position, int color) {
@@ -152,11 +152,11 @@ public class actCategorias extends AppCompatActivity {
 //						})
                   //.disableDefaultButtons(true)
                   //Color.parseColor("#f84c44")
-                  .setDefaultColorButton(cor)
-                  .setRoundColorButton(true)
-                  .setColumns(5)
+                  //.setDefaultColorButton(cor)
+                  //.setRoundColorButton(true)
+                  //.setColumns(5)
                   //.setDialogFullHeight()
-                  .show();
+                  //.show();
          }
       });
    }

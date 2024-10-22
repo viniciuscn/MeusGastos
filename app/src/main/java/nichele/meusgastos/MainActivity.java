@@ -24,11 +24,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.ddz.floatingactionbutton.FloatingActionButton;
-import com.ddz.floatingactionbutton.FloatingActionMenu;
+//import com.ddz.floatingactionbutton.FloatingActionButton;
+//import com.ddz.floatingactionbutton.FloatingActionMenu;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.w9jds.FloatingActionMenu;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
-      rotinas.locale = new Locale("pt", "BR");
+      rotinas.regiao = new Locale("pt", "BR");
 
       BancoSQLite db = new BancoSQLite(this);
       SharedPreferences sp = getSharedPreferences(rotinas.cfg, Context.MODE_PRIVATE);
@@ -88,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
          public void onClick(View v) {
 
             abreactivity("manutencao", TipoDado.entradas);
-            fabmenu.collapse();
+        //    fabmenu.collapse();
+            fabmenu.close();
          }
       });
 
@@ -98,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
          public void onClick(View v) {
             //abrefragment(new fraTransacoes_Manutencao(TipoDado.saidas));
             abreactivity("manutencao", TipoDado.saidas);
-            fabmenu.collapse();
+            //fabmenu.collapse();
+            fabmenu.close();
          }
       });
 
@@ -164,9 +168,9 @@ public class MainActivity extends AppCompatActivity {
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Categorias").withIcon(getResources().getDrawable(R.drawable.menu_categorias)));
       //6
       navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Ajustes").withIcon(getResources().getDrawable(R.drawable.menu_ajustes)));
-
-      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Resumido por conta").withIcon(getResources().getDrawable(R.drawable.menu_ajustes)));
-      navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Resumido por categoria").withIcon(getResources().getDrawable(R.drawable.menu_ajustes)));
+      //comentado para publicar e atender o prazo de atualização do app
+      //navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Resumido por conta").withIcon(getResources().getDrawable(R.drawable.menu_ajustes)));
+      //navigationDrwarerLeft.addItem(new PrimaryDrawerItem().withName("Resumido por categoria").withIcon(getResources().getDrawable(R.drawable.menu_ajustes)));
 
 
 
@@ -268,6 +272,7 @@ public class MainActivity extends AppCompatActivity {
 
    @Override
    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+      super.onActivityResult(requestCode, resultCode, data);
       if (requestCode==1 && resultCode == 1)
          mostrar_visaogeral = true;
       // abrefragment(new fraVisaoGeral());
@@ -287,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
    int backButtonCount;
    @Override
    public void onBackPressed() {
-      fabmenu.setVisibility(View.VISIBLE);
+      //fabmenu.setVisibility(View.VISIBLE);
       if (backButtonCount >= 1) {
 //         Intent intent = new Intent(Intent.ACTION_MAIN);
 //         intent.addCategory(Intent.CATEGORY_HOME);

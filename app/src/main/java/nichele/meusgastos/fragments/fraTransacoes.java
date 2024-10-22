@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,7 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ddz.floatingactionbutton.FloatingActionMenu;
+//import com.ddz.floatingactionbutton.FloatingActionMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;
@@ -32,6 +34,7 @@ import java.util.zip.Inflater;
 
 import nichele.meusgastos.BancoSQLite;
 import nichele.meusgastos.Classes.Transacao;
+import nichele.meusgastos.MainActivity;
 import nichele.meusgastos.SectionedRecyclerView.SectionModel;
 import nichele.meusgastos.SectionedRecyclerView.SectionRecyclerViewAdapter;
 import nichele.meusgastos.adapters.ExtratoAdapter;
@@ -42,21 +45,22 @@ import nichele.meusgastos.util.rotinas;
 import static nichele.meusgastos.SectionedRecyclerView.RecyclerViewType.LINEAR_HORIZONTAL;
 import static nichele.meusgastos.SectionedRecyclerView.RecyclerViewType.LINEAR_VERTICAL;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.w9jds.FloatingActionMenu;
+
 public class fraTransacoes extends Fragment {
 
+   RecyclerView recyclerView;
+   FloatingActionMenu fabmenu;
+   ArrayList<SectionModel> lctos_by_date;
+   SectionRecyclerViewAdapter adapter;
    private View view;
    private Toolbar toolbar;
    private int primariaescura, primaria;
    private TipoDado listar;
-
    private TextView lblmesextenso, lbldatinicial, lbldatfinal;
    private ImageButton cmdant, cmdnext;
    private GregorianCalendar gc = new GregorianCalendar();
-   RecyclerView recyclerView;
-   FloatingActionMenu fabmenu;
-
-   ArrayList<SectionModel> lctos_by_date;
-   SectionRecyclerViewAdapter adapter;
 
    public fraTransacoes() {
       // Required empty public constructor
@@ -85,18 +89,21 @@ public class fraTransacoes extends Fragment {
       mostradados();
 
       fabmenu = getActivity().findViewById(R.id.fabmenu);
-      fabmenu.setTop(fabmenu.getTop()-200);
-//      RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)fabmenu.getLayoutParams();
-//      params.setMargins(0,0,0,200 );
-//      //params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-//      params.addRule(RelativeLayout.ALIGN_BOTTOM, R.id.navegacao);
-//      fabmenu.setLayoutParams(params);
+      Animation myAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.scale_up);
+      fabmenu.startAnimation(myAnim);
+
+      fabmenu.setTop(fabmenu.getTop() - 200);
+      RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fabmenu.getLayoutParams();
+      params.setMargins(0, 0, 50, 200);
+      //params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+      params.addRule(RelativeLayout.ALIGN_BOTTOM, R.id.navegacao);
+      fabmenu.setLayoutParams(params);
 
 
       BottomNavigationView bnv = view.findViewById(R.id.navegacao);
-      if(listar.equals(TipoDado.entradas))
+      if (listar.equals(TipoDado.entradas))
          bnv.getMenu().findItem(R.id.mnuentradas).setChecked(true);
-      else if(listar.equals(TipoDado.saidas))
+      else if (listar.equals(TipoDado.saidas))
          bnv.getMenu().findItem(R.id.mnusaidas).setChecked(true);
       else
          bnv.getMenu().findItem(R.id.mnuextrato).setChecked(true);
@@ -107,13 +114,13 @@ public class fraTransacoes extends Fragment {
          public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                case R.id.mnuextrato:
-                  listar=TipoDado.extrato;
+                  listar = TipoDado.extrato;
                   break;
                case R.id.mnuentradas:
-                  listar =TipoDado.entradas;
+                  listar = TipoDado.entradas;
                   break;
                case R.id.mnusaidas:
-                  listar =TipoDado.saidas;
+                  listar = TipoDado.saidas;
                   break;
             }
             definecores();
@@ -125,42 +132,41 @@ public class fraTransacoes extends Fragment {
    }
 
 
-
-   private void definecores(){
-      if(listar == TipoDado.entradas){
-         primariaescura = getResources().getColor( R.color.verdeescuro );
-         primaria = getResources().getColor( R.color.verde );
-      }else if(listar == TipoDado.saidas){
-         primariaescura = getResources().getColor( R.color.vermelhoescuro );
-         primaria = getResources().getColor( R.color.vermelho );
-      }else if(listar == TipoDado.extrato){
-         primariaescura = getResources().getColor( R.color.colorPrimaryDark );
-         primaria = getResources().getColor( R.color.colorPrimary );
+   private void definecores() {
+      if (listar == TipoDado.entradas) {
+         primariaescura = getResources().getColor(R.color.verdeescuro);
+         primaria = getResources().getColor(R.color.verde);
+      } else if (listar == TipoDado.saidas) {
+         primariaescura = getResources().getColor(R.color.vermelhoescuro);
+         primaria = getResources().getColor(R.color.vermelho);
+      } else if (listar == TipoDado.extrato) {
+         primariaescura = getResources().getColor(R.color.colorPrimaryDark);
+         primaria = getResources().getColor(R.color.colorPrimary);
       }
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
          Window window = getActivity().getWindow();
          window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-         window.setStatusBarColor( primariaescura );
+         window.setStatusBarColor(primariaescura);
       }
       toolbar.setBackgroundColor(primaria);
       RelativeLayout layfiltro = view.findViewById(R.id.layfiltro);
-      layfiltro.setBackgroundColor( primaria );
+      layfiltro.setBackgroundColor(primaria);
 
    }
 
-   public void mostradados(){
+   public void mostradados() {
       BancoSQLite db = new BancoSQLite(getContext());
-      ArrayList<Transacao> dados = db.getTransacoes(listar,lbldatinicial.getText().toString(),lbldatfinal.getText().toString());
+      ArrayList<Transacao> dados = db.getTransacoes(listar, lbldatinicial.getText().toString(), lbldatfinal.getText().toString());
 
       float sldanterior = db.buscavalores(TipoDado.sldanterior, lbldatinicial.getText().toString(), "");
-      float receitas = db.buscavalores(TipoDado.entradas, lbldatinicial.getText().toString(),lbldatfinal.getText().toString());
-      float despesas = db.buscavalores(TipoDado.saidas, lbldatinicial.getText().toString(),lbldatfinal.getText().toString());
+      float receitas = db.buscavalores(TipoDado.entradas, lbldatinicial.getText().toString(), lbldatfinal.getText().toString());
+      float despesas = db.buscavalores(TipoDado.saidas, lbldatinicial.getText().toString(), lbldatfinal.getText().toString());
       float balmensal = receitas - despesas;
-      float sldatual = sldanterior+balmensal;
+      float sldatual = sldanterior + balmensal;
 
       TextView lblbalmensal = view.findViewById(R.id.tvbalmensal);
       lblbalmensal.setText(rotinas.formatavalorBR(balmensal));
-      rotinas.setColorCampoValor(getContext(),lblbalmensal);
+      rotinas.setColorCampoValor(getContext(), lblbalmensal);
 
       TextView tvsldatual = view.findViewById(R.id.tvsldatual);
       tvsldatual.setText(rotinas.formatavalorBR(sldatual));
@@ -176,9 +182,37 @@ public class fraTransacoes extends Fragment {
 
       recyclerView = view.findViewById(R.id.lista_dados);
       recyclerView.setHasFixedSize(true);
-      LinearLayoutManager llm = new LinearLayoutManager( getContext() );
+      LinearLayoutManager llm = new LinearLayoutManager(getContext());
 
       recyclerView.setLayoutManager(llm);
+      recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+         @Override
+         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            //if (dy > 0 ||dy<0 && fabmenu.isShown())
+            if (dy > 0 && fabmenu.isShown()) {
+               Animation myAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.scale_down);
+               fabmenu.startAnimation(myAnim);
+               fabmenu.setVisibility(View.GONE);
+
+            } else if (dy < 0 && !fabmenu.isShown()) {
+               fabmenu.setVisibility(View.VISIBLE);
+            }
+
+            if (!recyclerView.canScrollVertically(-1)) {
+               fabmenu.setVisibility(View.VISIBLE);
+            }
+         }
+
+         @Override
+         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//            if (newState == RecyclerView.SCROLL_STATE_IDLE)
+//            {
+//               fabmenu.setVisibility(View.VISIBLE);
+//            }
+
+            super.onScrollStateChanged(recyclerView, newState);
+         }
+      });
       populateRecyclerView();
       recyclerView.setAdapter(adapter);
 //      if(listar.equals(TipoDado.extrato))
@@ -190,26 +224,29 @@ public class fraTransacoes extends Fragment {
    }
 
 
-
    @Override
    public void onStart() {
       super.onStart();
    }
+
    @Override
    public void onResume() {
       super.onResume();
       mostradados();
    }
+
    @Override
-   public void onStop() { super.onStop(); }
+   public void onStop() {
+      super.onStop();
+   }
+
    @Override
-   public void onDetach(){
+   public void onDetach() {
       super.onDetach();
    }
 
 
-
-   private void filtraperiodo(){
+   private void filtraperiodo() {
 
       cmdant = view.findViewById(R.id.cmdant);
       lblmesextenso = view.findViewById(R.id.lblmes_extenso);
@@ -230,43 +267,37 @@ public class fraTransacoes extends Fragment {
       cmdant.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            gc.set(GregorianCalendar.YEAR, Integer.valueOf(lbldatinicial.getText().subSequence(0,4).toString()));
-            gc.set(GregorianCalendar.MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(5,7).toString())-1);
-            gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(8,10).toString()));
-            gc.setTime( DateAdd( DateInterval.mes,-1, gc.getTime()) );
+            gc.set(GregorianCalendar.YEAR, Integer.valueOf(lbldatinicial.getText().subSequence(0, 4).toString()));
+            gc.set(GregorianCalendar.MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(5, 7).toString()) - 1);
+            gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(8, 10).toString()));
+            gc.setTime(DateAdd(DateInterval.mes, -1, gc.getTime()));
             mostradatas();
          }
       });
       cmdnext.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            gc.set(GregorianCalendar.YEAR, Integer.valueOf(lbldatinicial.getText().subSequence(0,4).toString()));
-            gc.set(GregorianCalendar.MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(5,7).toString())-1);
-            gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(8,10).toString()));
-            gc.setTime( DateAdd( DateInterval.mes,1, gc.getTime()) );
+            gc.set(GregorianCalendar.YEAR, Integer.valueOf(lbldatinicial.getText().subSequence(0, 4).toString()));
+            gc.set(GregorianCalendar.MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(5, 7).toString()) - 1);
+            gc.set(GregorianCalendar.DAY_OF_MONTH, Integer.valueOf(lbldatinicial.getText().subSequence(8, 10).toString()));
+            gc.setTime(DateAdd(DateInterval.mes, 1, gc.getTime()));
             mostradatas();
          }
       });
    }
 
-   private void mostradatas(){
-      lbldatinicial.setText( gc.get(Calendar.YEAR) + "-" + String.format("%02d", gc.get(Calendar.MONTH)+1 ) + "-01" );
-      lbldatfinal.setText( gc.get(Calendar.YEAR) +"-" + String.format("%02d", gc.get(Calendar.MONTH)+1 ) +"-" + String.format("%02d", gc.getActualMaximum(Calendar.DAY_OF_MONTH)) );
+   private void mostradatas() {
+      lbldatinicial.setText(gc.get(Calendar.YEAR) + "-" + String.format("%02d", gc.get(Calendar.MONTH) + 1) + "-01");
+      lbldatfinal.setText(gc.get(Calendar.YEAR) + "-" + String.format("%02d", gc.get(Calendar.MONTH) + 1) + "-" + String.format("%02d", gc.getActualMaximum(Calendar.DAY_OF_MONTH)));
       lblmesextenso.setText(setMesPorExtenso(gc.getTime()));
       mostradados();
    }
 
-   enum DateInterval{
-      dia,
-      mes,
-      ano
-   }
-
-   private Date DateAdd(DateInterval interval, int number, Date datevalue){
+   private Date DateAdd(DateInterval interval, int number, Date datevalue) {
       Calendar c = Calendar.getInstance();
       c.setTime(datevalue);
 
-      switch (interval){
+      switch (interval) {
          case dia:
             c.add(Calendar.DATE, number);
             break;
@@ -282,10 +313,10 @@ public class fraTransacoes extends Fragment {
       return c.getTime();
    }
 
-   private String setMesPorExtenso(Date data){
+   private String setMesPorExtenso(Date data) {
       SimpleDateFormat sdf;
       //if (data.getYear() == new Date().getYear())
-      sdf= new SimpleDateFormat("MMMM, yyyy");
+      sdf = new SimpleDateFormat("MMMM, yyyy");
       //else
       //sdf= new SimpleDateFormat("MMM/yy");
       return upperCaseFirst(sdf.format(data));
@@ -306,8 +337,15 @@ public class fraTransacoes extends Fragment {
       BancoSQLite db = new BancoSQLite(getContext());
       lctos_by_date = db.transacoespordata(listar, lbldatinicial.getText(), lbldatfinal.getText());
       db.close();
-      adapter = new SectionRecyclerViewAdapter(getContext(),LINEAR_VERTICAL, lctos_by_date);
+      adapter = new SectionRecyclerViewAdapter(getContext(), LINEAR_VERTICAL, lctos_by_date);
+      adapter = new SectionRecyclerViewAdapter(getContext(), LINEAR_VERTICAL, lctos_by_date);
 
+   }
+
+   enum DateInterval {
+      dia,
+      mes,
+      ano
    }
 
 //   @Override

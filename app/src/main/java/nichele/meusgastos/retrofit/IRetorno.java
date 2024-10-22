@@ -7,4 +7,6 @@ public interface IRetorno {
 
    @GET("jogos")
    Call<Retorno> getRetorno();
+
+
 }

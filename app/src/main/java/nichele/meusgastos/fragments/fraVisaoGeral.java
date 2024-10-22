@@ -130,7 +130,7 @@ public class fraVisaoGeral extends Fragment  {
 //            txtSQL.setVerticalScrollBarEnabled(true);
 //            txtSQL.setMovementMethod(new ScrollingMovementMethod());
 
-            txtSQL.setText(sql);
+            //txtSQL.setText(sql);
 
 
             db.close();
@@ -191,7 +191,7 @@ public class fraVisaoGeral extends Fragment  {
       layE.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            ((MainActivity)getActivity()).fabmenu.collapse();
+            //((MainActivity)getActivity()).fabmenu.collapse();
             ((MainActivity)getActivity()).navigationDrwarerLeft.setSelection(1);
             ((MainActivity)getActivity()).abrefragment(new fraTransacoes(TipoDado.entradas));
          }
@@ -199,7 +199,7 @@ public class fraVisaoGeral extends Fragment  {
       layS.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            ((MainActivity)getActivity()).fabmenu.collapse();
+            //((MainActivity)getActivity()).fabmenu.collapse();
             ((MainActivity)getActivity()).navigationDrwarerLeft.setSelection(1);
             ((MainActivity)getActivity()).abrefragment(new fraTransacoes(TipoDado.saidas));
          }

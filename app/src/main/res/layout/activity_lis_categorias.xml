@@ -19,31 +19,36 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tabs">
+            android:layout_height="wrap_content">
 
-<!--            <com.google.android.material.tabs.TabItem-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Monday" />-->
+            <!--            <com.google.android.material.tabs.TabItem-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Monday" />-->
 
-<!--            <com.google.android.material.tabs.TabItem-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Tuesday" />-->
+            <!--            <com.google.android.material.tabs.TabItem-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Tuesday" />-->
 
-<!--            <com.google.android.material.tabs.TabItem-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Wednesday" />-->
+            <!--            <com.google.android.material.tabs.TabItem-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Wednesday" />-->
         </com.google.android.material.tabs.TabLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
 
-
-    <include layout="@layout/activity_lis_categorias_content" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fab"
+        android:src="@drawable/ic_add"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="@dimen/fab_margin" />
 
     <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
     <!--        android:id="@+id/fab"-->
@@ -53,17 +58,17 @@
     <!--        android:layout_margin="@dimen/fab_margin"-->
     <!--        app:srcCompat="@drawable/ic_add" />-->
 
-    <com.ddz.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fab"
-        app:fab_icon="@drawable/ic_add"
-        app:fab_colorNormal="@color/verdeescuro"
-        app:fab_size="normal"
-        app:fab_title="addcat"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-
-        />
+    <include layout="@layout/activity_lis_categorias_content" />
+    <!--    <com.ddz.floatingactionbutton.FloatingActionButton-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:id="@+id/fabold"-->
+    <!--        app:fab_icon="@drawable/ic_add"-->
+    <!--        app:fab_colorNormal="@color/verdeescuro"-->
+    <!--        app:fab_size="normal"-->
+    <!--        app:fab_title="addcat"-->
+    <!--        android:layout_gravity="bottom|end"-->
+    <!--        android:layout_margin="@dimen/fab_margin"-->
+    <!--        />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

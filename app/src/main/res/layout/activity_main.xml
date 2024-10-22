@@ -22,39 +22,71 @@
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.ddz.floatingactionbutton.FloatingActionMenu
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        />
+
+    <com.w9jds.FloatingActionMenu
         android:id="@+id/fabmenu"
-        app:fab_labelStyle="@style/textfab"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="50dp"
-        app:fab_addButton_collapsed_rotation="0"
-        app:fab_addButton_expanded_rotation="45"
-        app:fab_labelsPosition="left">
+        android:layout_margin="20dp"
 
-        <com.ddz.floatingactionbutton.FloatingActionButton
+        app:overlay_color="#66000000"
+
+
+        >
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/fabrec"
-            app:fab_icon="@drawable/ic_up_white"
-            app:fab_colorNormal="@color/verdeescuro"
-            app:fab_size="normal"
-            app:fab_title="Receita" />
+            android:contentDescription="Nova Receita"
+            android:src="@drawable/ic_up_white"
+            />
 
-        <com.ddz.floatingactionbutton.FloatingActionButton
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/fabdes"
-            fab:fab_icon="@drawable/ic_down_white"
-            app:fab_colorNormal="@color/vermelhoescuro"
-            app:fab_size="normal"
-            app:fab_title="Despesa" />
-    </com.ddz.floatingactionbutton.FloatingActionMenu>
+            android:contentDescription="Nova Despesa"
+            android:src="@drawable/ic_down_white"
+            />
+        >
+
+    </com.w9jds.FloatingActionMenu>
+<!--    <com.ddz.floatingactionbutton.FloatingActionMenu-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/fabmenu"-->
+<!--        app:fab_labelStyle="@style/textfab"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginRight="20dp"-->
+<!--        android:layout_marginBottom="50dp"-->
+<!--        app:fab_addButton_collapsed_rotation="0"-->
+<!--        app:fab_addButton_expanded_rotation="45"-->
+<!--        app:fab_labelsPosition="left">-->
+
+<!--        <com.ddz.floatingactionbutton.FloatingActionButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/fabrec"-->
+<!--            app:fab_icon="@drawable/ic_up_white"-->
+<!--            app:fab_colorNormal="@color/verdeescuro"-->
+<!--            app:fab_size="normal"-->
+<!--            app:fab_title="Receita" />-->
+
+<!--        <com.ddz.floatingactionbutton.FloatingActionButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/fabdes"-->
+<!--            fab:fab_icon="@drawable/ic_down_white"-->
+<!--            app:fab_colorNormal="@color/vermelhoescuro"-->
+<!--            app:fab_size="normal"-->
+<!--            app:fab_title="Despesa" />-->
+<!--    </com.ddz.floatingactionbutton.FloatingActionMenu>-->
 
 
 </RelativeLayout>

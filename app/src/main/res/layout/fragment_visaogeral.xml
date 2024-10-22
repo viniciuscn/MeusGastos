@@ -9,14 +9,26 @@
 <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:context=".fragments.fraVisaoGeral"
         android:orientation="vertical"
         >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_marginTop="-5dp"
+    android:background="@drawable/bordaarredondada"
+    android:backgroundTint="@color/md_purple_300"
+    >
+    <ImageButton
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/account_circle_24"
+        android:layout_margin="10dp"/>
 
+</LinearLayout>
         <include layout="@layout/fragment_visaogeral_card"/>
 
 

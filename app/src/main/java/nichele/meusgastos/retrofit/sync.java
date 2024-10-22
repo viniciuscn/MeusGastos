@@ -17,7 +17,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class sync {
-   String strEndPoint = "https://reqres.in/api/";
+   String strEndPoint = "https://192.168.15.51/mgapi/";
    public void postConta(final Context context, Conta conta){
       Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(strEndPoint)

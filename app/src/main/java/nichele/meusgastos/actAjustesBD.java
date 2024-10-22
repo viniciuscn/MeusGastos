@@ -26,7 +26,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import nichele.meusgastos.Classes.Categoria;
 import nichele.meusgastos.backup.CriaBackup;
 import nichele.meusgastos.util.rotinas;
-import petrov.kristiyan.colorpicker.ColorPicker;
+//import petrov.kristiyan.colorpicker.ColorPicker;
+
 
 public class actAjustesBD extends AppCompatActivity {
 
@@ -159,7 +160,9 @@ public class actAjustesBD extends AppCompatActivity {
                public void onClick(View v) {
 //								if(txtnomearquivo.getText().equals("") )
 //									return;
-                  new CriaBackup( context ).executeLocal( "", chkenvemail.isChecked() );
+                  //new CriaBackup( context ).executeLocal( "", chkenvemail.isChecked() );
+                  new CriaBackup( context ).executeLocal( "" );
+
                   ad.dismiss();
                }
             });

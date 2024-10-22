@@ -4,11 +4,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +23,8 @@ import android.widget.TimePicker;
 
 import nichele.meusgastos.backup.CriaBackup;
 import nichele.meusgastos.util.rotinas;
+
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 public class actAjustes extends AppCompatActivity {
 
@@ -187,7 +192,9 @@ public class actAjustes extends AppCompatActivity {
 				btnfazerbackup.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						new CriaBackup( context ).executeLocal("");
+						//new CriaBackup( context ).executeLocal("");
+						//new CriaBackup( context ).criaarquivo();
+createFile();
 						ad.dismiss();
 					}
 				});
@@ -199,5 +206,36 @@ public class actAjustes extends AppCompatActivity {
 	public void finish() {
 		super.finish();
 		overridePendingTransition(R.anim.main_entrando, R.anim.filho_saindo);
+	}
+
+	private static final int CREATE_FILE = 1;
+	//private void createFile(Uri pickerInitialUri) {
+	private void createFile() {
+		Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+		intent.addCategory(Intent.CATEGORY_OPENABLE);
+		intent.setType("application/pdf");
+		intent.putExtra(Intent.EXTRA_TITLE, "invoice.pdf");
+
+		// Optionally, specify a URI for the directory that should be opened in
+		// the system file picker when your app creates the document.
+		//intent.putExtra( DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri);
+
+		startActivityForResult(intent, CREATE_FILE);
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode,
+										  Intent resultData) {
+      super.onActivityResult(requestCode, resultCode, resultData);
+      if (requestCode == CREATE_FILE
+				&& resultCode == Activity.RESULT_OK) {
+			// The result data contains a URI for the document or directory that
+			// the user selected.
+			Uri uri = null;
+			if (resultData != null) {
+				uri = resultData.getData();
+				// Perform operations on the document using its URI.
+			}
+		}
 	}
 }

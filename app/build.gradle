@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 34
     defaultConfig {
         applicationId "nichele.meusgastos"
-        minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion 21
+        targetSdkVersion 34
+        versionCode 5
+        versionName "5.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -16,14 +16,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    namespace 'nichele.meusgastos'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'com.google.android.gms:play-services-basement:18.4.0'
+    implementation 'com.google.android.gms:play-services-maps:19.0.0'
+    implementation 'com.google.android.gms:play-services-location:21.3.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -33,16 +37,19 @@ dependencies {
         transitive = true
     }
 
-    implementation 'androidx.recyclerview:recyclerview-selection:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'//1.0.0
     implementation 'androidx.cardview:cardview:1.0.0'
 
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.8.0'//1.0.0
 
-    implementation 'com.maltaisn:calcdialog:2.0.1'
+    //implementation 'com.maltaisn:calcdialog:2.2.2'
 
     // menus in tela - https://github.com/dazhaoDai/FloatingActionButtonDemo
-    implementation 'com.ddz.materialdesign:FloatingActionButton:1.0.4'
+    //implementation 'com.ddz.materialdesign:FloatingActionButton:1.0.4'//1.0.4
+    implementation 'com.github.w9jds:FloatingActionMenu:v0.1.0-alpha'
 
-    implementation 'org.zakariya.stickyheaders:stickyheaders:0.7.10'
-
+    //header recyclerview
+    //implementation 'org.zakariya.stickyheaders:stickyheaders:0.7.10'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }

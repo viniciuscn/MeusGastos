@@ -22,17 +22,27 @@
 
     <include layout="@layout/activity_lis_contas_content" />
 
-    <com.ddz.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fab"
-        app:fab_icon="@drawable/ic_add"
-        app:fab_colorNormal="@color/verdeescuro"
-        app:fab_size="normal"
-        app:fab_title="addcat"
+        android:src="@drawable/ic_add"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-        />
+        >
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+<!--    <com.ddz.floatingactionbutton.FloatingActionButton-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/fab"-->
+<!--        app:fab_icon="@drawable/ic_add"-->
+<!--        app:fab_colorNormal="@color/verdeescuro"-->
+<!--        app:fab_size="normal"-->
+<!--        app:fab_title="addcat"-->
+<!--        android:layout_gravity="bottom|end"-->
+<!--        android:layout_margin="@dimen/fab_margin"-->
+<!--        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"-->
+<!--        />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

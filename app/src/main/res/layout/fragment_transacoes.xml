@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:id="@+id/layfiltro"
-        android:background="@color/primary">
+        android:background="@color/primary"
+        >
         <ImageButton
             android:id="@+id/cmdant"
             android:layout_width="40dp"
@@ -61,6 +62,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/laytotal"
         android:layout_below="@id/layfiltro"
+        android:visibility="gone"
         android:padding="10dp">
 
         <LinearLayout
@@ -220,57 +222,14 @@
 
     </RelativeLayout>
 
-<!--    <HorizontalScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/layformato"-->
-<!--        android:layout_below="@id/laytotal"-->
-<!--        android:orientarion="vertical"-->
-<!--        >-->
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:padding="5dp"-->
-<!--            android:layout_gravity="center">-->
-<!--            <Button-->
-<!--                android:id="@+id/cmdgeral"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:padding="10dp"-->
-<!--                android:textColor="#ffffff"-->
-<!--                android:background="@drawable/mybutton"-->
-<!--                android:text="geral"-->
-<!--                />-->
-<!--            <Button-->
-<!--                android:id="@+id/cmdconta"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:padding="10dp"-->
-<!--                android:textColor="#ffffff"-->
-<!--                android:background="@drawable/mybutton"-->
-<!--                android:text="conta"/>-->
-<!--            <Button-->
-<!--                android:id="@+id/cmdcategoria"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:padding="10dp"-->
-<!--                android:textColor="#ffffff"-->
-<!--                android:background="@drawable/mybutton"-->
-<!--                android:text="Categoria" />-->
-
-
-
-
-<!--        </LinearLayout>-->
-<!--    </HorizontalScrollView>-->
-
-    <include
+   <include
         layout="@layout/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/laytotal"
+       android:layout_alignBottom="@id/laybalanco"
         android:layout_above="@+id/navegacao"
-        android:layout_marginTop="-5dp"
+
         />
     <include
         layout="@layout/toolbar_bottom"

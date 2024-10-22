@@ -4,33 +4,32 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+<!--    <com.ddz.floatingactionbutton.FloatingActionMenu-->
+<!--        android:id="@+id/fabmenu"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:fab_labelStyle="@style/textfab"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_margin="20dp"-->
+<!--        app:fab_addButton_collapsed_rotation="45"-->
+<!--        app:fab_labelsPosition="left">-->
 
-    <com.ddz.floatingactionbutton.FloatingActionMenu
-        android:id="@+id/fabmenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:fab_labelStyle="@style/textfab"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
-        app:fab_addButton_collapsed_rotation="45"
-        app:fab_labelsPosition="left">
+<!--        <com.ddz.floatingactionbutton.FloatingActionButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:fab_icon="@drawable/ic_up_white"-->
+<!--            app:fab_colorNormal="@color/verdeescuro"-->
+<!--            app:fab_size="normal"-->
+<!--            app:fab_title="Receita" />-->
 
-        <com.ddz.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/ic_up_white"
-            app:fab_colorNormal="@color/verdeescuro"
-            app:fab_size="normal"
-            app:fab_title="Receita" />
-
-        <com.ddz.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_icon="@drawable/ic_down_white"
-            app:fab_colorNormal="@color/vermelhoescuro"
-            app:fab_size="normal"
-            app:fab_title="Despesa" />
-    </com.ddz.floatingactionbutton.FloatingActionMenu>
+<!--        <com.ddz.floatingactionbutton.FloatingActionButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            fab:fab_icon="@drawable/ic_down_white"-->
+<!--            app:fab_colorNormal="@color/vermelhoescuro"-->
+<!--            app:fab_size="normal"-->
+<!--            app:fab_title="Despesa" />-->
+<!--    </com.ddz.floatingactionbutton.FloatingActionMenu>-->
 
 </RelativeLayout>
